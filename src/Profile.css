@@ -1,0 +1,40 @@
+/* Profile.css */
+.Profile {
+  max-height: 635px;
+  height: 100%; 
+  overflow-y: auto; 
+}
+
+.Main {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); 
+  gap: 20px;
+  place-items: center;
+  padding: 25px 40px;
+}
+
+
+@media (width >= 890px) {
+  .Main {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (width >= 1105px) {
+  .Main {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+@media (width >= 1321px) {
+  .Main {
+    grid-template-columns: repeat(4, 1fr); 
+  }
+}
+
+
+.square {
+  width: 200px;
+  height: 200px;
+  background-color: lightgray;
+}
