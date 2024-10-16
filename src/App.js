@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import Header from "./Header";
-import Profile from "./Profile";
-import LeftBar from "./LeftBar";
-import Registration from "./Registration";
-=======
 import Header from "./Header/Header";
 import Profile from "./Profile/Profile";
 import LeftBar from "./LeftBar/LeftBar";
->>>>>>> eb4728d3846a278f3de08d043ee73067e7e81bcd
+import Registration from "./Registration";
 
 export default function App() {
     return (
