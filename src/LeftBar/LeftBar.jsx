@@ -2,12 +2,12 @@ import CardInLeftBar from "./CardInLeftBar";
 
 export default function LeftBar(){
     const InfoCardInLeftBar =[
-        {id:0, text:'Dashboard', image:'../icons/dashboard.png', opacity:'1'},
-        {id:1, text:'Messenger', image:'../icons/messege.png', opacity:'1'},
-        {id:2, text:'Tasks', image:'../icons/tasks.png', opacity:'1'},
-        {id:3, text:'Files', image:'../icons/files.png', opacity:'1'},
-        {id:4, text:'Schedule', image:'../icons/schedules.png', opacity:'0.3'},
-        {id:5, text:'Graduates', image:'../icons/graduation.png', opacity:'1'},
+        {id:0, text:'Dashboard', image:'../icons/dashboard.png', opacity:'1', router_link:'/dashboard'},
+        {id:1, text:'Messenger', image:'../icons/messege.png', opacity:'1', router_link:'/messenger'},
+        {id:2, text:'Tasks', image:'../icons/tasks.png', opacity:'1', router_link:'/tasks'},
+        {id:3, text:'Files', image:'../icons/files.png', opacity:'1', router_link:'/files'},
+        {id:4, text:'Schedule', image:'../icons/schedules.png', opacity:'0.3', router_link:'/schedule'},
+        {id:5, text:'Graduates', image:'../icons/graduation.png', opacity:'1', router_link:'/graduates'},
     ]
 
 
@@ -34,7 +34,7 @@ export default function LeftBar(){
 
             <div className="Card w-full grid grid-row-3 grid-cols-2 gap-2 justify-center mb-4 flex-grow">
                 {InfoCardInLeftBar.map(card => {
-                return <CardInLeftBar text={card.text} image={card.image} opacity={card.opacity} key={card.id}/>
+                return <CardInLeftBar text={card.text} image={card.image} opacity={card.opacity} router_link={card.router_link} key={card.id}/>
             })}
             </div>
 

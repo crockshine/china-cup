@@ -13,7 +13,7 @@ export default function Profile() {
 
   return (
     <div className="Profile">
-      <header className="Header flex justify-center items-center gap-10 h-20 ">
+      <header className="Header flex justify-center items-center  gap-10 h-20 ">
         {headers.map((header, index) => (
           <h1
             key={index}
