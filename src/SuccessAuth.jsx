@@ -2,6 +2,7 @@ import Header from "./Header/Header";
 import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes} from "react-router-dom";
 import Profile from "./Profile/Profile";
+import Tasks from "./Tasks/Tasks";
 
 export default function SuccessAuth(){
     return(
@@ -19,7 +20,7 @@ export default function SuccessAuth(){
                         <Route path='/graduates' element={<Profile/>}></Route>
                         <Route path='/messenger' element={<Profile/>}></Route>
                         <Route path='/dashboard' element={<Profile/>}></Route>
-                        <Route path='/tasks' element={<Profile/>}></Route>
+                        <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Profile/>}></Route>
                         <Route path='/files' element={<Profile/>}></Route>
                         <Route path='/' element={<div
