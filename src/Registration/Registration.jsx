@@ -1,6 +1,6 @@
 import './Registration.css';
 import { useState } from 'react'; // Импорт useState для работы с состоянием
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Registration() {
   const [email, setEmail] = useState(''); // Состояние для почты
@@ -11,7 +11,9 @@ export default function Registration() {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/data', {
+      alert(email);
+      alert(password);
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ export default function Registration() {
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
-            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
+            <form className="form" id="loginForm" action="login" method="post" onSubmit = { handleSubmit }>
                 <div className="mail_input">
                     <p className='label'>Email</p>
                     <input 
@@ -59,10 +61,10 @@ export default function Registration() {
                       type="password"
                       value={password} // Значение поля связано с состоянием password
                       onChange={(e) => setPassword(e.target.value)} // Обработчик изменения значения
-                      required // Поле обязательно для заполнения
+                      required // Поле обязательно для заполнения 
                     />
                 </div>
-                <Link to={'/home'}><input className="submit_button" type="submit" value="Join" /></Link>
+                <input className="submit_button" type="submit" value="Join" />
             </form>
         </div>
       </div>
