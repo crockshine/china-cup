@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## ЗАПУСК СЕРВЕРА !!!
+1. выполнить сборку проекта: `npm run build`
+2. запустить файл сервера `node backend\server.js`
+
 ## Available Scripts
 
 In the project directory, you can run:
