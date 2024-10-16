@@ -1,28 +1,37 @@
 import './Profile.css';
+import Card from './Card';
+import { useState } from 'react';
 
 export default function Profile() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const toggleActive = (index) => {
+    setActiveIndex(index); 
+  };
+  
+  const headers = ['All Users', 'C++', 'C#', 'Full-Stack', 'Frontend', 'Backend'];
+
   return (
     <div className="Profile">
-      <header className="Header flex border-2 justify-center items-center gap-10 h-20">
-        <span>All Users</span>
-        <span>C++</span>
-        <span>C#</span>
-        <span>Full-Stack</span>
-        <span>Frontend</span>
-        <span>Backend</span>
+      <header className="Header flex justify-center items-center gap-10 h-20 ">
+        {headers.map((header, index) => (
+          <h1
+            key={index}
+            className={`header_choose ${activeIndex === index ? 'active' : ''}`}
+            onClick={() => toggleActive(index)}
+          >
+            {header}
+          </h1>
+        ))}
       </header>
       <main className="Main">
-        {/* Сетка элементов */}
-        <div className="square square1"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
       </main>
     </div>
   );
