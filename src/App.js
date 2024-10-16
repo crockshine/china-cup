@@ -1,6 +1,6 @@
-import Header from "./Header";
-import Profile from "./Profile";
-import LeftBar from "./LeftBar";
+import Header from "./Header/Header";
+import Profile from "./Profile/Profile";
+import LeftBar from "./LeftBar/LeftBar";
 
 export default function App() {
     return (
