@@ -1,0 +1,5 @@
+@media (width <= 1063px) {
+  .LeftBar {
+    display: none;
+  }
+}
