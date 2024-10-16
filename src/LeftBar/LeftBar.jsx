@@ -1,17 +1,15 @@
-import CardInLeftbar from "./CardInLeftbar";
+import CardInLeftBar from "./CardInLeftBar";
 
 export default function LeftBar(){
-    const InfoCardInLeftbar =[
-        {id:0, text:'Dashboard', image:'../icons/dashboard', opacity:1},
-        {id:1, text:'Messenger', image:'../icons/messenger', opacity:1},
-        {id:2, text:'Tasks', image:'../icons/tasks', opacity:1},
-        {id:3, text:'Files', image:'../icons/files', opacity:1},
-        {id:4, text:'Schedule', image:'../icons/schedules', opacity:0.3},
-        {id:5, text:'Graduates', image:'../icons/graduation', opacity:1},
+    const InfoCardInLeftBar =[
+        {id:0, text:'Dashboard', image:'../icons/dashboard.png', opacity:'1'},
+        {id:1, text:'Messenger', image:'../icons/messege.png', opacity:'1'},
+        {id:2, text:'Tasks', image:'../icons/tasks.png', opacity:'1'},
+        {id:3, text:'Files', image:'../icons/files.png', opacity:'1'},
+        {id:4, text:'Schedule', image:'../icons/schedules.png', opacity:'0.3'},
+        {id:5, text:'Graduates', image:'../icons/graduation.png', opacity:'1'},
     ]
-    const InfoComponents = InfoCardInLeftbar.map(card => {
-        return <CardInLeftbar text={card.text} image={card.image} opacity={card.opacity} key={card.id}/>
-    })
+
 
     return (
         <div
@@ -35,7 +33,9 @@ export default function LeftBar(){
             </div>
 
             <div className="Card w-full grid grid-row-3 grid-cols-2 gap-2 justify-center mb-4 flex-grow">
-
+                {InfoCardInLeftBar.map(card => {
+                return <CardInLeftBar text={card.text} image={card.image} opacity={card.opacity} key={card.id}/>
+            })}
             </div>
 
             <div className="flex flex-col w-full gap-2">
