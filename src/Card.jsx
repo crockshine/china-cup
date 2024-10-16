@@ -1,4 +1,4 @@
-export default function Card(){
+    export default function Card(){
   return(
     <div className="card">
           <div class="user_datas">
