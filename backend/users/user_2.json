@@ -1,0 +1,10 @@
+{
+    "User": {
+        "id": 2,
+        "mail": "cstud030014",
+        "password": "keek",
+        "name": "Максим",
+        "role": "student",
+        "nickname": "team_worker_5"
+    }
+}

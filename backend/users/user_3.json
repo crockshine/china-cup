@@ -1,0 +1,10 @@
+{
+    "User": {
+        "id": 3,
+        "mail": "cstud050014",
+        "password": "hello",
+        "name": "Виталий",
+        "role": "student",
+        "nickname": "ghost"
+    }
+}
