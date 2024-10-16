@@ -2,18 +2,17 @@ import CardInLeftBar from "./CardInLeftBar";
 
 export default function LeftBar(){
     const InfoCardInLeftBar =[
-        {id:0, text:'Dashboard', image:'../icons/dashboard.png', opacity:'1', router_link:'/dashboard'},
-        {id:1, text:'Messenger', image:'../icons/messege.png', opacity:'1', router_link:'/messenger'},
-        {id:2, text:'Tasks', image:'../icons/tasks.png', opacity:'1', router_link:'/tasks'},
-        {id:3, text:'Files', image:'../icons/files.png', opacity:'1', router_link:'/files'},
-        {id:4, text:'Schedule', image:'../icons/schedules.png', opacity:'0.3', router_link:'/schedule'},
-        {id:5, text:'Graduates', image:'../icons/graduation.png', opacity:'1', router_link:'/graduates'},
+        {id:0, text:'Dashboard', image:'../icons/dashboard.png', opacity:'1', router_link:'/home/dashboard'},
+        {id:1, text:'Messenger', image:'../icons/messege.png', opacity:'1', router_link:'/home/messenger'},
+        {id:2, text:'Tasks', image:'../icons/tasks.png', opacity:'1', router_link:'/home/tasks'},
+        {id:3, text:'Files', image:'../icons/files.png', opacity:'1', router_link:'/home/files'},
+        {id:4, text:'Schedule', image:'../icons/schedules.png', opacity:'0.3', router_link:'/home/schedule'},
+        {id:5, text:'Graduates', image:'../icons/graduation.png', opacity:'1', router_link:'/home/graduates'},
     ]
 
 
     return (
-        <div
-            className="LeftBar h-full px-4 sm:px-10 pb-10 w-80 border flex flex-col items-center justify-between overflow-auto">
+        <>
 
             {/* Переход в профиль */}
             <div className="flex w-full items-center justify-between mb-4">
@@ -42,6 +41,6 @@ export default function LeftBar(){
                 <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
                 <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
             </div>
-        </div>
+        </>
     )
 }
