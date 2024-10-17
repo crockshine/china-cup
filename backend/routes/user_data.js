@@ -1,13 +1,38 @@
-const path = require('path');
+const { tryToLogin, makeSession, getUserName, getUserNickName } = require('./../auth')
 
 module.exports = function (app) {
     // Маршрут для API запроса
     app.post('/api/login', (req, res) => {
         const { userMail, userPassword } = req.body; // Получение данных из запроса
 
-        console.log(userMail + ', ' + userPassword); // Логирование на сервере
+        if (tryToLogin(userMail, userPassword)) {
+            const _sessionID = makeSession(userMail);
 
-        // Отправка ответа обратно на клиент
-        //res.json({ message: 'Данные успешно получены', receivedData: requestData });
+            // Установка куков
+            //res.cookie('loggedIn', 'true', { maxAge: 3600000 }); // 1 час в миллисекундах
+            //es.cookie('sessionID', _sessionID, { maxAge: 3600000 }); // 1 час в миллисекундах
+
+            console.log('User login: ' + userMail + ', ' + userPassword + ', ' + _sessionID);
+
+            // Отправка ответа обратно на клиент
+            res.json({ loginState: 'true', sessionID: _sessionID });
+        } else {
+            // Отправка ответа обратно на клиент
+            res.json({ loginState: 'false', sessionID: -1 });
+        }
     });
-}
+
+    app.post('/api/get_user_name', (req, res) => { 
+        const { sessionID } = req.body;
+
+        const _userName = getUserName(sessionID);
+        res.json({ userName: _userName });
+    });
+
+    app.post('/api/get_user_nickname', (req, res) => { 
+        const { sessionID } = req.body;
+
+        const _userNickName = getUserNickName(sessionID);
+        res.json({ userNickName: _userNickName });
+    });
+};
