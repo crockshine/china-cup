@@ -12,9 +12,9 @@ export default function TaskCard({
             </div>
             <div className="card__description">
               <div className="deadline">
-                <img className="image_Card" src="../icons/time.jpg" alt="" />
+                <img className="image_Card" src="/icons/time.jpg" alt="" />
                   <h1 className="card__label ">{deadline}</h1>
-                <img className="image_Card" src="../../public/icons/time.jpg" alt="" />
+                <img className="image_Card" src="/icons/time.jpg" alt="" />
                   <h1 className="card__label ">Deadline: 09/25/2025</h1>
               </div>
               <div className="files__count">

@@ -1,7 +1,181 @@
 .main_content__dashboard {
-  padding: 20px;
-  background-color: aqua;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.041);
   width: 100%;
   height: 100%;
 }
-  
+
+.all_dashboard{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.left_achievements{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.left_blocks{
+  width: 130px;
+  height: 130px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.091);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.count{
+  font-size: 20px;
+}
+
+.event{
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.image_event{
+  width: 60px;
+  height: 60px;
+}
+
+.time_event{
+  border-radius: 20px;
+  background-color: rgba(201, 201, 201, 0.555);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 25px;
+  width: 55px;
+  color: rgba(94, 94, 94, 0.801);
+  font-size: 14px;
+}
+
+.event_title{
+  font-size: 14px;
+  color: rgba(94, 94, 94, 0.801);
+}
+
+.title{
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.what_todo{
+  font-weight: 600;
+}
+
+.events{
+  width: 400px;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.091);
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+.leaderboard{
+  width: 470px;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.091);
+  overflow-y: auto;
+}
+
+.leader_card{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.leader_card:not(:last-child) {
+  border-bottom: 2px solid rgb(197, 197, 197);
+}
+
+
+.person{
+  display: flex;
+}
+
+.person_name{
+  font-size: 20px;
+}
+
+.person_place{
+  font-size: 18px;
+  color: rgb(107, 106, 106);
+}
+
+.about{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.person_state{
+  display: flex;
+  flex-wrap: wrap;
+  padding-left:40px;
+}
+
+.options_state{
+  display: flex;
+  flex: 50%;
+  min-width: 20%;
+  text-align: left;
+  align-items: center;
+  justify-content: left;
+
+}
+
+.card_image{
+  width: 120px;
+  height: 120px;
+}
+
+@media (width <= 1595px){
+  .events{
+    display:none;
+  }
+}
+
+@media (width <= 1209px){
+  .left_blocks{
+    display:none;
+  }
+
+  .leaderboard{
+    width: 100%;
+  }
+}
+
+@media (width <= 511px){
+  .leader_card{
+    height: 220px;
+  }
+}
+
+@media (width <= 391px){
+  .leader_card{
+    height: 230px;
+  }
+}
