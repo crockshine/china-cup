@@ -1,9 +1,5 @@
 /* Profile.css */
-.Profile {
-  max-height: 635px;
-  height: 100%; 
-  overflow-y: auto; 
-}
+
 
 .Main {
   display: grid;
