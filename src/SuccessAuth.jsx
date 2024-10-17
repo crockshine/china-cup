@@ -3,9 +3,9 @@ import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./Profile/Profile";
 import Tasks from "./Tasks/Tasks";
+import Messenger from "./Messenger/Messenger.tsx";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import Messenger from "./Messenger/Messenger";
 
 export default function SuccessAuth() {
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function SuccessAuth() {
                 <div className="RightBar flex-grow shadow-2xl rounded-2xl bg-slate-50  border h-full overflow-y-auto">
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
-                        <Route path='/messenger' element={<Messenger/>}></Route>
+                        <Route path='/messenger/*' element={<Messenger/>}></Route>
                         <Route path='/dashboard' element={<Profile/>}></Route>
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Profile/>}></Route>
