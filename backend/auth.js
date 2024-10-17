@@ -1,3 +1,10 @@
+const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
+
+let currentTaskID = loadCurrentTaskID();
+const allTasksList = listAllTasksInFolder();
+
+const path = require('path');
+const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
 
@@ -17,6 +24,21 @@ async function tryToLogin(userMail, userPassword) {
     return passwordMatch;
 }
 
+const rolesMap = new Map([
+    ["Administration", 5],
+    ["Student", 1],
+    ["Graduate", 2]
+]);
+
+function getRoleID(roleName) {
+    return rolesMap.get(roleName);
+}
+
+async function registerAccount(userMail, userPassword, userRole, userNickname, userName) {
+    const userRoleID = getRoleID(userRole);
+
+    return false;
+}
 
 // Создает новую сессию и возвращает токен
 async function makeSession(userMail) {
@@ -90,5 +112,55 @@ async function getUserNickName(token) {
     }
 }
 
+async function getUserRole(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName };
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.role_id; // Предполагается, что в таблице есть поле 'nickname'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserRole:', err);
+        return null;
+    }
+}
+
+const tasks_folder = "./tasks"
+// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
+function getTaskFilePath(taskID) {
+    return path.join(tasks_folder, `task_${taskID}.json`);
+}
+
+
+function loadTaskJSON(taskID) {
+    const _path = getTaskFilePath(taskID);
+    if (!fs.existsSync(_path)) return null;
+
+    const fileContent = fs.readFileSync(_path, 'utf8');
+    const task_jsonData = JSON.parse(fileContent);
+
+    return task_jsonData;
+}
+
+function listAllTasks() {
+    return allTasksList;
+}
+
+function getTaskData(taskID) {
+    return loadTaskJSON(taskID);
+}
+
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount };

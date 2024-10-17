@@ -100,6 +100,11 @@ export default function LeftBar(){
                 return <CardInLeftBar text={card.text} image={card.image} opacity={card.opacity} router_link={card.router_link} key={card.id}/>
             })}
             </div>
+
+            <div className="flex flex-col w-full gap-2">
+                <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
+                <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
+            </div>
         </>
     )
 }

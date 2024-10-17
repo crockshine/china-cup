@@ -2,7 +2,7 @@ export default function MessageList({ text }) {
     console.log(text, ' in msgList');
 
     return (
-        <div className="Message-list flex flex-col-reverse">
+        <div className="Message-list flex flex-col">
             {
                 text.map((item, index) => (
                     <div
