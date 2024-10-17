@@ -23,28 +23,57 @@ export default function Messenger(){
     }
     return(
         <div className="Messenger h-full ">
-            
-            <div className="Left max-w-sm gr ">
+
+            <div className="Left max-w-sm relative">
                 <div className="StaticInput  sticky top-0 w-full h-16 pl-4 flex items-center justify-center shadow">
                     <img src="../icons/search.png" alt="" className="w-10 h-10"/>
-                    <input type="text" className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500" placeholder="Search in Messages"/>
+                    <input type="text"
+                           className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500"
+                           placeholder="Search in Messages"/>
                 </div>
 
                 <div className="Chat-list   grid-cols-1 overflow-x-hidden">
 
 
-                    <ShortMsg isActive={true} />
+                    <ShortMsg isActive={true}/>
                     <ShortMsg/>
                     <ShortMsg/>
                     <ShortMsg/>
 
                 </div>
+
+                <div className="StaticInput  absolute bottom-0 w-full  flex flex-col items-center justify-center shadow">
+                    <div
+                        className="List-new-people w-full h-fit max-h-52  pt-2 bg-blue-600 rounded-t-2xl overflow-scroll overflow-x-hidden">
+
+                        <label className="Card-new-people flex items-center w-full h-12 mb-4 cursor-pointer">
+                            <img src="../icons/defaultProfile.png" alt=""
+                                 className="w-16 h-16  rounded-full border-white"/>
+                            <span className="font-bold text-sky-50">dasdas</span>
+                        </label>
+                        <label className="Card-new-people flex  items-center w-full h-12 mb-4 cursor-pointer">
+                            <img src="../icons/defaultProfile.png" alt=""
+                                 className="w-16 h-16  rounded-full border-white"/>
+                            <span className="font-bold text-sky-50">dasdas</span>
+                        </label>
+
+                    </div>
+
+                    <div className="w-full flex items-center h-16">
+                        <img src="../icons/search.png" alt="" className="w-10 h-10"/>
+                        <input type="text"
+                               className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500"
+                               placeholder="Find new people"/>
+                    </div>
+                </div>
+
+
             </div>
             <div className="Chat  bg-slate-100 overflow-scroll overflow-x-hidden ">
                 <div
                     className="w-full h-12 bg-slate-50 flex items-center border-b-2 sticky top-0 justify-center text-base sm:text-lg font-bold text-slate-700">adsdas
                 </div>
-                    <div className="Messege-list flex flex-col-reverse">
+                <div className="Messege-list flex flex-col-reverse">
                         <Messege isSend={true}
                                  text={'1Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов '}/>
                         <Messege isSend={false}

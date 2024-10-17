@@ -12,7 +12,7 @@ export default function Profile() {
   const headers = ['All Users', 'C++', 'C#', 'Full-Stack', 'Frontend', 'Backend'];
 
   return (
-    <div className="Profile">
+    <div className="Profile h-full">
       <header className="Header flex justify-center items-center  gap-10 h-20 ">
         {headers.map((header, index) => (
           <h1

@@ -5,8 +5,8 @@ import Profile from "./Profile/Profile";
 import Tasks from "./Tasks/Tasks";
 import Messenger from "./Messenger/Messenger";
 
-export default function SuccessAuth(){
 
+export default function SuccessAuth(){
     return(
 <>
             <Header />
