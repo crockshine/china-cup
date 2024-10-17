@@ -3,7 +3,7 @@ import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes} from "react-router-dom";
 import Profile from "./Profile/Profile";
 import Tasks from "./Tasks/Tasks";
-import Messenger from "./Messenger/Messenger";
+import Messenger from "./Messenger/Messenger.tsx";
 
 
 export default function SuccessAuth(){
@@ -20,7 +20,7 @@ export default function SuccessAuth(){
                 <div className="RightBar flex-grow shadow-2xl rounded-2xl bg-slate-50  border h-full overflow-y-auto">
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
-                        <Route path='/messenger' element={<Messenger/>}></Route>
+                        <Route path='/messenger/*' element={<Messenger/>}></Route>
                         <Route path='/dashboard' element={<Profile/>}></Route>
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Profile/>}></Route>
