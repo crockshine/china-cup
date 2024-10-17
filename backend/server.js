@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName } = require('./auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData } = require('./auth')
 
 const express = require('express');
 const path = require('path');

@@ -1,3 +1,10 @@
+const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
+
+let currentTaskID = loadCurrentTaskID();
+const allTasksList = listAllTasksInFolder();
+
+const path = require('path');
+const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
 
@@ -91,5 +98,44 @@ async function getUserNickName(token) {
     }
 }
 
+async function getUserRole(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName };
+    try {
+
+    }
+    catch (err) {
+        console.log('Ошибка в getUserRole:', err);
+        return null;
+    }
+}
+
+const tasks_folder = "./tasks"
+// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
+function getTaskFilePath(taskID) {
+    return path.join(tasks_folder, `task_${taskID}.json`);
+}
+
+
+function loadTaskJSON(taskID) {
+    const _path = getTaskFilePath(taskID);
+    if (!fs.existsSync(_path)) return null;
+
+    const fileContent = fs.readFileSync(_path, 'utf8');
+    const task_jsonData = JSON.parse(fileContent);
+
+    return task_jsonData;
+}
+
+function listAllTasks() {
+    return allTasksList;
+}
+
+function getTaskData(taskID) {
+    return loadTaskJSON(taskID);
+}
+
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData };
