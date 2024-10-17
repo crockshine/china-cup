@@ -118,7 +118,8 @@ export default function Messenger() {
                         onInput={handleInput}
                         onKeyDown={handlePress}
                         className="Textarea w-full flex   max-h-40 h-16 outline-0 resize-none  p-3 text-base sm:text-lg font-bold text-slate-700"
-                        placeholder="Write a message">
+                        placeholder="Write a message"
+                        >
                     </textarea>
                     <img src="/icons/send.png" alt="" className='w-10 h-10' onClick={sendData}/>
                 </div>

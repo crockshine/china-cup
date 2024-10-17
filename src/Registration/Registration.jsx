@@ -77,7 +77,7 @@ export default function Registration() {
 
   return(
     <main className="main">
-      <div className="center_block">
+      <div className="center_block ">
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
@@ -143,9 +143,14 @@ export default function Registration() {
                         required // Поле обязательно для заполнения
                     />
                 </div>
-                <input className="submit_button mt-8" type="submit" value="Join"/>
+                <div className="flex  flex-col items-center justify-center">
+                    <input className="submit_button mt-8  " type="submit"
+                           value="Join"/>
+                    <input className="reg_button mt-5" type="submit" onClick={handleGotoLogin}
+                           value="Already have an account?"/>
+                </div>
             </form>
-            <input className="submit_button mt-8" type="submit" onClick={handleGotoLogin}  value="Already have an account?"/>
+
         </div>
       </div>
     </main>
