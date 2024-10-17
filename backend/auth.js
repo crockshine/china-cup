@@ -63,16 +63,12 @@ async function getUserName(token) {
     }
 }
 
-const tasks_folder = "./tasks"
-// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
-function getTaskFilePath(taskID) {
-    return path.join(tasks_folder, `task_${taskID}.json`);
-}
-
-// создает новую сессию и возвращает ID этой (новой) сессии
-function makeSession(userMail) {
-    currentSessionID++;
-    const userID = getUserIDByMail(userMail);
+// Аналогично для getUserNickName
+async function getUserNickName(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
@@ -94,20 +90,12 @@ function makeSession(userMail) {
     }
 }
 
-
-    const jsonData = users.get(userMail);
-    return jsonData.User.id;
+const tasks_folder = "./tasks"
+// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
+function getTaskFilePath(taskID) {
+    return path.join(tasks_folder, `task_${taskID}.json`);
 }
 
-function loadUserJSON(userID) {
-    const _path = getUserFilePath(userID);
-    if (!fs.existsSync(_path)) return null;
-
-    const fileContent = fs.readFileSync(_path, 'utf8');
-    const user_jsonData = JSON.parse(fileContent);
-
-    return user_jsonData;
-}
 
 function loadTaskJSON(taskID) {
     const _path = getTaskFilePath(taskID);
@@ -117,32 +105,6 @@ function loadTaskJSON(taskID) {
     const task_jsonData = JSON.parse(fileContent);
 
     return task_jsonData;
-}
-
-function loadSessionJSON(sessionID) {
-    const _path = getSessionFilePath(sessionID);
-    if (!fs.existsSync(_path)) return null;
-
-    const fileContent = fs.readFileSync(_path, 'utf8');
-    const session_jsonData = JSON.parse(fileContent);
-
-    return session_jsonData;
-}
-
-function getUserName(sessionID) {
-    const sessionJson = loadSessionJSON(sessionID);
-    const userID = sessionJson.user_id;
-
-    const userJson = loadUserJSON(userID)
-    return userJson.User.name;
-} 
-
-function getUserNickName(sessionID) {
-    const sessionJson = loadSessionJSON(sessionID);
-    const userID = sessionJson.user_id;
-
-    const userJson = loadUserJSON(userID);
-    return userJson.User.nickname;
 }
 
 function listAllTasks() {
