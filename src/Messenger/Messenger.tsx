@@ -55,78 +55,29 @@ export default function Messenger() {
                 { textInOneMsg: 'Все будет хорошо', isSend: true },
 
             ]
-        },
-        {
-            id: 1,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
-        }
-        ,
-        {
-            id: 2,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
-        },
-        {
-            id: 3,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
-        },
-        {
-            id: 4,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
-        },
-        {
-            id: 5,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
-        },
-        {
-            id: 6,
-            userName: 'Китаец dnjhjq',
-            messages: [
-                { textInOneMsg: 'Привет', isSend: false },
-                { textInOneMsg: 'Как дела?', isSend: true }
-            ]
         }
     ];
 
     return (
         <div className="Messenger h-full relative flex">
 
-            <div className={`Left-block h-full   overflow-scroll overflow-x-hidden relative ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
-                <div className="StaticInputTop sticky top-0 w-full h-16 pl-4 flex items-center justify-center bg-slate-50">
-                        <img src="/icons/search.png" alt="" className="w-10 h-10"/>
+            <div className={`Left-block flex flex-col justify-between h-full  relative ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
+                <div className="StaticInputTop z-20 w-full h-16 pl-4 flex items-center justify-center bg-slate-50">
+                        <img src="/icons/search.png" alt="" className="w-8 h-8"/>
                         <input type="text"
                                className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500"
                                placeholder="Search in Messages"/>
                 </div>
 
-                <div>
-                    <div className="Short-chat-list  h-full grid-cols-1 ">
+
+                    <div className="Short-chat-list flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 ">
 
                             {dataMessage.map(item =>
                                 <ShortMsg key={item.id} userName={item.userName} lastMsg={item.messages[0]}
                                           router_link={item.id}/>)}
                     </div>
-                </div>
-                <div className="StaticInputBottom sticky bottom-0 w-full h-fit  flex flex-col items-center justify-center bg-slate-50">
+
+                <div className="StaticInputBottom  bottom-0 w-full h-fit  flex flex-col items-center justify-center bg-slate-50">
                         <div
                             className={`List-new-people w-full h-fit max-h-52  pt-2 bg-blue-600 rounded-t-2xl z-20 overflow-scroll overflow-x-hidden
                             ${dataFoundPeople.length !== 0 ? "block" : "hidden"}`}>
@@ -148,20 +99,20 @@ export default function Messenger() {
             </div>
 
             <div
-                className={`Chat w-2/3 h-full bg-slate-100 overflow-scroll  overflow-x-hidden relative ${location.pathname === '/home/messenger' ? "hidden" : "block"}`}>
+                className={`Chat w-2/3 flex flex-col justify-between h-full relative bg-slate-100  ${location.pathname === '/home/messenger' ? "hidden" : "block"}`}>
                 <div
-                    className="Nickname w-full h-16 pl-4 bg-slate-50 flex items-center border-b-2 sticky top-0 justify-center text-base sm:text-lg font-bold text-slate-700">
+                    className="Nickname w-full z-20 font-bold text-slate-700  w-full  pl-4 flex items-center justify-center bg-slate-50">
                     {dataMessage.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))
                         .map(item => item.userName)}
 
                 </div>
 
-                <div>
-                    {dataMessage.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))
-                        .map(item => <MessageList key={item.id} text={item.messages}/>)}
-                </div>
+                    <div className="h-full  flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 ">
+                        {dataMessage.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))
+                            .map(item => <MessageList key={item.id} text={item.messages}/>)}
+                    </div>
 
-                <div className="Send w-full sticky bottom-0 bg-slate-50 flex  justify-center items-center">
+                <div className="Send w-full h-fit  flex  items-center justify-center bg-slate-50">
                     <textarea
                         value={value}
                         onInput={handleInput}
