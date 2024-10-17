@@ -101,10 +101,7 @@ export default function LeftBar(){
             })}
             </div>
 
-            <div className="flex flex-col w-full gap-2">
-                <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
-                <div className="bg-slate-600 w-full h-6 sm:h-10"></div>
-            </div>
+
         </>
     )
 }
