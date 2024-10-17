@@ -104,7 +104,18 @@ async function getUserRole(token) {
     }
 
     try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
 
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.role_id; // Предполагается, что в таблице есть поле 'nickname'
     }
     catch (err) {
         console.log('Ошибка в getUserRole:', err);
