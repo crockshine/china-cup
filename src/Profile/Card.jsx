@@ -2,7 +2,7 @@
   return(
     <div className="card">
           <div class="user_datas">
-              <img src="../../public/icons/sasha.jpg" alt="" class="user_photo" />
+              <img src="/icons/sasha.jpg" alt="" class="user_photo" />
               <div class="more_about">
                   <h1 class="name">Суровцев Александр</h1>
                   <h2 class="stack">Frontend-Developer</h2>

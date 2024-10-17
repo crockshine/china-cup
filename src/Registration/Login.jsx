@@ -102,9 +102,15 @@ export default function Registration() {
                         required // Поле обязательно для заполнения
                     />
                 </div>
-                <input className="submit_button mt-8" type="submit" value="Join"/>
+                <div className="flex flex-col mt-10 items-center justify-center">
+                    <input className="submit_button mt-8  " type="submit"
+                           value="Join"/>
+                    <input className="reg_button mt-8" type="submit" onClick={handleGotoRegistration}
+                           value="Don't have an account yet?"/>
+                </div>
+
+
             </form>
-            <input className="submit_button mt-8" type="submit" onClick={handleGotoRegistration} value="Don't have an account yet?"/>
         </div>
       </div>
     </main>
