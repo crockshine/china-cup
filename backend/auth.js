@@ -97,6 +97,21 @@ async function getUserNickName(token) {
     }
 }
 
+async function getUserRole(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
+
+    try {
+
+    }
+    catch (err) {
+        console.log('Ошибка в getUserRole:', err);
+        return null;
+    }
+}
+
 const tasks_folder = "./tasks"
 // вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
 function getTaskFilePath(taskID) {
