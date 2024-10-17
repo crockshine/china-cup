@@ -1,29 +1,58 @@
 import './Registration.css';
 import { useState } from 'react'; // Импорт useState для работы с состоянием
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import React, { useEffect } from 'react';
 
 export default function Registration() {
   const [email, setEmail] = useState(''); // Состояние для почты
   const [password, setPassword] = useState(''); // Состояние для пароля
   const navigate = useNavigate(); // Хук для навигации
 
+  useEffect(() => {
+    // Проверяем наличие куки 'loggedIn'
+    const loginState = Cookies.get('loginState');
+    const sessionID = Cookies.get('sessionID');
+
+    if (loginState == "true") {
+        navigate('/home');
+    }
+
+  }, [navigate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      alert(email);
-      alert(password);
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userMail: email, userPassword: password }), // Отправка данных на сервер
-      });
+        body: JSON.stringify({
+            userMail: email,
+            userPassword: password
+        }),
+       });
+//npm run build
+      const data = await response.json();
+      console.log(data.sessionID); // Лог ответа сервера
 
       if (response.ok) {
         // Успешный ответ от сервера
-        navigate('/home'); // Переход на страницу '/home' после успешной регистрации
+        // Проверяем наличие куки 'loggedIn'
+        if (data.loginState == "true") {
+          Cookies.set('loginState', data.loginState);
+          Cookies.set('sessionID', data.sessionID);
+        }
+
+        if (data.loginState == "true") {
+            navigate('/home'); // Переход на страницу '/home' после успешной регистрации
+            // Здесь вы можете добавить логику для обработки успешного входа
+        } else {
+            // Если пользователь не залогинен, перенаправляем на страницу входа
+            navigate('/');
+        }
       } else {
         console.error('Ошибка на сервере:', response.statusText);
       }

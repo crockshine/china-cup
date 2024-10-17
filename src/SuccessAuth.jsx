@@ -1,12 +1,28 @@
 import Header from "./Header/Header";
 import LeftBar from "./LeftBar/LeftBar";
-import { Link, Route, Routes} from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./Profile/Profile";
 import Tasks from "./Tasks/Tasks";
 import Messenger from "./Messenger/Messenger.tsx";
+import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
+export default function SuccessAuth() {
+    const navigate = useNavigate();
 
-export default function SuccessAuth(){
+    useEffect(() => {
+        // Проверяем наличие куки 'loggedIn'
+        const loginState = Cookies.get('loginState');
+        const sessionID = Cookies.get('sessionID');
+
+        //console.log("Kek: ", loginState, sessionID);
+
+        if (loginState != "true") {
+            navigate('/');
+        }
+
+    }, [navigate]);
+
     return(
 <>
             <Header />

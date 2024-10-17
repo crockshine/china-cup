@@ -1,6 +1,26 @@
 import CardInLeftBar from "./CardInLeftBar";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
 
 export default function LeftBar(){
+    const [currentSessionID, setSessionID] = React.useState(-1);
+    const [userName, setUserName] = React.useState('1');
+    const [userNickName, setUserNickName] = React.useState('1');
+    const navigate = useNavigate(); // Хук для навигации
+
+    useEffect(() => {
+        async function fetchData() {
+            const name = await getUserName();
+            setUserName(name);
+            const nickName = await getUserNickName();
+            setUserNickName(nickName);
+            const currentSessionID = getSessionID();
+            setSessionID(currentSessionID);
+        }
+        fetchData();
+    }, [navigate]);
+
     const InfoCardInLeftBar =[
         {id:0, text:'Dashboard', image:'dashboard.png', opacity:'1', router_link:'/home/dashboard'},
         {id:1, text:'Messenger', image:'messege.png', opacity:'1', router_link:'/home/messenger'},
@@ -10,6 +30,49 @@ export default function LeftBar(){
         {id:5, text:'Graduates', image:'graduation.png', opacity:'1', router_link:'/home/graduates'},
     ]
 
+    function getSessionID() {
+        return Cookies.get('sessionID');
+    }
+
+    async function getUserName() {
+        try {
+            const response = await fetch('/api/get_user_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sessionID: getSessionID()
+                }),
+            });
+
+            const data = await response.json();
+            return String(data.userName);
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+    };
+
+    async function getUserNickName() {
+        try {
+            const response = await fetch('/api/get_user_nickname', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sessionID: getSessionID()
+                }),
+            });
+            
+            const data = await response.json();
+            return String(data.userNickName);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <>
@@ -27,8 +90,8 @@ export default function LeftBar(){
                     <div className="w-28 h-28 border-4 absolute border-amber-500 rounded-full"></div>
                 </div>
 
-                <span className="Name text-xl sm:text-2xl font-black text-slate-900">dasddasdsasa</span>
-                <span className="Mail text-base sm:text-lg font-bold text-slate-500">dasdasd</span>
+                <span className="Name text-xl sm:text-2xl font-black text-slate-900">{userName}</span>
+                <span className="Mail text-base sm:text-lg font-bold text-slate-500">{userNickName}</span>
             </div>
 
             <div className="CardList w-full grid grid-row-3 grid-cols-2 gap-2 justify-center mb-4 flex-grow">

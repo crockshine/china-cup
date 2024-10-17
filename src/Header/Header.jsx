@@ -1,4 +1,15 @@
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
+
 export default function Header(){
+    const navigate = useNavigate(); // Хук для навигации
+
+    const doExit = (event) => {
+        Cookies.remove("loginState");
+        Cookies.remove("sessionID");
+        navigate('/');
+    };
+
     return (
         <div className="Header max-w-screen-2xl h-32 flex">
             <div className="flex-1  flex justify-center items-center gap-5">
@@ -9,7 +20,7 @@ export default function Header(){
                 <span className="">About Us</span>
                 <span className="">News</span>
                 <span className="">User Policy</span>
-
+                <button className="" onClick={ doExit }>Exit</button>
             </div>
             <div className="flex-1 "></div>
             <div className="flex-1 "></div>
