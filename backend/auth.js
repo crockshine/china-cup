@@ -1,5 +1,6 @@
 const loadAllUsers = require('./users_handler');
 const loadCurrentSessionID = require('./sessions_handler');
+const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
 
 const path = require('path');
 const fs = require('fs');
@@ -9,6 +10,10 @@ const users = loadAllUsers();
 
 // загрузка текущего максимального значения сессии
 let currentSessionID = loadCurrentSessionID();
+
+let currentTaskID = loadCurrentTaskID();
+const allTasksList = listAllTasksInFolder();
+console.log('currentTaskID=', currentTaskID, ', allTasksList=', allTasksList)
 
 // попытка входа в аккаунт (сравнение вводимого пароля и почты с необходимыми)
 function tryToLogin(userMail, userPassword) {
@@ -29,6 +34,12 @@ const users_folder = "./users"
 // вспомогательная функция, просто возвращает путь к файлу пользователя исходя из ID этого пользователя
 function getUserFilePath(userID) {
     return path.join(users_folder, `user_${userID}.json`);
+}
+
+const tasks_folder = "./tasks"
+// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
+function getTaskFilePath(taskID) {
+    return path.join(tasks_folder, `task_${taskID}.json`);
 }
 
 // создает новую сессию и возвращает ID этой (новой) сессии
@@ -78,6 +89,16 @@ function loadUserJSON(userID) {
     return user_jsonData;
 }
 
+function loadTaskJSON(taskID) {
+    const _path = getTaskFilePath(taskID);
+    if (!fs.existsSync(_path)) return null;
+
+    const fileContent = fs.readFileSync(_path, 'utf8');
+    const task_jsonData = JSON.parse(fileContent);
+
+    return task_jsonData;
+}
+
 function loadSessionJSON(sessionID) {
     const _path = getSessionFilePath(sessionID);
     if (!fs.existsSync(_path)) return null;
@@ -104,4 +125,12 @@ function getUserNickName(sessionID) {
     return userJson.User.nickname;
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName };
+function listAllTasks() {
+    return allTasksList;
+}
+
+function getTaskData(taskID) {
+    return loadTaskJSON(taskID);
+}
+
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData };

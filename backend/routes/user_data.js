@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName } = require('./../auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData } = require('./../auth')
 
 module.exports = function (app) {
     // Маршрут для API запроса
@@ -34,5 +34,38 @@ module.exports = function (app) {
 
         const _userNickName = getUserNickName(sessionID);
         res.json({ userNickName: _userNickName });
+    });
+
+    app.post('/api/list_all_tasks', (req, res) => { 
+        const _allTasksList = listAllTasks();
+        res.json({ allTasksList: _allTasksList });
+    });
+
+    app.post('/api/get_task_data_name', (req, res) => { 
+        const { taskID } = req.body;
+
+        const _taskData = getTaskData(taskID);
+        res.json( {taskData: _taskData.task_name });
+    });
+
+    app.post('/api/get_task_data_dead_line', (req, res) => { 
+        const { taskID } = req.body;
+
+        const _taskData = getTaskData(taskID);
+        res.json( {taskData: _taskData.dead_line });
+    });
+
+    app.post('/api/get_task_data_sub_tasks_count', (req, res) => { 
+        const { taskID } = req.body;
+
+        const _taskData = getTaskData(taskID);
+        res.json( {taskData: _taskData.sub_tasks_count });
+    });
+
+    app.post('/api/get_task_data_members', (req, res) => { 
+        const { taskID } = req.body;
+
+        const _taskData = getTaskData(taskID);
+        res.json( {taskData: _taskData.members });
     });
 };
