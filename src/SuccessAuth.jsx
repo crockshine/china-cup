@@ -3,6 +3,7 @@ import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./Profile/Profile";
 import Tasks from "./Tasks/Tasks";
+import Dashboard from "./Dashboard/Dashboard";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Messenger from "./Messenger/Messenger";
@@ -18,7 +19,7 @@ export default function SuccessAuth() {
         //console.log("Kek: ", loginState, sessionID);
 
         if (loginState != "true") {
-            navigate('/');
+            //navigate('/');
         }
 
     }, [navigate]);
@@ -37,7 +38,7 @@ export default function SuccessAuth() {
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
                         <Route path='/messenger' element={<Messenger/>}></Route>
-                        <Route path='/dashboard' element={<Profile/>}></Route>
+                        <Route path='/dashboard' element={<Dashboard/>}></Route>
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Profile/>}></Route>
                         <Route path='/files' element={<Profile/>}></Route>
