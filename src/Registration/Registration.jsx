@@ -7,6 +7,10 @@ import React, { useEffect } from 'react';
 export default function Registration() {
   const [email, setEmail] = useState(''); // Состояние для почты
   const [password, setPassword] = useState(''); // Состояние для пароля
+  const [role, setRole] = useState(''); // Состояние для роли
+  const [nickname, setNickname] = useState(''); // Состояние для пароля
+  const [name, setName] = useState(''); // Состояние для пароля
+
   const navigate = useNavigate(); // Хук для навигации
 
   useEffect(() => {
@@ -100,41 +104,39 @@ export default function Registration() {
                         className="input"
                         name="role"
                         id="role"
-                        value={email} // Значение поля связано с состоянием email
-                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        value={role} // Значение поля связано с состоянием email
+                        onChange={(e) => setRole(e.target.value)} // Обработчик изменения значения
                         required // Поле обязательно для заполнения
                     >
-                        <option>
-                            Administration
-                        </option>
-                        <option>dasdas</option>
-                        <option>dasdasd</option>
+                        <option>Administration</option>
+                        <option>Student</option>
+                        <option>Graduate</option>
 
                     </select>
                 </div>
                 <div className="nickname_input">
-                    <p className='label'>Email</p>
+                    <p className='label'>Nickname</p>
                     <input
                         className="input"
-                        name="usermail"
-                        id="usermail"
-                        value={email} // Значение поля связано с состоянием email
-                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        name="nickname"
+                        id="nickname"
+                        value={nickname} // Значение поля связано с состоянием email
+                        onChange={(e) => setNickname(e.target.value)} // Обработчик изменения значения
                         required // Поле обязательно для заполнения
                     />
                 </div>
                 <div className="name_input">
-                    <p className='label'>Email</p>
+                    <p className='label'>Name</p>
                     <input
                         className="input"
-                        name="usermail"
-                        id="usermail"
-                        value={email} // Значение поля связано с состоянием email
-                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        name="name"
+                        id="name"
+                        value={name} // Значение поля связано с состоянием email
+                        onChange={(e) => setName(e.target.value)} // Обработчик изменения значения
                         required // Поле обязательно для заполнения
                     />
                 </div>
-                <input className="submit_button" type="submit" value="Join"/>
+                <input className="submit_button mt-8" type="submit" value="Join"/>
             </form>
         </div>
       </div>

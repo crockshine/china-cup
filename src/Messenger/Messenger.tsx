@@ -45,7 +45,15 @@ export default function Messenger() {
             userName: 'Китаец первый',
             messages: [
                 { textInOneMsg: 'Давай взорвем россию', isSend: false },
-                { textInOneMsg: 'Все будет хорошо', isSend: true }
+                { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Давай взорвем россию', isSend: false },
+                { textInOneMsg: 'Давай взорвем россию', isSend: false },
+                { textInOneMsg: 'Давай взорвем россию', isSend: false },
+                { textInOneMsg: 'Давай взорвем россию', isSend: false },
+
             ]
         },
         {

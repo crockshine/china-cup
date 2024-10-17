@@ -21,8 +21,7 @@ async function tryToLogin(userMail, userPassword) {
     // Прямое сравнение пароля
     const passwordMatch = (userPassword === user.password_hash); // Здесь используется прямое сравнение
 
-    // return passwordMatch;
-    return true;
+    return passwordMatch;
 }
 
 

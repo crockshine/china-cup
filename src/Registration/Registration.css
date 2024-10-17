@@ -29,7 +29,7 @@
   height: 38px;
   background-color: #F4F4F5;
   color: black;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 10px;
   font-size: 17px;
   padding: 8px 0px 9px 16px;
@@ -71,9 +71,7 @@
   font-size: 18px;
 }
 
-.password_input{
-  margin-bottom: 5px;
-}
+
 
 .submit_button:hover{
   background-color: rgb(29, 146, 241);
