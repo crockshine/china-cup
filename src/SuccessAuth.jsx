@@ -2,10 +2,12 @@ import Header from "./Header/Header";
 import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./Profile/Profile";
+import Schedule from "./Schedule/Schedule.jsx"
 import Tasks from "./Tasks/Tasks";
 import Messenger from "./Messenger/Messenger.tsx";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
+import Dashboard from "./Dashboard/Dashboard.jsx";
 
 export default function SuccessAuth() {
     const navigate = useNavigate();
@@ -17,9 +19,9 @@ export default function SuccessAuth() {
 
         //console.log("Kek: ", loginState, sessionID);
 
-        // if (loginState != "true") {
-        //     navigate('/');
-        // }
+        if (loginState != "true") {
+            navigate('/');
+        }
 
     }, [navigate]);
 
@@ -37,9 +39,9 @@ export default function SuccessAuth() {
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
                         <Route path='/messenger/*' element={<Messenger/>}></Route>
-                        <Route path='/dashboard' element={<Profile/>}></Route>
+                        <Route path='/dashboard' element={<Dashboard/>}></Route>
                         <Route path='/tasks' element={<Tasks/>}></Route>
-                        <Route path='/schedule' element={<Profile/>}></Route>
+                        <Route path='/schedule' element={<Schedule/>}></Route>
                         <Route path='/files' element={<Profile/>}></Route>
                         <Route path='/' element={<div
                             className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-4xl">
