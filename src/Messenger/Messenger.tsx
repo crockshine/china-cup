@@ -47,12 +47,15 @@ export default function Messenger() {
             messages: [
                 { textInOneMsg: 'Давай взорвем россию', isSend: false },
                 { textInOneMsg: 'Все будет хорошо', isSend: true },
+                /*{ textInOneMsg: 'Все будет хорошо', isSend: true },
                 { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true }, 
                 { textInOneMsg: 'Все будет хорошо', isSend: true },
-                { textInOneMsg: 'Все будет хорошо', isSend: true }, { textInOneMsg: 'Все будет хорошо', isSend: true },
-                { textInOneMsg: 'Все будет хорошо', isSend: true }, { textInOneMsg: 'Все будет хорошо', isSend: true },
-                { textInOneMsg: 'Все будет хорошо', isSend: true }, { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true }, 
                 { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true }, 
+                { textInOneMsg: 'Все будет хорошо', isSend: true },
+                { textInOneMsg: 'Все будет хорошо', isSend: true },*/
 
             ]
         }
