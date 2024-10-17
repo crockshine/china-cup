@@ -1,0 +1,51 @@
+.main_window{
+  height: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.alert_window{
+  width: 35%;
+  height: 100%;
+  background-color: beige;
+}
+
+.schedule{
+  width: 65%;
+  height: 100%;
+}
+
+.button_schedule{
+  width: 200px;
+  height: 30px;
+}
+
+table {
+  clear: both;
+  width: 100%;
+  border: 1px solid #dcdcff;
+  border-radius: 3px;
+  border-collapse: collapse;
+  color: #444;
+}
+td {
+  height: 87px;
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid #dcdcff;
+  border-top: 1px solid #dcdcff;
+  width: 14.28571429%;
+}
+thead td {
+  border: none;
+  color: #28283b;
+  text-transform: uppercase;
+  font-size: 1.5em;
+}
+
+td.today {
+  font-weight: 700;
+  color: #28283b;
+  font-size: 1.5em;
+}
