@@ -24,6 +24,21 @@ async function tryToLogin(userMail, userPassword) {
     return passwordMatch;
 }
 
+const rolesMap = new Map([
+    ["Administration", 5],
+    ["Student", 1],
+    ["Graduate", 2]
+]);
+
+function getRoleID(roleName) {
+    return rolesMap.get(roleName);
+}
+
+async function registerAccount(userMail, userPassword, userRole, userNickname, userName) {
+    const userRoleID = getRoleID(userRole);
+
+    return false;
+}
 
 // Создает новую сессию и возвращает токен
 async function makeSession(userMail) {
@@ -104,7 +119,18 @@ async function getUserRole(token) {
     }
 
     try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
 
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.role_id; // Предполагается, что в таблице есть поле 'nickname'
     }
     catch (err) {
         console.log('Ошибка в getUserRole:', err);
@@ -137,4 +163,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount };

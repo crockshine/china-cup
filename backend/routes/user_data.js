@@ -1,9 +1,32 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData } = require('./../auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./../auth')
 
 module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
         const { userMail, userPassword } = req.body;
 
+        if (await tryToLogin(userMail, userPassword)) {
+            const token = await makeSession(userMail);
+
+            // Отправляем токен клиенту
+            res.json({ loginState: 'true', token });
+        } else {
+            res.json({ loginState: 'false' });
+        }
+    });
+
+    app.post('/api/register', async (req, res) => {
+        const { userMail, userPassword, userRole, userNickname, userName } = req.body;
+
+        // сначала регаемся
+        const registrationResult = registerAccount(userMail, userPassword, userRole, userNickname, userName);
+        console.log(registrationResult);
+
+        if (!registrationResult) {
+            res.json({ loginState: 'false' });
+            return;
+        }
+
+        // потом еще делаем вход
         if (await tryToLogin(userMail, userPassword)) {
             const token = await makeSession(userMail);
 

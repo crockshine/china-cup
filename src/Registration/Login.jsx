@@ -1,4 +1,4 @@
-import './Registration.css';
+import './Login.css';
 import { useState } from 'react'; // Импорт useState для работы с состоянием
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -24,25 +24,22 @@ export default function Registration() {
 
   }, [navigate]);
 
-  const handleSubmitRegister = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             userMail: email,
-            userPassword: password,
-            userRole: role,
-            userNickname: nickname,
-            userName: name
+            userPassword: password
         }),
        });
 
-      const data = await response.json();
+       const data = await response.json();
       console.log(data.token); // Лог ответа сервера
       console.log('Response data:', data);
 
@@ -71,8 +68,8 @@ export default function Registration() {
     //navigate('/home');
   };
 
-  const handleGotoLogin = (event) => {
-    navigate('/');
+  const handleGotoRegistration = (event) => {
+    navigate('/registration');
   };
 
   return(
@@ -81,7 +78,7 @@ export default function Registration() {
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
-            <form className="form" id="loginForm" action="register" method="post" onSubmit={handleSubmitRegister}>
+            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
                 <div className="mail_input">
                     <p className='label'>Email</p>
                     <input
@@ -105,47 +102,9 @@ export default function Registration() {
                         required // Поле обязательно для заполнения
                     />
                 </div>
-                <div className="role_input">
-                    <p className='label'>Role</p>
-                    <select
-                        className="input"
-                        name="role"
-                        id="role"
-                        value={role} // Значение поля связано с состоянием email
-                        onChange={(e) => setRole(e.target.value)} // Обработчик изменения значения
-                        required // Поле обязательно для заполнения
-                    >
-                        <option>Administration</option>
-                        <option>Student</option>
-                        <option>Graduate</option>
-
-                    </select>
-                </div>
-                <div className="nickname_input">
-                    <p className='label'>Nickname</p>
-                    <input
-                        className="input"
-                        name="nickname"
-                        id="nickname"
-                        value={nickname} // Значение поля связано с состоянием email
-                        onChange={(e) => setNickname(e.target.value)} // Обработчик изменения значения
-                        required // Поле обязательно для заполнения
-                    />
-                </div>
-                <div className="name_input">
-                    <p className='label'>Name</p>
-                    <input
-                        className="input"
-                        name="name"
-                        id="name"
-                        value={name} // Значение поля связано с состоянием email
-                        onChange={(e) => setName(e.target.value)} // Обработчик изменения значения
-                        required // Поле обязательно для заполнения
-                    />
-                </div>
                 <input className="submit_button mt-8" type="submit" value="Join"/>
             </form>
-            <input className="submit_button mt-8" type="submit" onClick={handleGotoLogin}  value="Already have an account?"/>
+            <input className="submit_button mt-8" type="submit" onClick={handleGotoRegistration} value="Don't have an account yet?"/>
         </div>
       </div>
     </main>
