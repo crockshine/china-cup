@@ -5,6 +5,11 @@
   gap: 14px;
 }
 
+.image_Card{
+  width:30px;
+  height: 28px;
+}
+
 .task_card{
   display: flex;
   flex-direction: column;
@@ -48,4 +53,15 @@
 .card__label{
   margin-top: 6px;
   font-size: 13px;
+}
+
+@media (width <=683px){
+  .card__description{
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .task_card{
+    height: auto;
+  }
 }
