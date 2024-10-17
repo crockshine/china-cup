@@ -61,7 +61,8 @@ export default function Messenger() {
     return (
         <div className="Messenger h-full flex">
 
-            <div className="Left w-1/2 relative">
+            <div className={`Left  relative 
+            ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
                 <div className="StaticInput  sticky top-0 w-full h-16 pl-4 flex items-center justify-center shadow">
                     <img src="/icons/search.png" alt="" className="w-10 h-10"/>
                     <input type="text"
@@ -78,7 +79,7 @@ export default function Messenger() {
                 <div
                     className="StaticInput  absolute bottom-0 w-full  flex flex-col items-center justify-center shadow">
                     <div
-                        className={`List-new-people w-full h-fit max-h-52  pt-2 bg-blue-600 rounded-t-2xl overflow-scroll overflow-x-hidden
+                        className={`List-new-people w-full h-fit max-h-52  pt-2 bg-blue-600 rounded-t-2xl z-20 overflow-scroll overflow-x-hidden
                         ${dataFoundPeople.length !== 0 ? "block" : "hidden"}`}>
 
                         {dataFoundPeople.map(item =>
@@ -97,7 +98,8 @@ export default function Messenger() {
 
             </div>
 
-            <div className="Chat w-full h-full bg-slate-100 overflow-scroll overflow-x-hidden relative">
+            <div className={`Chat w-2/3 h-full bg-slate-100 overflow-scroll  overflow-x-hidden relative
+            ${location.pathname === '/home/messenger' ? "hidden" : "block" }`}>
                 <div
                     className="Nickname w-full h-12 bg-slate-50 flex items-center border-b-2 sticky top-0 justify-center text-base sm:text-lg font-bold text-slate-700">
                     {dataMessage.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))

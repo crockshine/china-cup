@@ -42,12 +42,12 @@ export default function Registration() {
       if (response.ok) {
         // Успешный ответ от сервера
         // Проверяем наличие куки 'loggedIn'
-        if (data.loginState == "true") {
+        if (data.loginState === "true") {
           Cookies.set('loginState', data.loginState);
           Cookies.set('token', data.token);
         }
 
-        if (data.loginState == "true") {
+        if (data.loginState === "true") {
             navigate('/home'); // Переход на страницу '/home' после успешной регистрации
             // Здесь вы можете добавить логику для обработки успешного входа
         } else {
@@ -70,31 +70,71 @@ export default function Registration() {
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
-            <form className="form" id="loginForm" action="login" method="post" onSubmit = { handleSubmit }>
+            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
                 <div className="mail_input">
                     <p className='label'>Email</p>
-                    <input 
-                      className="input" 
-                      name="usermail" 
-                      id="usermail"
-                      value={email} // Значение поля связано с состоянием email
-                      onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
-                      required // Поле обязательно для заполнения
+                    <input
+                        className="input"
+                        name="usermail"
+                        id="usermail"
+                        value={email} // Значение поля связано с состоянием email
+                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        required // Поле обязательно для заполнения
                     />
                 </div>
                 <div className="password_input">
                     <p className='label'>Password</p>
-                    <input 
-                      className="input" 
-                      name="userpassword" 
-                      id="userpassword" 
-                      type="password"
-                      value={password} // Значение поля связано с состоянием password
-                      onChange={(e) => setPassword(e.target.value)} // Обработчик изменения значения
-                      required // Поле обязательно для заполнения 
+                    <input
+                        className="input"
+                        name="userpassword"
+                        id="userpassword"
+                        type="password"
+                        value={password} // Значение поля связано с состоянием password
+                        onChange={(e) => setPassword(e.target.value)} // Обработчик изменения значения
+                        required // Поле обязательно для заполнения
                     />
                 </div>
-                <input className="submit_button" type="submit" value="Join" />
+                <div className="role_input">
+                    <p className='label'>Role</p>
+                    <select
+                        className="input"
+                        name="role"
+                        id="role"
+                        value={email} // Значение поля связано с состоянием email
+                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        required // Поле обязательно для заполнения
+                    >
+                        <option>
+                            Administration
+                        </option>
+                        <option>dasdas</option>
+                        <option>dasdasd</option>
+
+                    </select>
+                </div>
+                <div className="nickname_input">
+                    <p className='label'>Email</p>
+                    <input
+                        className="input"
+                        name="usermail"
+                        id="usermail"
+                        value={email} // Значение поля связано с состоянием email
+                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        required // Поле обязательно для заполнения
+                    />
+                </div>
+                <div className="name_input">
+                    <p className='label'>Email</p>
+                    <input
+                        className="input"
+                        name="usermail"
+                        id="usermail"
+                        value={email} // Значение поля связано с состоянием email
+                        onChange={(e) => setEmail(e.target.value)} // Обработчик изменения значения
+                        required // Поле обязательно для заполнения
+                    />
+                </div>
+                <input className="submit_button" type="submit" value="Join"/>
             </form>
         </div>
       </div>
