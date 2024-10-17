@@ -1,39 +1,66 @@
-const loadAllUsers = require('./users_handler');
-const loadCurrentSessionID = require('./sessions_handler');
-const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
+const db = require('./db');
+const jwt = require('jsonwebtoken');
 
-const path = require('path');
-const fs = require('fs');
+const JWT_SECRET = 'goida';
 
-// загрузка пользователей
-const users = loadAllUsers();
+// Попытка входа в аккаунт (сравнение вводимого пароля и почты с необходимыми)
+async function tryToLogin(userMail, userPassword) {
+    // Ищем пользователя по email
+    const result = await db.query('SELECT * FROM "user" WHERE email = $1', [userMail]);
+    if (result.rows.length === 0) return false;
 
-// загрузка текущего максимального значения сессии
-let currentSessionID = loadCurrentSessionID();
+    const user = result.rows[0];
 
-let currentTaskID = loadCurrentTaskID();
-const allTasksList = listAllTasksInFolder();
-console.log('currentTaskID=', currentTaskID, ', allTasksList=', allTasksList)
+    // Прямое сравнение пароля
+    const passwordMatch = (userPassword === user.password_hash); // Здесь используется прямое сравнение
 
-// попытка входа в аккаунт (сравнение вводимого пароля и почты с необходимыми)
-function tryToLogin(userMail, userPassword) {
-    // Проверка, есть ли такой пользователь вообще:
-    if (!users.has(userMail)) return false;
-
-    const jsonData = users.get(userMail);
-    return jsonData.User.password == userPassword;
+    return passwordMatch;
 }
 
-const sessions_folder = "./sessions"
-// вспомогательная функция, просто возвращает путь к файлу сессии исходя из ID этой сессии
-function getSessionFilePath(sessionID) {
-    return path.join(sessions_folder, `session_${sessionID}.json`);
+
+// Создает новую сессию и возвращает токен
+async function makeSession(userMail) {
+    // Ищем пользователя по email
+    const result = await db.query('SELECT * FROM "user" WHERE email = $1', [userMail]);
+    const user = result.rows[0];
+
+    // Генерируем JWT токен
+    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '30m' });
+
+    // Сохраняем сессию в БД
+    await db.query(
+        'INSERT INTO session (user_id, token, created_at) VALUES ($1, $2, NOW())',
+        [user.user_id, token]
+    );
+
+    return token;
 }
 
-const users_folder = "./users"
-// вспомогательная функция, просто возвращает путь к файлу пользователя исходя из ID этого пользователя
-function getUserFilePath(userID) {
-    return path.join(users_folder, `user_${userID}.json`);
+// Получение имени пользователя по токену
+async function getUserName(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null; // Или выбросьте ошибку, если необходимо
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.name; // Предполагается, что в таблице есть поле 'name'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserName:', err);
+        return null; // Обрабатывайте ошибки по необходимости
+    }
 }
 
 const tasks_folder = "./tasks"
@@ -47,33 +74,26 @@ function makeSession(userMail) {
     currentSessionID++;
     const userID = getUserIDByMail(userMail);
 
-    const data = {
-        id: currentSessionID,
-        session_state: "open",
-        user_id: userID,
-        user_mail: userMail
-    };
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
 
-    // Преобразование объекта в строку JSON
-    const jsonData = JSON.stringify(data, null, 2); // null и 2 для форматирования
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
 
-    // Запись данных в файл
-    const _path = getSessionFilePath(currentSessionID);
-    fs.writeFile(_path, jsonData, (err) => {
-        /*if (err) {
-            console.error('Ошибка при создании файла:', err);
-        } else {
-            console.log(`Файл успешно создан: 'session_${currentSessionID}.json'`);
-        }*/
-    });
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
 
-    return currentSessionID;
+        return user.nickname; // Предполагается, что в таблице есть поле 'nickname'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserNickName:', err);
+        return null;
+    }
 }
 
-// вспомогательная функция, возвращает ID пользователя исходя из его эл почты
-// обращается к предварительно загруженному мапу с ждейсонками пользователей
-function getUserIDByMail(userMail) {
-    if (!users.has(userMail)) return null;
 
     const jsonData = users.get(userMail);
     return jsonData.User.id;

@@ -57,7 +57,7 @@ export default function TaskCard({taskID}){
                 <h1 className="card__label">Sub Tasks {taskSubTasksCount}</h1>
               </div>
               <div className="members__count">
-              <img className="image_Card" src="../icons/members.jpg" alt="" />
+              <img className="image_Card" src="../../public/icons/members.jpg" alt="" />
                 <h1 className="card__label">Members 5</h1>
               </div>
             </div>
