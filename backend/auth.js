@@ -1,3 +1,10 @@
+const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
+
+let currentTaskID = loadCurrentTaskID();
+const allTasksList = listAllTasksInFolder();
+
+const path = require('path');
+const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
 
