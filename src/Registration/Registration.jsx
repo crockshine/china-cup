@@ -12,10 +12,10 @@ export default function Registration() {
   useEffect(() => {
     // Проверяем наличие куки 'loggedIn'
     const loginState = Cookies.get('loginState');
-    const sessionID = Cookies.get('sessionID');
+    const token = Cookies.get('token');
 
-    if (loginState == "true") {
-        navigate('/home');
+    if (loginState == "true" &&  token) {
+      navigate('/home');
     }
 
   }, [navigate]);
@@ -36,14 +36,15 @@ export default function Registration() {
        });
 //npm run build
       const data = await response.json();
-      console.log(data.sessionID); // Лог ответа сервера
+      console.log(data.token); // Лог ответа сервера
+      console.log('Response data:', data);
 
       if (response.ok) {
         // Успешный ответ от сервера
         // Проверяем наличие куки 'loggedIn'
         if (data.loginState == "true") {
           Cookies.set('loginState', data.loginState);
-          Cookies.set('sessionID', data.sessionID);
+          Cookies.set('token', data.token);
         }
 
         if (data.loginState == "true") {

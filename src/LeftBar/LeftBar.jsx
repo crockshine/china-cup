@@ -4,19 +4,19 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect } from 'react';
 
 export default function LeftBar(){
-    const [currentSessionID, setSessionID] = React.useState(-1);
-    const [userName, setUserName] = React.useState('1');
-    const [userNickName, setUserNickName] = React.useState('1');
+    const [currentToken, setToken] = React.useState('');
+    const [userName, setUserName] = React.useState('');
+    const [userNickName, setUserNickName] = React.useState('');
     const navigate = useNavigate(); // Хук для навигации
 
     useEffect(() => {
         async function fetchData() {
             const name = await getUserName();
-            setUserName(name);
+            setUserName(name || 'Unknown User');
             const nickName = await getUserNickName();
-            setUserNickName(nickName);
-            const currentSessionID = getSessionID();
-            setSessionID(currentSessionID);
+            setUserNickName(nickName || 'Unknown Nickname');
+            const token = getToken();
+            setToken(token);
         }
         fetchData();
     }, [navigate]);
@@ -30,19 +30,20 @@ export default function LeftBar(){
         {id:5, text:'Graduates', image:'graduation.png', opacity:'1', router_link:'/home/graduates'},
     ]
 
-    function getSessionID() {
-        return Cookies.get('sessionID');
+    function getToken() {
+        return Cookies.get('token');
     }
 
     async function getUserName() {
         try {
+            const token = getToken();
             const response = await fetch('/api/get_user_name', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    sessionID: getSessionID()
+                    token: token
                 }),
             });
 
@@ -50,33 +51,32 @@ export default function LeftBar(){
             return String(data.userName);
             
         } catch (error) {
-            console.log(error);
-            
+            console.log('Ошибка при получении имени пользователя:', error);
         }
     };
 
     async function getUserNickName() {
         try {
+            const token = getToken();
             const response = await fetch('/api/get_user_nickname', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    sessionID: getSessionID()
+                    token: token
                 }),
             });
             
             const data = await response.json();
             return String(data.userNickName);
         } catch (error) {
-            console.log(error);
+            console.log('Ошибка при получении никнейма пользователя:', error);
         }
     };
 
     return (
         <>
-
             {/* Переход в профиль */}
             <div className="flex w-full items-center justify-between mb-4">
                 <img src="/icons/settingsProfile.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12"/>
@@ -100,11 +100,6 @@ export default function LeftBar(){
                 return <CardInLeftBar text={card.text} image={card.image} opacity={card.opacity} router_link={card.router_link} key={card.id}/>
             })}
             </div>
-
-            {/*<div className="flex flex-col w-full gap-2">*/}
-            {/*    <div className="bg-slate-600 w-full h-6 sm:h-10"></div>*/}
-            {/*    <div className="bg-slate-600 w-full h-6 sm:h-10"></div>*/}
-            {/*</div>*/}
         </>
     )
 }
