@@ -1,19 +1,21 @@
 // @ts-ignore
 import ShortMsg from "./ShortMsg.tsx";
 import "./Messenger.css"
-import {useState} from "react";
+import { useEffect, useState} from "react";
 import FoundUserCard from "./FoundUserCard";
 import { useLocation} from "react-router-dom";
 import MessageList from "./MessageList";
 
 export default function Messenger() {
     const [value, setValue] = useState('');
-    const location = useLocation()
+    const location = useLocation();
+
     const handleInput = (event) => {
         setValue(event.target.value);
         event.target.style.height = 'auto'; // сбрасываем высоту перед измерением
         event.target.style.height = `${event.target.scrollHeight}px`; // устанавливаем высоту в зависимости от содержимого
     };
+
     const handlePress = (event) => {
 
         if (event.key === 'Enter') {
@@ -24,6 +26,9 @@ export default function Messenger() {
         }
     }
     const sendData = () => {
+        if (value) {
+            socket.emit('message', value);
+        }
         setValue('')
     }
 
