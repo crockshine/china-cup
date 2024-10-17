@@ -24,21 +24,24 @@ export default function Registration() {
 
   }, [navigate]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmitRegister = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             userMail: email,
-            userPassword: password
+            userPassword: password,
+            userRole: role,
+            userNickname: nickname,
+            userName: name
         }),
        });
-//npm run build
+
       const data = await response.json();
       console.log(data.token); // Лог ответа сервера
       console.log('Response data:', data);
@@ -78,7 +81,7 @@ export default function Registration() {
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
-            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
+            <form className="form" id="loginForm" action="register" method="post" onSubmit={handleSubmitRegister}>
                 <div className="mail_input">
                     <p className='label'>Email</p>
                     <input

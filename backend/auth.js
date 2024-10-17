@@ -24,6 +24,21 @@ async function tryToLogin(userMail, userPassword) {
     return passwordMatch;
 }
 
+const rolesMap = new Map([
+    ["Administration", 5],
+    ["Student", 1],
+    ["Graduate", 2]
+]);
+
+function getRoleID(roleName) {
+    return rolesMap.get(roleName);
+}
+
+async function registerAccount(userMail, userPassword, userRole, userNickname, userName) {
+    const userRoleID = getRoleID(userRole);
+
+    return false;
+}
 
 // Создает новую сессию и возвращает токен
 async function makeSession(userMail) {
@@ -148,4 +163,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount };
