@@ -3,6 +3,9 @@ const authMiddleware = require('./../middleware'); // Путь к файлу с 
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js
 
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'goida'; // Используйте ваш секретный ключ для JWT
+
 
 module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
@@ -93,6 +96,47 @@ module.exports = function (app) {
           res.status(500).json({ error: 'Failed to fetch task data' });
         }
     });
+
+
+    app.post('/api/add_user_to_task', async (req, res) => {
+      const { taskID } = req.body;
+
+      try {
+        // Извлекаем JWT токен из cookies
+        const token = req.cookies.token;
+
+        if (!token) {
+          return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        // Декодируем JWT токен
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userID = decoded.userId; // Предполагается, что в токене есть поле userId
+
+        // Проверяем, есть ли пользователь уже в задаче
+        const checkResult = await db.query(
+          'SELECT * FROM task_members WHERE task_id = $1 AND user_id = $2',
+          [taskID, userID]
+        );
+
+        if (checkResult.rows.length === 0) {
+          // Пользователь еще не в задаче, добавляем его
+          await db.query(
+            'INSERT INTO task_members (task_id, user_id) VALUES ($1, $2)',
+            [taskID, userID]
+          );
+          res.status(200).json({ message: 'Пользователь добавлен в задачу' });
+        } else {
+          // Пользователь уже в задаче
+          res.status(200).json({ message: 'Пользователь уже добавлен в задачу' });
+        }
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Ошибка при добавлении пользователя в задачу' });
+      }
+    });
+
+    
       
       
 
