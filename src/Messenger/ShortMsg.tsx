@@ -17,7 +17,7 @@ export default function ShortMsg({userName, lastMsg, router_link}:{ userName:str
                     <span className="font-medium "></span>
                 </div>
 
-                <span className={`ShortMsg w-full  text-base font-semibold ${location.pathname[location.pathname.length - 1] === router_link.toString() ? "text-slate-300": "text-slate-500"}`}>{lastMsg.textInOneMsg} </span>
+                <span className={`ShortMsg w-full  text-base font-semibold ${location.pathname[location.pathname.length - 1] === router_link.toString() ? "text-slate-300": "text-slate-500"}`}>{(lastMsg != undefined && lastMsg != null) ? lastMsg.textInOneMsg : ""} </span>
 
             </div>
         </div>

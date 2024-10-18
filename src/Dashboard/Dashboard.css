@@ -153,8 +153,8 @@
 }
 
 @media (width <= 1595px){
-  .events{
-    display:none;
+  .leaderboard{
+    display: none;
   }
 }
 

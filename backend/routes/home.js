@@ -1,7 +1,8 @@
 const path = require('path');
+const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
 
 module.exports = function (app) {
-    app.get('/home', (req, res) => {
+    app.get('/home', authMiddleware, (req, res) => {
         res.sendFile(path.join(__dirname, '../build', 'index.html'));
     });
     /*app.get('/api', (req, res) => {
