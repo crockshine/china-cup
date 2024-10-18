@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from 'react';
 
-export default function TaskCard({taskID}) {
+export default function TaskCard({ taskID }) {
   const [taskName, setTaskName] = React.useState('');
   const [taskDeadLine, setTaskDeadLine] = React.useState('');
   const [taskSubTasksCount, setTaskSubTasksCount] = React.useState(0);
@@ -36,9 +36,12 @@ export default function TaskCard({taskID}) {
   }
 
   // Функция для скачивания файла с описанием задания
-  const downloadTask = () => {
+  const downloadTask = async () => {
     const fileName = `task_${taskID}.txt`; // Название файла
     const fileUrl = `/tasks/${fileName}`; // Путь к файлу на сервере (в папке public/tasks)
+
+    // Отправляем запрос на сервер для добавления пользователя в задачу
+    await addUserToTask(taskID);
 
     // Создаем скрытый <a> элемент для скачивания
     const link = document.createElement('a');
@@ -51,6 +54,29 @@ export default function TaskCard({taskID}) {
 
     // Удаляем ссылку после скачивания
     document.body.removeChild(link);
+  };
+
+  // Функция для добавления пользователя в задачу
+  const addUserToTask = async (taskID) => {
+    try {
+      const response = await fetch('/api/add_user_to_task', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          taskID
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Пользователь добавлен в задачу');
+      } else {
+        console.error('Ошибка при добавлении пользователя в задачу');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
   };
 
   return (
