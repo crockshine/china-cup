@@ -58,7 +58,11 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
             console.log('Пользователь с таким nickname уже существует');
             return 'ne ok'; 
         }
-
+        console.log(userRole);
+        if(userRole === null || userRole === '' || userRole === ' ') {  
+            userRole = 'Administration';
+        }
+        console.log(userRole);
         // Получаем ID роли
         const userRoleID = await getRoleID(userRole);
         
