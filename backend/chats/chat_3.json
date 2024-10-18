@@ -16,7 +16,11 @@
     "3": {
       "textInOneMsg": "hfththt",
       "bySend": 1
+    },
+    "4": {
+      "textInOneMsg": "ллллл",
+      "bySend": 1
     }
   },
-  "current_message": 3
+  "current_message": 4
 }

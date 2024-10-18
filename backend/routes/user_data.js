@@ -64,10 +64,34 @@ module.exports = function (app) {
         }
     });
 
-    app.post('/api/list_all_tasks', (req, res) => { 
-        const _allTasksList = listAllTasks();
-        res.json({ allTasksList: _allTasksList });
+    app.post('/api/list_all_tasks', async (req, res) => {
+        try {
+          const result = await db.query('SELECT id FROM task');
+          const allTasksList = result.rows.map(row => row.id);
+          res.json({ allTasksList });
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to list tasks' });
+        }
     });
+
+    app.post('/api/get_task_data', async (req, res) => {
+        const { taskID } = req.body;
+      
+        try {
+          const taskResult = await db.query(
+            'SELECT t.task_name, t.dead_line, t.sub_tasks_count, array_agg(tm.user_id) AS members FROM task t LEFT JOIN task_members tm ON t.id = tm.task_id WHERE t.id = $1 GROUP BY t.id',
+            [taskID]
+          );
+          const taskData = taskResult.rows[0];
+          res.json({ taskData });
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to fetch task data' });
+        }
+    });
+      
+      
 
     app.post('/api/get_task_data_name', (req, res) => { 
         const { taskID } = req.body;
