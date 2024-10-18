@@ -1,5 +1,6 @@
 const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./../auth')
 const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
+const { checkForAllUsers } = require('./../dashboard_handler');
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js
 
@@ -38,6 +39,7 @@ module.exports = function (app) {
         if (await tryToLogin(userMail, userPassword)) {
             const token = await makeSession(userMail);
 
+            checkForAllUsers();
             // Отправляем токен клиенту
             res.json({ loginState: 'true', token });
         } else {

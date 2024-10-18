@@ -1,0 +1,47 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "11:46"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "01:04"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Implement user authentication",
+    "time": "20:36"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Implement state management",
+    "time": "06:24"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Document code and create user manuals",
+    "time": "12:51"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Document code and create user manuals",
+    "time": "11:13"
+  },
+  "7": {
+    "event": "Solved the task",
+    "name": "Integrate third-party services",
+    "time": "03:36"
+  },
+  "8": {
+    "event": "Solved the task",
+    "name": "Implement state management",
+    "time": "10:20"
+  },
+  "9": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "13:26"
+  }
+}

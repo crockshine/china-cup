@@ -1,4 +1,5 @@
 const { listAllChatsForUser, getChatUsers, getUserNameByID, getUserID, getChatMessages, sendChatMessage, getCurrentMessageIndex, printInfo } = require('./../messenger_mgr');
+const { loadDashboardJSON } = require('./../dashboard_handler');
 
 module.exports = function (app) {
     app.post('/messenger_api/list_all_chats', async (req, res) => {
@@ -84,6 +85,18 @@ module.exports = function (app) {
         try {
             const _currentMessageIndex= await getCurrentMessageIndex(chatID);
             res.json( { currentMessageIndex: _currentMessageIndex });
+        } catch (err) {
+            res.status(401).json({ error: String(err) });
+        }
+    });
+
+    app.post('/dashboard_api/load_dashboard', async (req, res) => {
+        const { _id } = req.body;
+
+        try {
+            const _dashboardContent = loadDashboardJSON(_id);
+            console.log(_id);
+            res.json( { dashboardContent: _dashboardContent });
         } catch (err) {
             res.status(401).json({ error: String(err) });
         }
