@@ -1,0 +1,27 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "05:17"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Implement user authentication",
+    "time": "07:11"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Document code and create user manuals",
+    "time": "07:57"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "13:20"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Conduct user testing and feedback sessions",
+    "time": "15:23"
+  }
+}

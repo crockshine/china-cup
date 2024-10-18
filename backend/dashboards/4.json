@@ -1,0 +1,12 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept",
+    "time": "13:43"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Implement error handling and logging",
+    "time": "22:50"
+  }
+}
