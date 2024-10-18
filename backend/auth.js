@@ -217,4 +217,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers };
