@@ -10,7 +10,6 @@ import MessageList from "./MessageList";
 export default function Messenger() {
     const [value, setValue] = useState('');
     const [currentUserID, setCurrentUserID] = useState(-1);
-    const [currentMessageIndex, setCurrentMessageIndex] = useState(-1);
     const [messagesData, setMessagesData] = useState([
         {
             id: 0,
@@ -25,7 +24,6 @@ export default function Messenger() {
     const location = useLocation();
 
     const navigate = useNavigate(); // Хук для навигации
-
     useEffect(() => {
         function getFromUserID(thisUserID, users) {
             if (users[0] == thisUserID) return users[1];
@@ -33,8 +31,6 @@ export default function Messenger() {
         }
 
         async function fetchData() {
-            const _currentMessageIndex = await loadCurrentMessageIndex()
-
             const userChats = await listUserChats();
             const _currentUserID = await loadCUserID();
             //console.log('userChats=', userChats, 'currentUserID=', currentUserID);
@@ -92,16 +88,37 @@ export default function Messenger() {
         fetchData();
     }, [navigate]);
 
-    useEffect(() => {
+    const [isTimerActive, setIsTimerActive] = useState(true);
+
+    let currentMessageIndex = -1;
+    let currentSelectChatID = -771;
+    /*useEffect(() => {
+        if (!isTimerActive) return; // Если таймер не активен, ничего не делаем
+
         const intervalId = setInterval(() => {
-          console.log(`Таймер...`);
+            async function invoke() {
+                const _currentMessageIndex = await loadCurrentMessageIndex(currentSelectChatID);
+
+                if (currentMessageIndex === -1) {
+                    currentMessageIndex = _currentMessageIndex;
+                } else if (currentMessageIndex !== _currentMessageIndex) {
+                    navigate(0); // Перезагружает текущую страницу
+                }
+            }
+            invoke();
         }, 500); // 500 миллисекунд
-    
-        // Очистка интервала при размонтировании компонента
+
+        // Очистка интервала при размонтировании компонента или изменении состояния
         return () => clearInterval(intervalId);
-      }, []); // Запускаем эффект только один раз после отрисовки
+    }, [isTimerActive]); // Добавляем состояние в зависимости
+
+    const stopTimer = () => {
+        setIsTimerActive(false); // Останавливаем таймер
+    };*/
     
-    
+    function onChangeSelectChat() {
+        currentSelectChatID = (Number(location.pathname.split('/')[3]));
+    }
 
     function getToken() {
         return Cookies.get('token');
@@ -161,6 +178,7 @@ export default function Messenger() {
             });
 
             const data = await response.json();
+            console.log('_chatID=', _chatID, ', data=', data);
             return data.currentMessageIndex;
         } catch (error) {
             console.log('Ошибка при получении имени пользователя:', error);
@@ -260,6 +278,7 @@ export default function Messenger() {
     const sendData = () => {
         if (value) {
             const currentSelectChatID = Number(location.pathname.split('/')[3]);
+            //alert(currentSelectChatID);
             sendMessage(currentSelectChatID, currentUserID, value);
             setValue('');
             navigate(0); // Перезагружает текущую страницу
@@ -293,7 +312,6 @@ export default function Messenger() {
 
     return (
         <div className="Messenger h-full relative flex">
-
             <div className={`Left-block flex flex-col justify-between h-full  relative ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
                 <div className="StaticInputTop z-20 w-full h-16 pl-4 flex items-center justify-center bg-slate-50">
                         <img src="/icons/search.png" alt="" className="w-8 h-8"/>
@@ -303,7 +321,7 @@ export default function Messenger() {
                 </div>
 
 
-                    <div className="Short-chat-list flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 ">
+                    <div className="Short-chat-list flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 " onClick={onChangeSelectChat}>
 
                             {messagesData.map(item =>
                                 <ShortMsg key={item.id} userName={item.userName} lastMsg={item.messages[item.messages.length - 1]}

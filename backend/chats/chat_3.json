@@ -1,5 +1,5 @@
 {
-  "chat_id": 3,
+  "chat_id": 1,
   "users": [
     1,
     7
@@ -9,12 +9,8 @@
       "textInOneMsg": "дратути",
       "bySend": 1
     },
-    "2": {
-      "textInOneMsg": "djnnrdngrd",
-      "bySend": 7
-    },
-    "3": {
-      "textInOneMsg": "hfththt",
+    "4": {
+      "textInOneMsg": "f",
       "bySend": 1
     },
     "4": {
