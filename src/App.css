@@ -2,4 +2,7 @@
   .LeftBar {
     display: none;
   }
+  .Dropdown{
+    display: block;
+  }
 }

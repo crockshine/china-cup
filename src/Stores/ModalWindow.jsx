@@ -8,10 +8,13 @@ class ModalWindow {
     }
 
     openWindow = () => { // Используем стрелочную функцию
-        this.isOpen = true; // Теперь this будет указывать на экземпляр класса
+        this.isOpen = true;
+        console.log(this.isOpen);// Теперь this будет указывать на экземпляр класса
     }
     closeWindow = ()=> {
         this.isOpen = false
+        console.log(this.isOpen);// Теперь this будет указывать на экземпляр класса
+
     }
 
 

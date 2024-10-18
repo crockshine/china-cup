@@ -1,4 +1,5 @@
 import "./Schedule.css"
+import {useEffect} from "react";
 
 export default function Schedule(){
   var Cal = function(divId) {
@@ -114,10 +115,10 @@ export default function Schedule(){
     // Записываем HTML в div
     document.getElementById(this.divId).innerHTML = html;
   };
-  // При загрузке окна
-  window.onload = function() {
-    // Начать календарь
-    var c = new Cal("divCal");			
+
+
+  useEffect(()=>{
+    var c = new Cal("divCal");
     c.showcurr();
     // Привязываем кнопки «Следующий» и «Предыдущий»
     getId('btnNext').onclick = function() {
@@ -126,7 +127,9 @@ export default function Schedule(){
     getId('btnPrev').onclick = function() {
       c.previousMonth();
     };
-  }
+  })
+  // При загрузке окна
+
   // Получить элемент по id
   function getId(id) {
     return document.getElementById(id);
