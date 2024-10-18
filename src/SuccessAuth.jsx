@@ -3,6 +3,7 @@ import LeftBar from "./LeftBar/LeftBar";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./Profile/Profile";
 import Schedule from "./Schedule/Schedule.jsx"
+import UserProfile from "./UserProfile/UserProfile.jsx";
 import Tasks from "./Tasks/Tasks";
 import Messenger from "./Messenger/Messenger.tsx";
 import React, { useEffect } from 'react';

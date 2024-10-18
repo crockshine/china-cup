@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from "react-router-dom";
 import ModalWindow from "../Stores/ModalWindow";
+import SecondModalWindowWrapper from "../ModalWindows/SecondModalWindowWrapper";
+import SecondModalWindow from "../Stores/SecondModalWindow";
 
 export default function Header(){
     const navigate = useNavigate(); // Хук для навигации
@@ -19,8 +21,8 @@ export default function Header(){
             </div>
             <div className="Info flex-1 flex  justify-end items-center gap-10 font-semibold text-xl text-slate-700">
 
-                <Link to={'/home/about'}><span>About Us</span></Link>
-                <Link to={'/home/policy'}><span>User Policy</span></Link>
+                <Link onClick={SecondModalWindow.switchWindow} to={'/home/about'}><span>About Us</span></Link>
+                <Link onClick={SecondModalWindow.switchWindow} to={'/home/policy'}><span>User Policy</span></Link>
 
                 <button className="" onClick={ doExit }>Exit</button>
             </div>
