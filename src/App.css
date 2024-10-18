@@ -5,4 +5,10 @@
   .Dropdown{
     display: block;
   }
+
+}
+@media (width <= 760px){
+  .Info{
+    display: none;
+  }
 }
