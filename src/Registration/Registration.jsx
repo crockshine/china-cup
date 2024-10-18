@@ -43,8 +43,6 @@ export default function Registration() {
        });
 
       const data = await response.json();
-      console.log(data.token); // Лог ответа сервера
-      console.log('Response data:', data);
 
       if (response.ok) {
         // Успешный ответ от сервера
@@ -58,8 +56,9 @@ export default function Registration() {
             navigate('/home'); // Переход на страницу '/home' после успешной регистрации
             // Здесь вы можете добавить логику для обработки успешного входа
         } else {
-            // Если пользователь не залогинен, перенаправляем на страницу входа
-            navigate('/');
+            // Остаемся на регистрации
+            console.log('ggg');
+            navigate('/registration');
         }
       } else {
         console.error('Ошибка на сервере:', response.statusText);

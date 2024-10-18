@@ -75,7 +75,7 @@ export default function Registration() {
   return(
     <main className="main">
       <div className="center_block">
-        <h1 className="reg_label">Registration Form</h1>
+        <h1 className="reg_label">Login Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
             <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>

@@ -4,6 +4,8 @@ module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
         const { userMail, userPassword } = req.body;
 
+        console.log("try to login");
+
         if (await tryToLogin(userMail, userPassword)) {
             const token = await makeSession(userMail);
 
@@ -17,11 +19,13 @@ module.exports = function (app) {
     app.post('/api/register', async (req, res) => {
         const { userMail, userPassword, userRole, userNickname, userName } = req.body;
 
+        console.log( "Введённые данные: " + userMail + " " + userPassword + " " + userRole + " " + userNickname + " " + userName);
+
         // сначала регаемся
-        const registrationResult = registerAccount(userMail, userPassword, userRole, userNickname, userName);
+        const registrationResult = await registerAccount(userMail, userPassword, userRole, userNickname, userName);
         console.log(registrationResult);
 
-        if (!registrationResult) {
+        if (registrationResult != 'ok') {
             res.json({ loginState: 'false' });
             return;
         }

@@ -7,21 +7,30 @@ const path = require('path');
 const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const JWT_SECRET = 'goida';
 
 // Попытка входа в аккаунт (сравнение вводимого пароля и почты с необходимыми)
 async function tryToLogin(userMail, userPassword) {
-    // Ищем пользователя по email
-    const result = await db.query('SELECT * FROM "user" WHERE email = $1', [userMail]);
-    if (result.rows.length === 0) return false;
+    try {
+        // Ищем пользователя по email
+        const result = await db.query('SELECT * FROM "user" WHERE email = $1', [userMail]);
+        
+        // Если пользователь не найден, возвращаем false
+        if (result.rows.length === 0) return false;
 
-    const user = result.rows[0];
+        const user = result.rows[0];
 
-    // Прямое сравнение пароля
-    const passwordMatch = (userPassword === user.password_hash); // Здесь используется прямое сравнение
+        // Сравниваем введённый пароль с хэшированным паролем в базе данных
+        const passwordMatch = await bcrypt.compare(userPassword, user.password_hash);
 
-    return passwordMatch;
+        // Возвращаем true, если пароли совпадают, иначе false
+        return passwordMatch;
+    } catch (err) {
+        console.error('Ошибка при попытке входа:', err.message);
+        throw new Error('Login failed');
+    }
 }
 
 const rolesMap = new Map([
@@ -30,14 +39,44 @@ const rolesMap = new Map([
     ["Graduate", 2]
 ]);
 
-function getRoleID(roleName) {
+async function getRoleID(roleName) {
     return rolesMap.get(roleName);
 }
 
 async function registerAccount(userMail, userPassword, userRole, userNickname, userName) {
-    const userRoleID = getRoleID(userRole);
+    try {
+        // Проверяем, существует ли пользователь с таким email
+        const emailCheck = await db.query('SELECT * FROM "user" WHERE email = $1', [userMail]);
+        if (emailCheck.rows.length > 0) {
+            console.log('Пользователь с таким email уже существует');
+            return 'ne ok';
+        }
 
-    return false;
+        // Проверяем, существует ли пользователь с таким nickname
+        const nicknameCheck = await db.query('SELECT * FROM "user" WHERE nickname = $1', [userNickname]);
+        if (nicknameCheck.rows.length > 0) {
+            console.log('Пользователь с таким nickname уже существует');
+            return 'ne ok'; 
+        }
+
+        // Получаем ID роли
+        const userRoleID = await getRoleID(userRole);
+        
+        // Хэшируем пароль перед сохранением
+        const hashedPassword = await bcrypt.hash(userPassword, 10);
+
+        // Выполняем SQL запрос для добавления пользователя
+        const result = await db.query(
+            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at)
+             VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
+            [userMail, hashedPassword, userRoleID, userNickname, userName]
+        );
+        
+        return 'ok'
+    } catch (err) {
+        console.error('Ошибка при регистрации:', err.message);
+        return 'ne ok'
+    }
 }
 
 // Создает новую сессию и возвращает токен
@@ -47,7 +86,7 @@ async function makeSession(userMail) {
     const user = result.rows[0];
 
     // Генерируем JWT токен
-    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '30m' });
+    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '90m' });
 
     // Сохраняем сессию в БД
     await db.query(
