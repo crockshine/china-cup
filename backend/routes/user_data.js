@@ -1,6 +1,9 @@
 const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./../auth')
 const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
 
+const db = require('./../db');  // Замените на корректный путь к файлу db.js
+
+
 module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
         const { userMail, userPassword } = req.body;

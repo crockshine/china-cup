@@ -35,8 +35,11 @@ export default function TaskCard({taskID}){
     return data.taskData;
   }
 
+  const downloadTask = ()=>{
+
+  }  
   return (
-    <div className="task_card">
+    <div className="task_card hover:cursor-pointer" onClick={downloadTask}>
       <div className="card__title">
         <p>{taskName}</p>
       </div>
