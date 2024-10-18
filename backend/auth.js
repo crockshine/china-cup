@@ -187,6 +187,17 @@ function getTaskFilePath(taskID) {
     return path.join(tasks_folder, `task_${taskID}.json`);
 }
 
+// Функция для получения всех user_id из базы данных
+async function listAllUsers() {
+    try {
+        const result = await db.query('SELECT user_id FROM "user"');
+        // Вернем массив всех user_id
+        return result.rows.map(row => row.user_id);
+    } catch (err) {
+        console.error('Ошибка при получении user_id:', err.message);
+        throw new Error('Failed to retrieve user IDs');
+    }
+}
 
 function loadTaskJSON(taskID) {
     const _path = getTaskFilePath(taskID);
