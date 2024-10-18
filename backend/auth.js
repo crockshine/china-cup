@@ -75,7 +75,7 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
              VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
             [userMail, hashedPassword, userRoleID, userNickname, userName]
         );
-        
+
         return 'ok'
     } catch (err) {
         console.error('Ошибка при регистрации:', err.message);
@@ -195,7 +195,6 @@ async function listAllUsers() {
         return result.rows.map(row => row.user_id);
     } catch (err) {
         console.error('Ошибка при получении user_id:', err.message);
-        throw new Error('Failed to retrieve user IDs');
     }
 }
 

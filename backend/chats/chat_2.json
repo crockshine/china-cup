@@ -5,6 +5,7 @@
     2
   ],
   "current_message": 11,
+
   "messages": {
     "1": {
       "textInOneMsg": "здравствуйте, видеокарта в наличии?",
@@ -48,6 +49,7 @@
     },
     "11": {
       "textInOneMsg": "ввщфы",
+
       "bySend": 1
     }
   }

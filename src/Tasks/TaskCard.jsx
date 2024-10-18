@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from 'react';
 
-export default function TaskCard({taskID}){
+export default function TaskCard({ taskID }) {
   const [taskName, setTaskName] = React.useState('');
   const [taskDeadLine, setTaskDeadLine] = React.useState('');
   const [taskSubTasksCount, setTaskSubTasksCount] = React.useState(0);
@@ -35,9 +35,50 @@ export default function TaskCard({taskID}){
     return data.taskData;
   }
 
-  const downloadTask = ()=>{
+  // Функция для скачивания файла с описанием задания
+  const downloadTask = async () => {
+    const fileName = `task_${taskID}.txt`; // Название файла
+    const fileUrl = `/tasks/${fileName}`; // Путь к файлу на сервере (в папке public/tasks)
 
-  }  
+    // Отправляем запрос на сервер для добавления пользователя в задачу
+    await addUserToTask(taskID);
+
+    // Создаем скрытый <a> элемент для скачивания
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.setAttribute('download', fileName);
+
+    // Программно кликаем на ссылку, чтобы скачать файл
+    document.body.appendChild(link);
+    link.click();
+
+    // Удаляем ссылку после скачивания
+    document.body.removeChild(link);
+  };
+
+  // Функция для добавления пользователя в задачу
+  const addUserToTask = async (taskID) => {
+    try {
+      const response = await fetch('/api/add_user_to_task', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          taskID
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Пользователь добавлен в задачу');
+      } else {
+        console.error('Ошибка при добавлении пользователя в задачу');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
+  };
+
   return (
     <div className="task_card hover:cursor-pointer" onClick={downloadTask}>
       <div className="card__title">
@@ -46,11 +87,11 @@ export default function TaskCard({taskID}){
       <div className="card__description">
         <div className="deadline">
           <img className="image_Card" src="../icons/time.jpg" alt="" />
-          <h1 className="card__label ">Deadline: {new Date(taskDeadLine).toLocaleDateString()}</h1>
+          <h1 className="card__label">Deadline: {new Date(taskDeadLine).toLocaleDateString()}</h1>
         </div>
         <div className="files__count">
           <img className="image_Card" src="../icons/download.jpg" alt="" />
-          <h1 className="card__label">{0} Files</h1>
+          <h1 className="card__label">{1} Files</h1>
         </div>
         <div className="tasks__count">
           <img className="image_Card" src="../icons/count.jpg" alt="" />

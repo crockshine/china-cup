@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser()); // Подключаем middleware для работы с куками
 const PORT = 3000;
 
-//checkForAllUsers();
+checkForAllUsers();
 printInfo();
 
 // Указываем папку со статическими файлами (React build)

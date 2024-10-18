@@ -1,0 +1,42 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.2",
+    "time": "05:11"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Implement user authentication",
+    "time": "10:29"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Integrate third-party services",
+    "time": "13:40"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "03:35"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Create data visualizations",
+    "time": "20:45"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "08:27"
+  },
+  "7": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "02:42"
+  },
+  "8": {
+    "event": "Solved the task",
+    "name": "Conduct user testing and feedback sessions",
+    "time": "03:02"
+  }
+}
