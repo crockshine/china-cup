@@ -1,5 +1,6 @@
 import "./Schedule.css"
 import Event_schedule from "./Schedule_Event";
+import {useEffect} from "react";
 
 export default function Schedule() {
   var Cal = function(divId) {
@@ -123,7 +124,8 @@ export default function Schedule() {
     });
   };
 
-  window.onload = function() {
+
+  useEffect(()=>{
     var c = new Cal("divCal");
     c.showcurr();
     getId('btnNext').onclick = function() {
@@ -132,8 +134,10 @@ export default function Schedule() {
     getId('btnPrev').onclick = function() {
       c.previousMonth();
     };
-  };
+  })
+  // При загрузке окна
 
+  // Получить элемент по id
   function getId(id) {
     return document.getElementById(id);
   }

@@ -9,6 +9,8 @@ import Messenger from "./Messenger/Messenger.tsx";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Dashboard from "./Dashboard/Dashboard.jsx";
+import About from "./Header/InfoFields/About";
+import Policy from "./Header/InfoFields/Policy";
 
 export default function SuccessAuth() {
     const navigate = useNavigate();
@@ -20,9 +22,9 @@ export default function SuccessAuth() {
 
         //console.log("Kek: ", loginState, sessionID);
 
-        if (loginState != "true") {
-            //navigate('/');
-        }
+         if (loginState != "true") {
+             navigate('/');
+         }
 
     }, [navigate]);
 
@@ -32,7 +34,7 @@ export default function SuccessAuth() {
 
             <div className="MainContent py-10 px-4 sm:px-8 md:px-16 flex flex-grow gap-4 sm:gap-8 md:gap-16 w-full h-full overflow-hidden">
 
-                <div className="LeftBar h-full px-4 sm:px-10 pb-10 w-80  flex flex-col items-center justify-between overflow-auto">
+                <div className="LeftBar h-full px-4 sm:px-10 pb-10 w-80  flex flex-col items-center justify-between overflow-hidden ">
                     <LeftBar/>
                 </div>
 
@@ -44,9 +46,15 @@ export default function SuccessAuth() {
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Schedule/>}></Route>
                         <Route path='/files' element={<Profile/>}></Route>
-                        <Route path='/' element={<div>
-                            <UserProfile/>
-                        </div>}></Route>
+                        <Route path='/' element={<div
+                            className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-4xl">
+                            <p>Hello user!</p>
+                        </div>}>
+                        </Route>
+
+                        <Route path={'/about'} element={<About/>}></Route>
+                        <Route path={'/policy'} element={<Policy/>}></Route>
+
                         <Route path='/*' element={
                             <div
                                 className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-2xl">

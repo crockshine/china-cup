@@ -1,0 +1,14 @@
+{
+  "chat_id": 1,
+  "users": [
+    5,
+    4
+  ],
+  "messages": {
+    "1": {
+      "textInOneMsg": "Ghbdtn",
+      "bySend": 4
+    }
+  },
+  "current_message": 1
+}

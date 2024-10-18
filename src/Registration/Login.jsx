@@ -48,7 +48,7 @@ export default function Registration() {
         // Проверяем наличие куки 'loggedIn'
         if (data.loginState === "true") {
           Cookies.set('loginState', data.loginState);
-          Cookies.set('token', data.token);
+          Cookies.set('token', data.token, { expires: 1 }); // Сохраняем токен в куки с сроком действия 1 день
         }
 
         if (data.loginState === "true") {
@@ -75,7 +75,7 @@ export default function Registration() {
   return(
     <main className="main">
       <div className="center_block">
-        <h1 className="reg_label">Registration Form</h1>
+        <h1 className="reg_label">Login Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
         <div className="steps_verification">
             <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>

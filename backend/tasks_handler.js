@@ -1,43 +1,17 @@
-const tasks_folder = "./tasks"
-const fs = require('fs');
-const path = require('path');
+const db = require('./db'); // Подключаем модуль для работы с БД
 
-function loadCurrentTaskID() {
-    const files = fs.readdirSync(tasks_folder);
-    let output_value = 0;
-
-    files.forEach(file => {
-        const filePath = path.join(tasks_folder, file);
-        
-        if (path.extname(file) === '.json') {
-            const fileContent = fs.readFileSync(filePath, 'utf8');
-            const jsonData = JSON.parse(fileContent);
-            const taskID = jsonData.id;
-            
-            output_value = Math.max(output_value, taskID);
-        }
-    });
-
-    return output_value;
+// Получение текущего максимального ID задачи
+async function loadCurrentTaskID() {
+    const result = await db.query('SELECT MAX(id) as max_id FROM task');
+    const maxID = result.rows[0].max_id || 0; // Если нет задач, вернуть 0
+    return maxID;
 }
 
-function listAllTasksInFolder() {
-    const files = fs.readdirSync(tasks_folder);
-    let output_value = [];
-
-    files.forEach(file => {
-        const filePath = path.join(tasks_folder, file);
-        
-        if (path.extname(file) === '.json') {
-            const fileContent = fs.readFileSync(filePath, 'utf8');
-            const jsonData = JSON.parse(fileContent);
-            const taskID = jsonData.id;
-
-            output_value.push(taskID);
-        }
-    });
-
-    return output_value;
+// Получение всех ID задач
+async function listAllTasksInFolder() {
+    const result = await db.query('SELECT id FROM task');
+    const taskIDs = result.rows.map(row => row.id);
+    return taskIDs;
 }
 
 module.exports = { loadCurrentTaskID, listAllTasksInFolder };
