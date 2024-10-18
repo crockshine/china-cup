@@ -1,10 +1,13 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./auth');
+const { listAllChatsForUser, printInfo } = require('./messenger_mgr');
 
 const express = require('express');
 const path = require('path');
 
 const app = express();
 const PORT = 3000;
+
+printInfo();
 
 // Указываем папку со статическими файлами (React build)
 app.use(express.static(path.join(__dirname, '../build')));

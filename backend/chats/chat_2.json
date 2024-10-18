@@ -1,0 +1,38 @@
+{
+  "chat_id": 2,
+  "users": [
+    1,
+    2
+  ],
+  "current_message": 7,
+  "messages": {
+    "1": {
+      "textInOneMsg": "здравствуйте, видеокарта в наличии?",
+      "bySend": 1
+    },
+    "2": {
+      "textInOneMsg": "Да. Когда готовы приехать посмотреть?",
+      "bySend": 2
+    },
+    "3": {
+      "textInOneMsg": "мб сегодня завтра",
+      "bySend": 1
+    },
+    "4": {
+      "textInOneMsg": "что там вообще по сотоянию товара???",
+      "bySend": 1
+    },
+    "5": {
+      "textInOneMsg": "???",
+      "bySend": 1
+    },
+    "6": {
+      "textInOneMsg": "ауууууу",
+      "bySend": 1
+    },
+    "7": {
+      "textInOneMsg": "????",
+      "bySend": 1
+    }
+  }
+}
