@@ -19,9 +19,9 @@ export default function SuccessAuth() {
 
         //console.log("Kek: ", loginState, sessionID);
 
-        // if (loginState != "true") {
-        //     navigate('/');
-        // }
+         if (loginState != "true") {
+             navigate('/');
+         }
 
     }, [navigate]);
 
