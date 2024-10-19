@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount } = require('./../auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData } = require('./../auth')
 const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
 const { checkForAllUsers } = require('./../dashboard_handler');
 
@@ -67,6 +67,39 @@ module.exports = function (app) {
         try {
             const userNickName = await getUserNickName(token);
             res.json({ userNickName });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+
+    app.post('/api/get_user_techstack', async (req, res) => { 
+        const { token } = req.body;
+
+        try {
+            const _userTechStack = await getUserTechStack(token);
+            res.json({ userTechStack: _userTechStack });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+
+    app.post('/api/get_user_mail', async (req, res) => { 
+        const { token } = req.body;
+
+        try {
+            const _userMail = await getUserMail(token);
+            res.json({ userMail: _userMail });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+
+    app.post('/api/set_user_data', async (req, res) => { 
+        const { token, nickname, email, techStack } = req.body;
+
+        try {
+            await setUserData(token, nickname, email, techStack);
+            res.json({ result: "ZAEBIS" });
         } catch (err) {
             res.status(401).json({ error: 'Invalid token' });
         }

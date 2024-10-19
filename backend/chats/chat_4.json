@@ -12,7 +12,11 @@
     "2": {
       "textInOneMsg": "ffdddadfadf df df df sd f",
       "bySend": 1
+    },
+    "3": {
+      "textInOneMsg": "12345678",
+      "bySend": 3
     }
   },
-  "current_message": 2
+  "current_message": 3
 }
