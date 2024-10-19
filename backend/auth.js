@@ -90,7 +90,7 @@ async function makeSession(userMail) {
     const user = result.rows[0];
 
     // Генерируем JWT токен
-    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '90m' });
+    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '99999m' });
 
     // Сохраняем сессию в БД
     await db.query(
