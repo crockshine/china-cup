@@ -9,7 +9,7 @@ import ModalWindow from './Stores/ModalWindow'
 
 const  App = observer(() =>{
     return (
-        <div className="Window bg-slate-100 flex flex-col h-screen w-screen overflow-hidden"
+        <div className="Window bg-slate-100 flex flex-col overflow-hidden"
              >
             <BrowserRouter>
                 <ModalWindowWrapper isOpen={ModalWindow.isOpen} closeWindow={ModalWindow.closeWindow}/>

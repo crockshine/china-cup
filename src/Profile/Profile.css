@@ -28,13 +28,6 @@
   }
 }
 
-@media (width >= 2000px) {
-  .Main {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-
 .card {
   width: 225px;
   height: 200px;
