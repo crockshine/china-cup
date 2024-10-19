@@ -177,6 +177,7 @@ function Modal({ isOpen, onClose, onSubmit }) {
     setUserData(nickname, email, techStack);
     onClose();
     navigate(0); // Перезагружает текущую страницу
+
   };
 
   return (
