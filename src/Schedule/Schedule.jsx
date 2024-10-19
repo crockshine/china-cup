@@ -91,7 +91,7 @@ export default function Schedule() {
     html += '</table>';
     document.getElementById(this.divId).innerHTML = html;
 
-    // Добавляем обработчик для кликов на днях
+
     var days = document.querySelectorAll(`#${this.divId} td[data-day]`);
     days.forEach(day => {
       day.addEventListener('click', function() {
@@ -99,31 +99,67 @@ export default function Schedule() {
         if (selectedDay === 19) {
           document.querySelector('.october17').style.display = 'none';
           document.querySelector('.october18').style.display = 'none';
-          document.querySelector('.october19').style.display ='block';
-          document.querySelector('.october27').style.display = 'none'
+          document.querySelector('.october19').style.display = 'block';
+          document.querySelector('.october16').style.display = 'none';
+          document.querySelector('.october20').style.display = 'none';
+          document.querySelector('.october21').style.display = 'none';
+          document.querySelector('.october27').style.display = 'none';
         } else if (selectedDay === 18) {
           document.querySelector('.october17').style.display = 'none';
-          document.querySelector('.october18').style.display ='block';
+          document.querySelector('.october18').style.display = 'block';
           document.querySelector('.october19').style.display = 'none';
-          document.querySelector('.october27').style.display = 'none'
-
-        }
-        else if (selectedDay === 17) {
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 17) {
           document.querySelector('.october18').style.display = 'none';
           document.querySelector('.october19').style.display = 'none';
           document.querySelector('.october17').style.display = 'block';
-          document.querySelector('.october27').style.display = 'none'
-        }
-        else if (selectedDay === 27) {
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 15) {
+          document.querySelector('.october15').style.display = 'block';
+          document.querySelector('.october16').style.display = 'none';
+          document.querySelector('.october17').style.display = 'none';
+          document.querySelector('.october18').style.display = 'none';
+          document.querySelector('.october19').style.display = 'none';
+          document.querySelector('.october20').style.display = 'none';
+          document.querySelector('.october21').style.display = 'none';
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 16) {
+          document.querySelector('.october15').style.display = 'none';
+          document.querySelector('.october16').style.display = 'block';
+          document.querySelector('.october17').style.display = 'none';
+          document.querySelector('.october18').style.display = 'none';
+          document.querySelector('.october19').style.display = 'none';
+          document.querySelector('.october20').style.display = 'none';
+          document.querySelector('.october21').style.display = 'none';
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 20) {
+          document.querySelector('.october15').style.display = 'none';
+          document.querySelector('.october16').style.display = 'none';
+          document.querySelector('.october17').style.display = 'none';
+          document.querySelector('.october18').style.display = 'none';
+          document.querySelector('.october19').style.display = 'none';
+          document.querySelector('.october20').style.display = 'block';
+          document.querySelector('.october21').style.display = 'none';
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 21) {
+          document.querySelector('.october15').style.display = 'none';
+          document.querySelector('.october16').style.display = 'none';
+          document.querySelector('.october17').style.display = 'none';
+          document.querySelector('.october18').style.display = 'none';
+          document.querySelector('.october19').style.display = 'none';
+          document.querySelector('.october20').style.display = 'none';
+          document.querySelector('.october21').style.display = 'block';
+          document.querySelector('.october27').style.display = 'none';
+        } else if (selectedDay === 27) {
           document.querySelector('.october18').style.display = 'none';
           document.querySelector('.october19').style.display = 'none';
           document.querySelector('.october17').style.display = 'none';
-          document.querySelector('.october27').style.display = 'block'
-        }
+
+          document.querySelector('.october27').style.display = 'block';
+        }        
       });
     });
   };
-
 
   useEffect(()=>{
     var c = new Cal("divCal");
@@ -135,13 +171,10 @@ export default function Schedule() {
       c.previousMonth();
     };
   })
-  // При загрузке окна
 
-  // Получить элемент по id
   function getId(id) {
     return document.getElementById(id);
   }
-
 
   return (
     <main className="main_window">
@@ -152,27 +185,47 @@ export default function Schedule() {
       </div>
       <div className="alert_window">
         <header className="header_schedule">
-          <div className="today">19 OCTOBER</div>
+          <div className="today">OCTOBER</div>
           <div className="add_section">+</div>
         </header>
         <main className="main_alert">
-          <div className="october18" style={{ display: 'none' }}>
-            <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
+          <div className="october15" style={{ display: 'none' }}>
+            <Event_schedule title={"Submit Project Proposal"} deadline_title={"10 AM - 11 AM"} />
+            <Event_schedule title={"Team Stand-up Meeting"} deadline_title={"12 PM - 12:30 PM"} />
           </div>
-          <div className="october19">
-            <Event_schedule title={"Do HomeT324asks"} deadline_title={"1 AM - 3:30 AM"} />
-            <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
+          <div className="october16" style={{ display: 'none' }}>
+            <Event_schedule title={"Design Review"} deadline_title={"2 PM - 3 PM"} />
+            <Event_schedule title={"Write Documentation"} deadline_title={"4 PM - 5 PM"} />
           </div>
           <div className="october17" style={{ display: 'none' }}>
-            <Event_schedule title={"Do HomeT324asks"} deadline_title={"1 AM - 3:30 AM"} />
-            <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
-            <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
+            <Event_schedule title={"Client Call"} deadline_title={"1 PM - 1:30 PM"} />
+            <Event_schedule title={"Prepare Presentation"} deadline_title={"3 PM - 4 PM"} />
+            <Event_schedule title={"Team Lunch"} deadline_title={"12 PM - 1 PM"} />
           </div>
-          <div className="october27" style={{ display: 'none' }}>
-            <Event_schedule title={"Do HomeT324asks"} deadline_title={"1 AM - 3:30 AM"} />
+          <div className="october18" style={{ display: 'none' }}>
+            <Event_schedule title={"Code Review Session"} deadline_title={"10 AM - 11 AM"} />
+            <Event_schedule title={"Update Project Board"} deadline_title={"2 PM - 3 PM"} />
+          </div>
+          <div className="october19">
+            <Event_schedule title={"Sprint Planning"} deadline_title={"10 AM - 11:30 AM"} />
+            <Event_schedule title={"Weekly Retrospective"} deadline_title={"1 PM - 2 PM"} />
+          </div>
+          <div className="october20" style={{ display: 'none' }}>
+            <Event_schedule title={"Finish User Stories"} deadline_title={"9 AM - 12 PM"} />
+            <Event_schedule title={"Lunch with Mentor"} deadline_title={"1 PM - 2 PM"} />
+          </div>
+          <div className="october21" style={{ display: 'none' }}>
+            <Event_schedule title={"Meet with Stakeholders"} deadline_title={"11 AM - 12 PM"} />
+            <Event_schedule title={"Plan Next Sprint"} deadline_title={"3 PM - 4 PM"} />
+          </div>
+          <div className="october27">
             <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
-            <Event_schedule title={"Do HomeT324asks"} deadline_title={"1 AM - 3:30 AM"} />
-            <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
+            <Event_schedule title={"Prepare for Conference"} deadline_title={"10 AM - 2 PM"} />
+            <Event_schedule title={"Team Building Activity"} deadline_title={"5 PM - 7 PM"} />
+          </div>
+          <div className="october28" style={{ display: 'none' }}>
+            <Event_schedule title={"Finalize Project Budget"} deadline_title={"10 AM - 11 AM"} />
+            <Event_schedule title={"Review Team Goals"} deadline_title={"2 PM - 3 PM"} />
           </div>
         </main>
       </div>
