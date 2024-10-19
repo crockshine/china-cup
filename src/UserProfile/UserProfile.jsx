@@ -154,6 +154,32 @@ async function setUserData(_nickname, _email, _techStack) {
   }
 };
 
+async function getUserRole() {
+  try {
+      const token = getToken();
+      const response = await fetch('/api/get_user_role', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              token: token
+          }),
+      });
+      
+      const data = await response.json();
+      return data.userRole;
+  } catch (error) {
+      console.log('Ошибка при получении никнейма пользователя:', error);
+  }
+};
+
+const rolesMap = new Map([
+  [5, "Administration"],
+  [1, "Student"],
+  [2, "Graduate"]
+]);
+
 function Modal({ isOpen, onClose, onSubmit }) {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -236,12 +262,16 @@ export default function UserProfile() {
     email: "example@mail.com",
     techStack: "Full-Stack",
   });
+  const [userRoleName, setUserRoleName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     async function invoke() {
       const userID = await loadUserID();
       const _dashboardContent = await listUserDashboard(userID);
+
+      setUserRoleName(rolesMap.get(await getUserRole()));
+
 
       // загружаем инфу о пользователе:
       const _userData = {
@@ -295,7 +325,7 @@ export default function UserProfile() {
             </div>
             <div className="user_info">
               <img src="/icons/settings.png" alt="" />
-              <p>Status: Student</p>
+              <p>Status: {userRoleName}</p>
             </div>
           </div>
         </div>

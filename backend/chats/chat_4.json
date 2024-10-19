@@ -16,7 +16,15 @@
     "3": {
       "textInOneMsg": "12345678",
       "bySend": 3
+    },
+    "4": {
+      "textInOneMsg": "имвивиавив",
+      "bySend": 1
+    },
+    "5": {
+      "textInOneMsg": "мваиа",
+      "bySend": 1
     }
   },
-  "current_message": 3
+  "current_message": 5
 }

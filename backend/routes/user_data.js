@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData } = require('./../auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole } = require('./../auth')
 const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
 const { checkForAllUsers } = require('./../dashboard_handler');
 
@@ -72,6 +72,17 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/api/get_user_role', async (req, res) => { 
+        const { token } = req.body;
+
+        try {
+            const _userRole = await getUserRole(token);
+            res.json({ userRole: _userRole });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+
     app.post('/api/get_user_techstack', async (req, res) => { 
         const { token } = req.body;
 
@@ -129,6 +140,19 @@ module.exports = function (app) {
         } catch (err) {
           console.error(err);
           res.status(500).json({ error: 'Failed to fetch task data' });
+        }
+    });
+
+    app.post('/api/add_new_task', async (req, res) => {
+        const { token, title, deadLine, subTasksCount } = req.body;
+      
+        try {
+            console.log('kek:', title);
+            const _result = await addNewTask(token, title, deadLine, subTasksCount);
+            res.json({ result: _result });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to fetch task data' });
         }
     });
 
