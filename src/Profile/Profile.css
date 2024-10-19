@@ -1,6 +1,3 @@
-/* Profile.css */
-
-
 .Main {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -39,16 +36,30 @@
   cursor: pointer;
 }
 
+.mail{
+  text-align: left;
+}
+
 .user_photo{
-  width: 65px;
-  height: 65px;
+  width: 75px;
+  height: 75px;
   border-radius: 13px;
+}
+
+.user_mails__blocks{
+  display: flex;
+  gap: 10px;
+}
+
+.mails_blocks__image{
+  width: 23px;
+  height: 23px;
 }
 
 .user_datas{
   display: flex;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 13px;
 }
 
 .more_about{
@@ -62,8 +73,6 @@
 .user_mails{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
   color: rgba(0, 0, 0, 0.562);
   font-weight: 400;
@@ -76,6 +85,7 @@
 
 .name{
   font-weight: 400;
+  margin-bottom: 5px;
 }
 
 .header_choose {

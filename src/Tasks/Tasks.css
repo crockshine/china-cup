@@ -10,6 +10,15 @@
   height: 28px;
 }
 
+.leader_card_image{
+  border-radius: 54px;
+  height: 90px;
+  width: 90px;
+  margin: 8px;
+  object-fit: cover; 
+  display: block; 
+}
+
 .task_card{
   display: flex;
   flex-direction: column;
@@ -53,6 +62,54 @@
 .card__label{
   margin-top: 6px;
   font-size: 13px;
+}
+
+.add_tasks{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.add_button_tasks{
+  background-color: rgb(72, 144, 252);
+  border-radius: 15px;
+  height: 30px;
+  width: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.add_button_tasks:hover{
+  background-color: rgb(58, 135, 250);
+}
+
+.button_tasks{
+  display: flex;
+  justify-content: space-between;
+}
+
+.close_button, .submit_task__button{
+  background-color: rgb(72, 144, 252);
+  border-radius: 15px;
+  height: 30px;
+  width: 110px;
+  color: white;
+  margin-top: 10px;
+}
+
+.upload_title_tasks{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.number_tasks{
+  display: flex;
+  flex-direction: column;
+}
+
+.close_button:hover, .submit_task__button:hover{
+  background-color: rgb(58, 135, 250);
 }
 
 @media (width <=683px){

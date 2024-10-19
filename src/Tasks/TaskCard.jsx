@@ -91,7 +91,7 @@ export default function TaskCard({ taskID }) {
         </div>
         <div className="files__count">
           <img className="image_Card" src="../icons/download.jpg" alt="" />
-          <h1 className="card__label">{1} Files</h1>
+          <h1 className="card__label">{1} File</h1>
         </div>
         <div className="tasks__count">
           <img className="image_Card" src="../icons/count.jpg" alt="" />

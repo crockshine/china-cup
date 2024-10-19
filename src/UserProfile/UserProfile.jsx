@@ -36,7 +36,7 @@ function Modal({ isOpen, onClose, onSubmit }) {
           <div className="upload_title">
             <p className="image_upload__title">Upload image</p>
         <label htmlFor="file-input" className="custom-file-upload">
-          Выберите файл
+          Choose File
         </label>
         </div>
         <input

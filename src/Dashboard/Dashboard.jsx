@@ -79,7 +79,7 @@ async function loadUserID() {
         <h2>Tasks</h2>
         </div>
         <div className="left_blocks">
-          <h1 className="count">12</h1>
+          <h1 className="count">645</h1>
         <h2>Members</h2>
         </div>
         <div className="left_blocks">
@@ -105,29 +105,37 @@ async function loadUserID() {
 
       <div className="leaderboard">
         <Leaderboard 
+        person_image={"/icons/sasha.jpg"}
         person_name={"Aleksandr Surovtsev"}
-        stages_count={4}
-        solutions={12}
-        stack={"Full-Stack"}
-        tasks_count={"5"}/>
+        person_place={1}
+        stages_count={8}
+        solutions={24}
+        stack={"Frontend"}
+        tasks_count={10}/>
                 <Leaderboard 
-        person_name={"Aleksandr Surovtsev"}
-        stages_count={4}
-        solutions={12}
-        stack={"Full-Stack"}
-        tasks_count={"5"}/>
+        person_image={"/icons/klim.jpg"}
+        person_name={"Klim Sarakeev"}
+        person_place={2}
+        stages_count={7}
+        solutions={20}
+        stack={"Databases"}
+        tasks_count={8}/>
+                <Leaderboard
+        person_image={"/icons/misha.jpg"} 
+        person_name={"Mihail Korolev"}
+        person_place={3}
+        stages_count={6}
+        solutions={18}
+        stack={"Frontend"}
+        tasks_count={7}/>
                 <Leaderboard 
-        person_name={"Aleksandr Surovtsev"}
-        stages_count={4}
-        solutions={12}
-        stack={"Full-Stack"}
-        tasks_count={"5"}/>
-                <Leaderboard 
-        person_name={"Aleksandr Surovtsev"}
-        stages_count={4}
-        solutions={12}
-        stack={"Full-Stack"}
-        tasks_count={"5"}/>
+        person_image={"/icons/sashajun.jpg"} 
+        person_name={"Aleksandr Resetnikov"}
+        person_place={4}
+        stages_count={5}
+        solutions={15}
+        stack={"Backend"}
+        tasks_count={6}/>
       </div>
       </div>
     </main>

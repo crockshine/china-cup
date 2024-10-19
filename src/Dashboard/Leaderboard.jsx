@@ -1,4 +1,5 @@
 export default function leaderboard({
+  person_image,
   person_name,
   person_place,
   stages_count,
@@ -9,10 +10,10 @@ export default function leaderboard({
   return(
     <div className="leader_card">
     <div className="person">
-      <img className="card_image" src="/icons/defaultProfile.png" alt="" />
+      <img className="leader_card_image" src={person_image} alt="" />
       <div className="about">
       <p className="person_name">{person_name}</p>
-      <p className="person_place">{person_place}</p>
+      <p className="person_place">{person_place} Place</p>
       </div>
     </div>
     <div className="person_state">
