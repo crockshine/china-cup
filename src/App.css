@@ -16,3 +16,11 @@
 body{
   font-family: Poppins, sans-serif;
 }
+
+.Window {
+  max-width: 1640px;
+  height: 100vh;
+  margin: 0 auto; /* Центрирует элемент */
+  display: flex; /* Включаем flexbox для выравнивания */
+  flex-direction: column; /* Вертикальное направление */
+}
