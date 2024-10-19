@@ -28,6 +28,7 @@
   overflow-y: auto;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.091);
+  background-color: white;
 }
 
 .events__profile{
@@ -192,4 +193,30 @@
 .modal_buttons{
   display: flex;
   justify-content: space-around;
+}
+
+@media (width <= 848px) {
+  .main_profile{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .blocks{
+    display: none;
+  }
+
+  .achivments_person{
+    width: 100%;
+  }
+
+  .profile_events{
+    width: 100%;
+  }
+
+  .profile_user{
+    height: 400px;
+    width: 100%;
+  }
 }

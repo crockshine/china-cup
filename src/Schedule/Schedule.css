@@ -28,7 +28,7 @@
 
 .add_section{
   border-radius: 50%;
-  background-color: aqua;
+  background-color: rgb(72, 144, 252);
   color: white;
   width: 35px;
   height: 35px;
@@ -43,11 +43,16 @@
   height: 100%;
 }
 
+.deadline_image{
+  width: 30px;
+  height: 27px;
+}
+
 .button_schedule{
   width: 150px;
   height: 30px;
   border-radius: 20px;
-  background-color: rgb(117, 212, 243);
+  background-color: rgb(72, 144, 252);
   margin-left: 10px;
   color: white;
   font-weight: bold;
@@ -55,7 +60,7 @@
 }
 
 .button_schedule:hover{
-  background-color: rgb(81, 201, 241);
+  background-color: rgb(58, 135, 250);
 }
 
 .event_card{
@@ -123,5 +128,32 @@ td.today {
 td:hover{
   font-weight: bold;
   font-size: 22px;
-  color: rgb(55, 123, 250);
+  color: rgb(72, 144, 252);
 } 
+
+
+@media (width <=1208px) {
+  .event_card{
+    height: 150px;
+  }
+}
+
+@media (width <= 664px) {
+  .main_window{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .alert_window{
+    width: 100%;
+    display: block;
+  }
+
+  .schedule{
+    width: 100%;
+  }
+
+  .header_schedule{
+    margin-bottom: 20px;
+  }
+}

@@ -45,7 +45,7 @@ export default function SuccessAuth() {
                         <Route path='/dashboard' element={<Dashboard/>}></Route>
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Schedule/>}></Route>
-                        <Route path='/files' element={<Profile/>}></Route>
+                        <Route path='/profile' element={<UserProfile/>}></Route>
                         <Route path='/' element={<div
                             className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-4xl">
                             <p>Hello user!</p>

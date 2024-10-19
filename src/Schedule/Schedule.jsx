@@ -152,14 +152,14 @@ export default function Schedule() {
       </div>
       <div className="alert_window">
         <header className="header_schedule">
-          <div className="today">18 OCTOBER</div>
+          <div className="today">19 OCTOBER</div>
           <div className="add_section">+</div>
         </header>
         <main className="main_alert">
-          <div className="october18">
+          <div className="october18" style={{ display: 'none' }}>
             <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
           </div>
-          <div className="october19" style={{ display: 'none' }}>
+          <div className="october19">
             <Event_schedule title={"Do HomeT324asks"} deadline_title={"1 AM - 3:30 AM"} />
             <Event_schedule title={"Do HomeTasks"} deadline_title={"1 AM - 3:30 AM"} />
           </div>

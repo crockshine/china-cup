@@ -9,7 +9,7 @@ export default function CardInLeftBar({text,image,opacity, router_link}){
 
 
     return (
-        <Link  className={`CardInLeftBar ${router_link !== location.pathname ? "" : "order-6 flex-shrink-0"}`} to={router_link}
+        <Link  className={`CardInLeftBar ${router_link !== location.pathname }`} to={router_link}
               onClick={ModalWindow.closeWindow}>
 
             <div  className={`${ !location.pathname.includes(router_link) ? "p-0 " : "p-6 w-full" } border-2  rounded-2xl text-base font-bold text-slate-600 flex flex-col items-center justify-center h-full  transition 
