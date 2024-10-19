@@ -6,25 +6,9 @@
   ],
   "messages": {
     "1": {
-      "textInOneMsg": "fdsfsd",
-      "bySend": 1
-    },
-    "2": {
-      "textInOneMsg": "ffdddadfadf df df df sd f",
-      "bySend": 1
-    },
-    "3": {
-      "textInOneMsg": "12345678",
-      "bySend": 3
-    },
-    "4": {
-      "textInOneMsg": "имвивиавив",
-      "bySend": 1
-    },
-    "5": {
-      "textInOneMsg": "мваиа",
+      "textInOneMsg": "hi",
       "bySend": 1
     }
   },
-  "current_message": 5
+  "current_message": 1
 }

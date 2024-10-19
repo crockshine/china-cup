@@ -74,7 +74,6 @@ export default function Messenger() {
                 }
                 async function myFunction() {
                     invoke();
-                    await new Promise(resolve => setTimeout(resolve, 150));
                     setMessagesData(_messagesData);
                     setCurrentUserID(_currentUserID);
                 }
