@@ -75,7 +75,7 @@ export default function Registration() {
   };
 
   return(
-    <main className="main">
+    <main className="main_registration">
       <div className="center_block ">
         <h1 className="reg_label">Registration Form</h1>
         <h2 className="about_label">Please fill out this form with the required information</h2>
