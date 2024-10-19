@@ -4,7 +4,7 @@
     1,
     2
   ],
-  "current_message": 11,
+  "current_message": 12,
   "messages": {
     "1": {
       "textInOneMsg": "здравствуйте, видеокарта в наличии?",
@@ -47,12 +47,11 @@
       "bySend": 1
     },
     "11": {
-      "textInOneMsg": "ввщфы",
-
+      "textInOneMsg": "jjkk",
       "bySend": 1
     },
-    "11": {
-      "textInOneMsg": "jjkk",
+    "12": {
+      "textInOneMsg": "rdgddgdt",
       "bySend": 1
     }
   }
