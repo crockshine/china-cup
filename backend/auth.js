@@ -155,6 +155,104 @@ async function getUserNickName(token) {
     }
 }
 
+async function getUserTechStack(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.techstack; // Предполагается, что в таблице есть поле 'techstack'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserNickName:', err);
+        return null;
+    }
+}
+
+async function getUserMail(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.email; // Предполагается, что в таблице есть поле 'techstack'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserNickName:', err);
+        return null;
+    }
+}
+
+async function setUserData(token, nickname, email, techStack) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null;
+    }
+
+    try {
+        // Расшифровка токена
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId; // Предполагаем, что в токене есть userId
+
+        // Проверка существования пользователя
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        //console.log(nickname, email, techStack);
+        // Обновляем данные пользователя в базе данных
+        const updateResult = await db.query(
+            `UPDATE "user" 
+             SET nickname = $1, email = $2, techstack = $3
+             WHERE user_id = $4
+             RETURNING *`,
+            [nickname, email, techStack, userId]
+        );
+
+        const updatedUser = updateResult.rows[0];
+
+        if (updatedUser) {
+            console.log('Данные пользователя успешно обновлены:', updatedUser);
+            return updatedUser;
+        } else {
+            console.log('Не удалось обновить данные пользователя');
+            return null;
+        }
+
+    } catch (err) {
+        console.log('Ошибка в setUserData:', err);
+        return null;
+    }
+}
+
 async function getUserRole(token) {
     if (!token) {
         console.log('Токен не предоставлен');
@@ -216,4 +314,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData };
