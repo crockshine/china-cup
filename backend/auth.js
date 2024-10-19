@@ -11,6 +11,47 @@ const bcrypt = require('bcrypt');
 
 const JWT_SECRET = 'goida';
 
+async function addNewTask(token, title, deadLine, subTasksCount) {
+    const userRole = await getUserRole(token);
+
+    // p.s. 5 - id роли администратора
+    if (userRole != 5) {
+        console.error('Ошибка при попытке добавить новую задачу:пользователю недостаточно прав.');
+        return "no";
+    }
+
+    try {
+        // Преобразование строки "2024-10-14" в формат даты
+        const deadlineDate = new Date(deadLine);
+
+        if (isNaN(deadlineDate.getTime())) {
+            console.error('Неверный формат даты.');
+            return "no";
+        }
+
+        // Вставляем новую задачу в базу данных
+        const result = await db.query(
+            `INSERT INTO task (task_name, dead_line, sub_tasks_count) 
+             VALUES ($1, $2, $3) 
+             RETURNING *`,
+            [title, deadlineDate, subTasksCount]
+        );
+
+        // const newTask = result.rows[0];
+
+        // if (newTask) {
+        //     console.log('Задача успешно добавлена');
+             return "ok";
+        // } else {
+        //     console.error('Не удалось добавить задачу.');
+        //     return "no";
+        // }
+    } catch (err) {
+        console.error('Ошибка при попытке добавить новую задачу:', err.message);
+        throw new Error('Add new failed');
+    }
+}
+
 // Попытка входа в аккаунт (сравнение вводимого пароля и почты с необходимыми)
 async function tryToLogin(userMail, userPassword) {
     try {
@@ -314,4 +355,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole };
