@@ -4,7 +4,7 @@
     1,
     2
   ],
-  "current_message": 12,
+  "current_message": 4,
   "messages": {
     "1": {
       "textInOneMsg": "здравствуйте, видеокарта в наличии?",
@@ -20,38 +20,6 @@
     },
     "4": {
       "textInOneMsg": "что там вообще по сотоянию товара???",
-      "bySend": 1
-    },
-    "5": {
-      "textInOneMsg": "ррпкрп",
-      "bySend": 1
-    },
-    "6": {
-      "textInOneMsg": "jjjjjj",
-      "bySend": 2
-    },
-    "7": {
-      "textInOneMsg": "hhhjrgrd",
-      "bySend": 2
-    },
-    "8": {
-      "textInOneMsg": "g",
-      "bySend": 1
-    },
-    "9": {
-      "textInOneMsg": "jjjj",
-      "bySend": 1
-    },
-    "10": {
-      "textInOneMsg": "пошел нахуй",
-      "bySend": 1
-    },
-    "11": {
-      "textInOneMsg": "jjkk",
-      "bySend": 1
-    },
-    "12": {
-      "textInOneMsg": "rdgddgdt",
       "bySend": 1
     }
   }
