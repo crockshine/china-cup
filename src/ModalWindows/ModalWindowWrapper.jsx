@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import LeftBar from "../LeftBar/LeftBar";
+import LeftBar from "../Pages/LeftBar/LeftBar";
 const ModalWindowWrapper = observer(({ isOpen, closeWindow }) => {
     return (
         <div className={`${isOpen ? "block" : "hidden"}`}>

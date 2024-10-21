@@ -1,5 +1,4 @@
 const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole } = require('./../auth')
-const authMiddleware = require('./../middleware'); // Путь к файлу с вашим middleware
 const { checkForAllUsers } = require('./../dashboard_handler');
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js

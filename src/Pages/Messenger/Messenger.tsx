@@ -25,7 +25,7 @@ export default function Messenger() {
 
     const navigate = useNavigate(); // Хук для навигации
     useEffect(() => {
-        function getFromUserID(thisUserID, users) {
+         function getFromUserID(thisUserID, users) {
             if (users[0] == thisUserID) return users[1];
             else return users[0];
         }
@@ -40,7 +40,7 @@ export default function Messenger() {
                 async function invoke() {
                     const _messages = await loadChatMessages(chatID);
                     const users = await loadChatsUsers(chatID);
-                    const fromUserID = getFromUserID(_currentUserID, users);
+                    const fromUserID =  getFromUserID(_currentUserID, users);
                     const fromUserName = await loadUserNameByID(fromUserID);
 
                     // парсим сообщения

@@ -4,8 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import React, { useEffect } from 'react';
 import './LeftBar.css'
 
-import SecondModalWindow from "../Stores/SecondModalWindow";
-import SecondModalWindowWrapper from "../ModalWindows/SecondModalWindowWrapper";
+import SecondModalWindow from "../../Stores/SecondModalWindow";
+import SecondModalWindowWrapper from "../../ModalWindows/SecondModalWindowWrapper";
 import {observer} from "mobx-react-lite";
 const LeftBar = observer(()=>{
     const [currentToken, setToken] = React.useState('');
@@ -91,7 +91,7 @@ const LeftBar = observer(()=>{
 
             <div className="MainInfo  flex flex-col mb-5 items-center ">
                 {/* Если авы нет добавить стандартную */}
-                <div className="w-24 h-24 sm:w-32 sm:h-32 relative rounded-full mb-5 flex justify-center items-center bg-cover">
+                <div className="w-20 h-16 sm:w-32 sm:h-32 relative rounded-full mb-5 flex justify-center items-center bg-cover">
                     <img src="/icons/defaultProfile.png" alt="" className="opacity-70"/>
                     <div className="w-28 h-28 border-4 absolute  border-amber-500 rounded-full"></div>
                 </div>
