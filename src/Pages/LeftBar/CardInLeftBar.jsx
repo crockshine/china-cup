@@ -1,5 +1,5 @@
 import {Link, useLocation} from "react-router-dom";
-import ModalWindow from "../Stores/ModalWindow";
+import ModalWindow from "../../Stores/ModalWindow";
 import './LeftBar.css'
 import {useEffect, useState} from "react";
 

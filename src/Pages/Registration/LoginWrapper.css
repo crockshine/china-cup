@@ -71,11 +71,7 @@
 
 .reg_button{
   width: 60%;
-  background-color: rgb(84, 178, 255);
-  height: 50px;
-  border-radius: 10px;
-  color: white;
-  font-size: 18px;
+
 }
 
 .submit_button:hover{
