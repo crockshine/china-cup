@@ -74,8 +74,8 @@ export default function Registration() {
   };
 
   return(
-    <LoginWrapper>
-            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
+    <LoginWrapper  switchLoginOrRegistration = {handleGotoRegistration} submitEvent = {handleSubmit} text={'Login form'}>
+            <form className="form" id="loginForm" action="login" method="post" >
                 <div className="mail_input">
                     <p className='label'>Email</p>
                     <input
