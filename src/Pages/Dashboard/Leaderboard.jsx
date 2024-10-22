@@ -17,10 +17,10 @@ export default function leaderboard({
       </div>
     </div>
     <div className="person_state">
-      <div className="options_state"><img className="image_state" src="/icons/search.png" alt="" /> <p>{stages_count} Stages</p></div>
-      <div className="options_state"><img className="image_state" src="/icons/search.png" alt="" /> <p>{solutions} Solutions</p></div>
-      <div className="options_state"><img className="image_state" src="/icons/search.png" alt="" /> <p>{stack} Developer</p></div>
-      <div className="options_state"><img className="image_state" src="/icons/search.png" alt="" /> <p>{tasks_count} Tasks</p></div>
+      <div className="options_state"><img className="image_state" src="/image/search.png" alt="" /> <p>{stages_count} Stages</p></div>
+      <div className="options_state"><img className="image_state" src="/image/search.png" alt="" /> <p>{solutions} Solutions</p></div>
+      <div className="options_state"><img className="image_state" src="/image/search.png" alt="" /> <p>{stack} Developer</p></div>
+      <div className="options_state"><img className="image_state" src="/image/search.png" alt="" /> <p>{tasks_count} Tasks</p></div>
     </div>
   </div>
   )
