@@ -3,7 +3,7 @@ import TaskCard from './TaskCard';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
-
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 function getToken() {
   return Cookies.get('token');
 }
@@ -108,35 +108,35 @@ export default function Tasks() {
     setModalOpen(false); 
     navigate(0); // Перезагружает текущую страницу
   };
-
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
   return (
     <main>
       {error && <div className="error">{error}</div>}
-      <div className="main_blocks">
-        <div className="add_tasks">
-          {(userRole == 5)?(<button 
-            className="add_button_tasks" 
-            onClick={() => setModalOpen(true)}
+      <div className="main_blocks" ref={parent}>
+        <div className="add_tasks" ref={parent}>
+          {(userRole == 5) ? (<button
+              className="add_button_tasks"
+              onClick={() => setModalOpen(true)}
           >
             +
-          </button>):(<div></div>)}
+          </button>) : (<div></div>)}
         </div>
         {Array.isArray(tasksList) && tasksList.length > 0 ? (
-          tasksList.map((item) => (
-            <TaskCard key={item} taskID={item} />
-          ))
+            tasksList.map((item) => (
+                <TaskCard key={item} taskID={item}/>
+            ))
         ) : (
-          <div>No tasks available</div>
+            <div>No tasks available</div>
         )}
       </div>
-      
+
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <form onSubmit={handleModalSubmit}>
-              <label>
-                Title:
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <div className="modal">
+            <div className="modal-content">
+              <form onSubmit={handleModalSubmit}>
+                <label>
+                  Title:
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
               </label>
               <label>
                 Deadline:

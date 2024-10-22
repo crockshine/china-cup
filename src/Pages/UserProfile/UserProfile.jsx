@@ -4,6 +4,7 @@ import Event from "../Dashboard/Event";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import ModalWindowLoader from "../../Stores/ModalWindowLoader";
+import CardInProfile from "./CardInProfile";
 
 function getToken() {
   return Cookies.get('token');
@@ -306,83 +307,91 @@ export default function UserProfile() {
   };
 
   return (
-    <main className="main_profile">
-      <div className="achivments_person">
-        <div className="profile_user">
-          <div className="profile_data">
-            <div className="profile_photo">
-              <img src="/image/defaultProfile.png" alt="" />
-            </div>
-            <div className="profile_nickname">
-              <p className="user_name">Name: {userData.name}</p>
-              <p className="user_nickname">Nickname: {userData.nickname}</p>
-              <p className="user_role">Stack: {userData.techStack}</p>
-            </div>
-            <button onClick={handleEditClick} className="edit_button">Edit</button>
+      <main className="main_profile w-full  flex h-full overflow-hidden p-5 gap-5">
+
+          <div className="left_bar  achivments_person w-full flex flex-col  items-center text-center">
+
+              <span className="mb-4 font-bold text-2xl sticky">Information</span>
+
+              <div  onClick={handleEditClick} className="profile_user w-full shadow-xl transition rounded-2xl bg-slate-50
+                                hover:shadow-2xl hover:-translate-y-1.5 p-4 hover:cursor-pointer ">
+
+                  <div className="profile_data flex flex-row items-center h-1/2 justify-around">
+                      <div className="profile_photo w-28 h-28">
+                          <img src="/image/defaultProfile.png" alt=""/>
+                      </div>
+
+                      <div className="profile_nickname p-5 flex flex-col gap-2 text-start">
+                          <p className="user_name text-xl">Name: <span className="font-bold ">{userData.name}</span></p>
+                          <p className="user_nickname text-xl">Nickname:<span className="font-bold"> {userData.nickname}</span>                          </p>
+                          <p className="user_role text-xl">Stack:<span className="font-bold"> {userData.techStack !== 'null' ? userData.techStack : 'specify'}</span></p>
+                      </div>
+                      {/*<button className="edit_button">Edit</button>*/}
+                  </div>
+                    <div className='w-full border'></div>
+                  <div className="profile_settings h-1/2 p-4 flex flex-col gap-2">
+                      <div className="user_info flex gap-2 text-start">
+                          <img src="/image/files.png" alt=""/>
+                          <p>{userData.email}</p>
+                      </div>
+                      <div className="user_info flex gap-2 text-start">
+                          <img src="/image/members.jpg" alt=""/>
+                          <p>24 Friends</p>
+                      </div>
+                      <div className="user_info flex gap-2 text-start">
+                          <img src="/image/settings.png" alt=""/>
+                          <p>Status: {userRoleName}</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div className="block-list w-full h-full flex items-center justify-center">
+                  <div className="blocks flex flex-wrap gap-8 flex-row items-center justify-center">
+
+
+                      <CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
+                      <CardInProfile text={'Members'} count={38} color={'bg-pink-400'}/>
+                      <CardInProfile text={'Course'} count={3} color={'bg-green-400'}/>
+                      <CardInProfile text={'Repositories'} count={12} color={'bg-blue-500'}/>
+                      <CardInProfile text={'Chats'} count={4} color={'bg-yellow-400'}/>
+                      <CardInProfile text={'Messages'} count={47} color={'bg-orange-500'}/>
+
+
+                  </div>
+              </div>
+
+
           </div>
-          <div className="profile_settings">
-            <div className="user_info">
-              <img src="/image/files.png" alt="" />
-              <p>{userData.email}</p>
-            </div>
-            <div className="user_info">
-              <img src="/image/members.jpg" alt="" />
-              <p>24 Friends</p>
-            </div>
-            <div className="user_info">
-              <img src="/image/settings.png" alt="" />
-              <p>Status: {userRoleName}</p>
-            </div>
+
+          <div className="right_bar w-full flex flex-col items-center">
+              <span className="mb-4 font-bold text-2xl sticky">History</span>
+              <div
+                  className="profile_events  overflow-y-scroll h-full w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
+
+                  <div className="events__profile h-96 w-full bg-slate-50">
+                      {Object.keys(dashboardContent).map((key) => {
+                          const item = dashboardContent[key];
+                          return (
+                              <Event
+                                  key={key}
+                                  image={"/image/defaultProfile.png"}
+                                  event_title={item.event}
+                                  what_todo={item.name}
+                                  time={item.time}
+                              />
+                          );
+                      })}
+                  </div>
+              </div>
+
+
           </div>
-        </div>
-        <div className="blocks">
-        <div className="left_blocks">
-          <h1 className="count">21</h1>
-          <h2>Projects</h2>
-          </div>
-          <div className="left_blocks">
-          <h1 className="count">38</h1>
-          <h2>Members</h2>
-          </div>
-          <div className="left_blocks">
-          <h1 className="count">3</h1>
-          <h2>Course</h2>
-          </div>
-          <div className="left_blocks">
-          <h1 className="count">12</h1>
-          <h2>Repositories</h2>
-          </div>
-          <div className="left_blocks">
-          <h1 className="count">4</h1>
-          <h2>Chats</h2>
-          </div>
-          <div className="left_blocks">
-          <h1 className="count">47</h1>
-          <h2>Messages</h2>
-          </div>
-        </div>
-      </div>
-      <div className="profile_events">
-        <div className="events__profile">
-          {Object.keys(dashboardContent).map((key) => {
-            const item = dashboardContent[key];
-            return (
-              <Event 
-                key={key}
-                image={"/image/defaultProfile.png"}
-                event_title={item.event}
-                what_todo={item.name}
-                time={item.time}
-              />
-            );
-          })}     
-        </div>
-      </div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={handleModalSubmit}
-      />
-    </main>
+
+          <Modal
+              isOpen={isModalOpen}
+              onClose={() => setModalOpen(false)}
+              onSubmit={handleModalSubmit}
+          />
+      </main>
   );
 }
