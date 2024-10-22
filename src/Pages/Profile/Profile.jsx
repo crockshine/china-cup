@@ -1,6 +1,7 @@
 import './Profile.css';
 import Card from './Card';
 import { useState } from 'react';
+import {useAutoAnimate} from "@formkit/auto-animate/react";
 
 export default function Profile() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -37,9 +38,10 @@ export default function Profile() {
   const filteredUsers = selectedStack
     ? users.filter(user => user.stack === selectedStack)
     : users;
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
 
   return (
-    <div className="Profile h-full">
+    <div className="Profile h-full overflow-x-hidden overflow-y-scroll">
       <header className="Header flex justify-center items-center gap-10 h-20">
         {headers.map((header, index) => (
           <h1
@@ -51,7 +53,7 @@ export default function Profile() {
           </h1>
         ))}
       </header>
-      <main className="Main">
+      <main className="Main" ref={parent}>
         {filteredUsers.map((user, index) => (
           <Card
             key={index}
