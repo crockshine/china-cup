@@ -305,7 +305,7 @@ export default function UserProfile() {
         <div className="profile_user">
           <div className="profile_data">
             <div className="profile_photo">
-              <img src="/icons/defaultProfile.png" alt="" />
+              <img src="/image/defaultProfile.png" alt="" />
             </div>
             <div className="profile_nickname">
               <p className="user_name">Name: {userData.name}</p>
@@ -316,15 +316,15 @@ export default function UserProfile() {
           </div>
           <div className="profile_settings">
             <div className="user_info">
-              <img src="/icons/files.png" alt="" />
+              <img src="/image/files.png" alt="" />
               <p>{userData.email}</p>
             </div>
             <div className="user_info">
-              <img src="/icons/members.jpg" alt="" />
+              <img src="/image/members.jpg" alt="" />
               <p>24 Friends</p>
             </div>
             <div className="user_info">
-              <img src="/icons/settings.png" alt="" />
+              <img src="/image/settings.png" alt="" />
               <p>Status: {userRoleName}</p>
             </div>
           </div>
@@ -363,7 +363,7 @@ export default function UserProfile() {
             return (
               <Event 
                 key={key}
-                image={"/icons/defaultProfile.png"}
+                image={"/image/defaultProfile.png"}
                 event_title={item.event}
                 what_todo={item.name}
                 time={item.time}
