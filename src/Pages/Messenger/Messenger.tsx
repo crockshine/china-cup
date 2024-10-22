@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import FoundUserCard from "./FoundUserCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import MessageList from "./MessageList";
+import { io } from 'socket.io-client';
 
 export default function Messenger() {
     const [value, setValue] = useState('');
@@ -26,7 +27,7 @@ export default function Messenger() {
 
     const sendData = () => {
         if (value) {
-            const currentSelectChatID = Number(location.pathname.split('/')[3]);
+            const currentSelectChatID = Number(location.pathname.split('/')[2]);
             //alert(currentSelectChatID);
             sendMessage(currentSelectChatID, currentUserID, value);
             setValue('');
@@ -105,7 +106,22 @@ export default function Messenger() {
 
     const navigate = useNavigate(); // Хук для навигации
     useEffect(() => {      
-        fetchData();
+        fetchData(); // это не то, что дальше
+
+        const socket = io('http://localhost:3000');
+        console.log(socket);
+        socket.emit('msgcenter_register', currentUserID);
+
+        // Обработка входящих сообщений
+        socket.on('message', (data) => {
+            fetchData(); // вы не понимаете, это другое
+        });
+
+        // Очистка при размонтировании компонента
+        return () => {
+            socket.off('message');
+        };
+
     }, [navigate]);
 
     const [isTimerActive, setIsTimerActive] = useState(true);
@@ -323,7 +339,7 @@ export default function Messenger() {
 
     return (
         <div className="Messenger h-full relative flex">
-            <div className={`Left-block flex flex-col justify-between h-full  relative ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
+            <div className={`Left-block flex flex-col justify-between h-full  relative ${location.pathname === '/messenger' ? "w-full" : " w-1/3"}`}>
                 <div className="StaticInputTop z-20 w-full h-16 pl-4 flex items-center justify-center bg-slate-50">
                         <img src="/icons/search.png" alt="" className="w-8 h-8"/>
                         <input type="text"
@@ -361,7 +377,7 @@ export default function Messenger() {
             </div>
 
             <div
-                className={`Chat w-2/3 flex flex-col justify-between h-full relative bg-slate-100  ${location.pathname === '/home/messenger' ? "hidden" : "block"}`}>
+                className={`Chat w-2/3 flex flex-col justify-between h-full relative bg-slate-100  ${location.pathname === '/messenger' ? "hidden" : "block"}`}>
                 <div
                     className="Nickname w-full z-20 font-bold text-slate-700  w-full  pl-4 flex items-center justify-center bg-slate-50">
                     {messagesData.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))

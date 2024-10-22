@@ -13,16 +13,37 @@ function initializeMessagesUtil(app) {
     io.on('connection', (socket) => {
         console.log('A user connected');
 
-        // Обработка события 'message'
-        socket.on('message', (data) => {
-            console.log('Message received: ', data);
-            // Можно отправить сообщение обратно всем подключенным клиентам
-            io.emit('message', data);
+        // Сохранение сокета пользователя (например, по его ID)
+        socket.on('msgcenter_register', (userId) => {
+            userSockets[userId] = socket.id;
+            console.log(`User registered: ${userId}`);
         });
+
+
+        // Обработка события 'message'
+        socket.on('msgcenter_message', (data) => {
+            console.log('Message received: ', data);
+        
+            const { recipientId, message } = data;
+            
+            // Отправка сообщения конкретному пользователю
+            const recipientSocketId = userSockets[recipientId];
+            if (recipientSocketId) {
+                io.to(recipientSocketId).emit('msgcenter_update_messages', { message, from: data.from });
+            }
+        });
+
 
         // Обработка отключения
         socket.on('disconnect', () => {
             console.log('User disconnected');
+            // Удаление сокета из объекта при отключении
+            for (const userId in userSockets) {
+                if (userSockets[userId] === socket.id) {
+                    delete userSockets[userId];
+                    break;
+                }
+            }
         });
     });
 }
