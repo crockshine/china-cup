@@ -307,9 +307,9 @@ export default function UserProfile() {
   };
 
   return (
-      <main className="main_profile w-full  flex h-full overflow-hidden p-5 gap-5">
+      <main className="main_profile flex h-full overflow-hidden p-5 gap-5">
 
-          <div className="left_bar  achivments_person w-full flex flex-col  items-center text-center">
+          <div className="left_bar achivments_person flex flex-col w-1/2 items-center text-center">
 
               <span className="mb-4 font-bold text-2xl sticky">Information</span>
 
@@ -363,10 +363,10 @@ export default function UserProfile() {
 
           </div>
 
-          <div className="right_bar w-full flex flex-col items-center">
+          <div className="right_bar w-1/2 flex flex-col items-center">
               <span className="mb-4 font-bold text-2xl sticky">History</span>
               <div
-                  className="profile_events  overflow-y-scroll h-full w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
+                  className="profile_events overflow-y-scroll h-full w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
 
                   <div className="events__profile h-96 w-full bg-slate-50">
                       {Object.keys(dashboardContent).map((key) => {
