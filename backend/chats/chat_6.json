@@ -1,0 +1,22 @@
+{
+  "chat_id": 6,
+  "users": [
+    7,
+    8
+  ],
+  "messages": {
+    "1": {
+      "textInOneMsg": "Hello!",
+      "bySend": 7
+    },
+    "2": {
+      "textInOneMsg": "How are you?",
+      "bySend": 7
+    },
+    "3": {
+      "textInOneMsg": "I am fine!",
+      "bySend": 8
+    }
+  },
+  "current_message": 3
+}

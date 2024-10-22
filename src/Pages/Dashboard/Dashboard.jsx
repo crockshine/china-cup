@@ -93,7 +93,7 @@ async function loadUserID() {
               return (
                 <Event 
                   key={key}
-                  image={"/icons/defaultProfile.png"}
+                  image={"/image/defaultProfile.png"}
                   event_title={item.event}
                   what_todo={item.name}
                   time={item.time}
@@ -105,7 +105,7 @@ async function loadUserID() {
 
       <div className="leaderboard">
         <Leaderboard 
-        person_image={"/icons/sasha.jpg"}
+        person_image={"/image/sasha.jpg"}
         person_name={"Aleksandr Surovtsev"}
         person_place={1}
         stages_count={8}
@@ -113,7 +113,7 @@ async function loadUserID() {
         stack={"Frontend"}
         tasks_count={10}/>
                 <Leaderboard 
-        person_image={"/icons/klim.jpg"}
+        person_image={"/image/klim.jpg"}
         person_name={"Klim Sarakeev"}
         person_place={2}
         stages_count={7}
@@ -121,7 +121,7 @@ async function loadUserID() {
         stack={"Databases"}
         tasks_count={8}/>
                 <Leaderboard
-        person_image={"/icons/misha.jpg"} 
+        person_image={"/image/misha.jpg"}
         person_name={"Mihail Korolev"}
         person_place={3}
         stages_count={6}
@@ -129,7 +129,7 @@ async function loadUserID() {
         stack={"Frontend"}
         tasks_count={7}/>
                 <Leaderboard 
-        person_image={"/icons/sashajun.jpg"} 
+        person_image={"/image/sashajun.jpg"}
         person_name={"Aleksandr Resetnikov"}
         person_place={4}
         stages_count={5}

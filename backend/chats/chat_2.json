@@ -6,7 +6,19 @@
   ],
   "messages": {
     "1": {
-      "textInOneMsg": "hello",
+      "textInOneMsg": "здравствуйте, видеокарта в наличии?",
+      "bySend": 1
+    },
+    "2": {
+      "textInOneMsg": "Да. Когда готовы приехать посмотреть?",
+      "bySend": 2
+    },
+    "3": {
+      "textInOneMsg": "мб сегодня завтра",
+      "bySend": 1
+    },
+    "4": {
+      "textInOneMsg": "что там вообще по сотоянию товара???",
       "bySend": 1
     },
     "2": {

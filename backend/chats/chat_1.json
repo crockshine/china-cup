@@ -1,0 +1,26 @@
+{
+  "chat_id": 1,
+  "users": [
+    5,
+    4
+  ],
+  "messages": {
+    "1": {
+      "textInOneMsg": "привет",
+      "bySend": 4
+    },
+    "2": {
+      "textInOneMsg": "Приветик <3",
+      "bySend": 5
+    },
+    "3": {
+      "textInOneMsg": "давно не виделись",
+      "bySend": 4
+    },
+    "4": {
+      "textInOneMsg": "Согласна, может встретимся?",
+      "bySend": 5
+    }
+  },
+  "current_message": 4
+}

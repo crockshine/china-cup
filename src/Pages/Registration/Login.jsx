@@ -1,8 +1,9 @@
-import './Login.css';
+
 import { useState } from 'react'; // Импорт useState для работы с состоянием
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import React, { useEffect } from 'react';
+import LoginWrapper from "./LoginWrapper";
 
 export default function Registration() {
   const [email, setEmail] = useState(''); // Состояние для почты
@@ -73,12 +74,8 @@ export default function Registration() {
   };
 
   return(
-    <main className="main">
-      <div className="center_block">
-        <h1 className="reg_label">Login Form</h1>
-        <h2 className="about_label">Please fill out this form with the required information</h2>
-        <div className="steps_verification">
-            <form className="form" id="loginForm" action="login" method="post" onSubmit={handleSubmit}>
+    <LoginWrapper  switchLoginOrRegistration = {handleGotoRegistration} submitEvent = {handleSubmit} text={'Login form'}>
+            <form className="form" id="loginForm" action="login" method="post" >
                 <div className="mail_input">
                     <p className='label'>Email</p>
                     <input
@@ -102,17 +99,8 @@ export default function Registration() {
                         required // Поле обязательно для заполнения
                     />
                 </div>
-                <div className="flex flex-col mt-10 items-center justify-center">
-                    <input className="submit_button mt-8  " type="submit"
-                           value="Join"/>
-                    <input className="reg_button mt-8" type="submit" onClick={handleGotoRegistration}
-                           value="Don't have an account yet?"/>
-                </div>
-
 
             </form>
-        </div>
-      </div>
-    </main>
+    </LoginWrapper>
   )
 }

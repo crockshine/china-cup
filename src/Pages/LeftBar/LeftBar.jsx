@@ -4,8 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import React, { useEffect } from 'react';
 import './LeftBar.css'
 
-import SecondModalWindow from "../Stores/SecondModalWindow";
-import SecondModalWindowWrapper from "../ModalWindows/SecondModalWindowWrapper";
+import SecondModalWindow from "../../Stores/SecondModalWindow";
+import SecondModalWindowWrapper from "../../ModalWindows/SecondModalWindowWrapper";
 import {observer} from "mobx-react-lite";
 const LeftBar = observer(()=>{
     const [currentToken, setToken] = React.useState('');
@@ -82,17 +82,17 @@ const LeftBar = observer(()=>{
         <>
             {/* Переход в профиль */}
             <div className="flex w-full  items-center justify-between ">
-            <Link to='/home/profile'><img  src="/icons/settingsProfile.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12"/></Link>
+            <Link to='/home/profile'><img src="/image/settingsProfile.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12"/></Link>
                 <div className="relative  flex flex-col items-center justify-between">
-                    <img onClick={SecondModalWindow.switchWindow } src="/icons/settings.png" alt="" className="z-20 w-10 h-10 sm:w-12 sm:h-12"/>
+                    <img onClick={SecondModalWindow.switchWindow } src="/image/settings.png" alt="" className="z-20 w-10 h-10 sm:w-12 sm:h-12"/>
                     <SecondModalWindowWrapper isOpenSecond={SecondModalWindow.isOpenSecond}/>
                 </div>
             </div>
 
             <div className="MainInfo  flex flex-col mb-5 items-center ">
                 {/* Если авы нет добавить стандартную */}
-                <div className="w-24 h-24 sm:w-32 sm:h-32 relative rounded-full mb-5 flex justify-center items-center bg-cover">
-                    <img src="/icons/defaultProfile.png" alt="" className="opacity-70"/>
+                <div className="w-20 h-16 sm:w-32 sm:h-32 relative rounded-full mb-5 flex justify-center items-center bg-cover">
+                    <img src="/image/defaultProfile.png" alt="" className="opacity-70"/>
                     <div className="w-28 h-28 border-4 absolute  border-amber-500 rounded-full"></div>
                 </div>
 

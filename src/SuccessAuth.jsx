@@ -1,14 +1,14 @@
 import Header from "./Header/Header";
-import LeftBar from "./LeftBar/LeftBar";
+import LeftBar from "./Pages/LeftBar/LeftBar";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import Profile from "./Profile/Profile";
-import Schedule from "./Schedule/Schedule.jsx"
-import UserProfile from "./UserProfile/UserProfile.jsx";
-import Tasks from "./Tasks/Tasks";
-import Messenger from "./Messenger/Messenger.tsx";
+import Profile from "./Pages/Profile/Profile";
+import Schedule from "./Pages/Schedule/Schedule.jsx"
+import UserProfile from "./Pages/UserProfile/UserProfile.jsx";
+import Tasks from "./Pages/Tasks/Tasks";
+import Messenger from "./Pages/Messenger/Messenger.tsx";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import Dashboard from "./Dashboard/Dashboard.jsx";
+import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import About from "./Header/InfoFields/About";
 import Policy from "./Header/InfoFields/Policy";
 

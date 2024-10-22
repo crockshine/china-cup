@@ -1,5 +1,5 @@
-import Registration from "./Registration/Registration";
-import Login from "./Registration/Login"
+import Registration from "./Pages/Registration/Registration";
+import Login from "./Pages/Registration/Login"
 import SuccessAuth from "./SuccessAuth";
 import "./App.css"
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
