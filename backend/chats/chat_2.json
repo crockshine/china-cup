@@ -10,18 +10,6 @@
       "bySend": 1
     },
     "2": {
-      "textInOneMsg": "Да. Когда готовы приехать посмотреть?",
-      "bySend": 2
-    },
-    "3": {
-      "textInOneMsg": "мб сегодня завтра",
-      "bySend": 1
-    },
-    "4": {
-      "textInOneMsg": "что там вообще по сотоянию товара???",
-      "bySend": 1
-    },
-    "2": {
       "textInOneMsg": "privet",
       "bySend": 1
     },
@@ -116,7 +104,19 @@
     "25": {
       "textInOneMsg": "\ngrgdr",
       "bySend": 1
+    },
+    "26": {
+      "textInOneMsg": "fse",
+      "bySend": 1
+    },
+    "27": {
+      "textInOneMsg": "\n12345678900dfgrgrdgrgrdgrd\niukiuki",
+      "bySend": 1
+    },
+    "28": {
+      "textInOneMsg": "\n1234567899\nfregregrgregr\n64564",
+      "bySend": 1
     }
   },
-  "current_message": 25
+  "current_message": 28
 }
