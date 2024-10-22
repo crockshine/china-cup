@@ -1,7 +1,7 @@
 import CardInLeftBar from "./CardInLeftBar";
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from "react-router-dom";
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import './LeftBar.css'
 
 import SecondModalWindow from "../../Stores/SecondModalWindow";
@@ -25,6 +25,22 @@ const LeftBar = observer(()=>{
         fetchData();
     }, [navigate]);
 
+    const [x, setX] = useState()
+    const [y, setY] = useState()
+    const [progress, setProgress] = useState(1)//это не трогать
+    const [progressBar, setProgressBar] = useState(410) //сздесь полная стата, тоесть 452 или 1233
+
+    useEffect(()=>{
+        //сброс бара и инкремент прогресса
+        if(progressBar >= 100) {
+            setProgressBar(progressBar -  parseInt(progressBar.toString()[0])*100)
+            setProgress(parseInt(progressBar.toString()[0]))
+        }
+
+        setX(75 * Math.cos((((progressBar*360/100)+90) * Math.PI) / 180));
+        setY(-75 * Math.sin((((progressBar*360/100)+90) * Math.PI) / 180));
+
+    },[])
     const InfoCardInLeftBar =[
         {id:0, text:'Dashboard', image:'dashboard.png', opacity:'1', router_link:'/dashboard'},
         {id:1, text:'Messenger', image:'messege.png', opacity:'1', router_link:'/messenger'},
@@ -77,7 +93,9 @@ const LeftBar = observer(()=>{
         } catch (error) {
             console.log('Ошибка при получении никнейма пользователя:', error);
         }
-    };
+    }
+
+
     return (
         <>
             {/* Переход в профиль */}
@@ -91,9 +109,29 @@ const LeftBar = observer(()=>{
 
             <div className="MainInfo  flex flex-col mb-5 items-center ">
                 {/* Если авы нет добавить стандартную */}
-                <div className="w-20 h-16 sm:w-32 sm:h-32 relative rounded-full mb-5 flex justify-center items-center bg-cover">
-                    <img src="/image/defaultProfile.png" alt="" className="opacity-70"/>
-                    <div className="w-28 h-28 border-4 absolute  border-amber-500 rounded-full"></div>
+
+                <div className="relative  mb-5 flex justify-center items-center bg-cover"
+                     style={{width: '170px', height: '170px'}}>
+
+
+                    <div className="z-20 rounded-full bg-white" style={{width: '122px', height: '122px'}}>
+                        <img src="/image/defaultProfile.png" alt="" className=" "/>
+                    </div>
+
+                    <div className="progress absolute  rounded-full" style={{
+                        width: '130px', height: '130px',
+                        background: `conic-gradient(#cdd1d9 ${100 - progressBar}%, #3361ff ${100 -progressBar}% 100%)`
+                    }}></div>
+
+                    <div className="absolute z-30  w-fit h-fit rounded-full font-bold text-xl text-slate-50"
+                         style={{
+                             paddingLeft: `20px`, paddingRight: '20px',
+                             paddingTop: '5px', paddingBottom: '5px',
+                             backgroundColor:'red',
+                             transform: `translateX(${x}px) translateY(${y}px)` ,
+                            }}>{progress}</div>
+
+
                 </div>
 
                 <span className="Name text-xl sm:text-2xl font-black text-slate-900">{userName}</span>

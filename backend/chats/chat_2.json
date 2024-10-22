@@ -116,7 +116,15 @@
     "28": {
       "textInOneMsg": "\n1234567899\nfregregrgregr\n64564",
       "bySend": 1
+    },
+    "29": {
+      "textInOneMsg": "1234\n",
+      "bySend": 1
+    },
+    "30": {
+      "textInOneMsg": "12344576576",
+      "bySend": 1
     }
   },
-  "current_message": 28
+  "current_message": 30
 }

@@ -34,11 +34,11 @@ export default function SuccessAuth() {
 
             <div className="MainContent py-10 px-4 sm:px-8 md:px-16 flex flex-grow gap-4 sm:gap-8 md:gap-16 w-full h-full overflow-hidden">
 
-                <div className="LeftBar h-full px-4 sm:px-10 pb-10 w-80  flex flex-col items-center justify-between overflow-hidden ">
+                <div className="LeftBar h-full px-4 sm:px-10 pb-10 min-w-80 max-w-80  flex flex-col items-center justify-between overflow-hidden ">
                     <LeftBar/>
                 </div>
 
-                <div className="RightBar flex-grow shadow-2xl rounded-2xl bg-slate-50  border h-full overflow-y-auto">
+                <div className="RightBar flex-grow shadow-2xl relative rounded-2xl bg-slate-50  border h-full overflow-y-hidden">
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
                         <Route path='/messenger/*' element={<Messenger/>}></Route>

@@ -7,7 +7,7 @@ interface Messages{
 export default function ShortMsg({userName, lastMsg, router_link}:{ userName:string, lastMsg: Messages, router_link:number}){
     const location = useLocation()
     return (
-        <Link to={`/home/messenger/${router_link}`}>
+        <Link to={`/messenger/${router_link}`}>
         <div className={`Chat-card  min-h-32 max-h-32  overflow-hidden flex items-center justify-center p-4 ${location.pathname[location.pathname.length - 1] === router_link.toString() ? "bg-blue-600 rounded-2xl text-white": "bg-slate-50 text-slate-700"}`}
             >
             <img src="/image/defaultProfile.png" alt="" className="w-20 h-20  rounded-full border-white"/>
