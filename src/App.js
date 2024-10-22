@@ -22,9 +22,9 @@ const  App = observer(() =>{
                 <Routes>
 
 
-                    <Route path='/' element={<Login/>}/>
+                    <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
-                    <Route path='/home/*' element={<SuccessAuth/>}/>
+                    <Route path='/*' element={<SuccessAuth/>}/>
                     <Route path="*" element={
                         <div
                             className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-2xl">

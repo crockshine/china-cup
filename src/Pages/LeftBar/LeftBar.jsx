@@ -26,12 +26,12 @@ const LeftBar = observer(()=>{
     }, [navigate]);
 
     const InfoCardInLeftBar =[
-        {id:0, text:'Dashboard', image:'dashboard.png', opacity:'1', router_link:'/home/dashboard'},
-        {id:1, text:'Messenger', image:'messege.png', opacity:'1', router_link:'/home/messenger'},
-        {id:2, text:'Tasks', image:'tasks.png', opacity:'1', router_link:'/home/tasks'},
-        {id:3, text:'Profile', image:'settingsProfile.png', opacity:'1', router_link:'/home/profile'},
-        {id:4, text:'Schedule', image:'schedules.png', opacity:'0.3', router_link:'/home/schedule'},
-        {id:5, text:'Graduates', image:'graduation.png', opacity:'1', router_link:'/home/graduates'},
+        {id:0, text:'Dashboard', image:'dashboard.png', opacity:'1', router_link:'/dashboard'},
+        {id:1, text:'Messenger', image:'messege.png', opacity:'1', router_link:'/messenger'},
+        {id:2, text:'Tasks', image:'tasks.png', opacity:'1', router_link:'/tasks'},
+        {id:3, text:'Profile', image:'settingsProfile.png', opacity:'1', router_link:'/profile'},
+        {id:4, text:'Schedule', image:'schedules.png', opacity:'0.3', router_link:'/schedule'},
+        {id:5, text:'Graduates', image:'graduation.png', opacity:'1', router_link:'/graduates'},
     ]
 
     function getToken() {
@@ -82,7 +82,7 @@ const LeftBar = observer(()=>{
         <>
             {/* Переход в профиль */}
             <div className="flex w-full  items-center justify-between ">
-            <Link to='/home/profile'><img src="/image/settingsProfile.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12"/></Link>
+            <Link to='/profile'><img src="/image/settingsProfile.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12"/></Link>
                 <div className="relative  flex flex-col items-center justify-between">
                     <img onClick={SecondModalWindow.switchWindow } src="/image/settings.png" alt="" className="z-20 w-10 h-10 sm:w-12 sm:h-12"/>
                     <SecondModalWindowWrapper isOpenSecond={SecondModalWindow.isOpenSecond}/>
