@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const JWT_SECRET = 'goida';
 
