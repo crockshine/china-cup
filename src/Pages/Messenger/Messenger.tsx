@@ -325,7 +325,7 @@ export default function Messenger() {
         <div className="Messenger h-full relative flex">
             <div className={`Left-block flex flex-col justify-between h-full  relative ${location.pathname === '/home/messenger' ? "w-full" : " w-1/3"}`}>
                 <div className="StaticInputTop z-20 w-full h-16 pl-4 flex items-center justify-center bg-slate-50">
-                        <img src="/image/search.png" alt="" className="w-8 h-8"/>
+                        <img src="/icons/search.png" alt="" className="w-8 h-8"/>
                         <input type="text"
                                className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500"
                                placeholder="Search in Messages"/>
@@ -350,7 +350,7 @@ export default function Messenger() {
                         </div>
 
                         <div className="w-full flex items-center pl-4 h-16">
-                            <img src="/image/search.png" alt="" className="w-10 h-10"/>
+                            <img src="/icons/search.png" alt="" className="w-10 h-10"/>
                             <input type="text"
                                    className="w-full outline-0 h-full px-4 text-base sm:text-lg font-bold text-slate-500"
                                    placeholder="Find new people"/>
@@ -383,7 +383,7 @@ export default function Messenger() {
                         placeholder="Write a message"
                         >
                     </textarea>
-                    <img src="/image/send.png" alt="" className='w-10 h-10' onClick={sendData}/>
+                    <img src="/icons/send.png" alt="" className='w-10 h-10' onClick={sendData}/>
                 </div>
 
             </div>
