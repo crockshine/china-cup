@@ -2,6 +2,7 @@ const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, get
 const { listAllChatsForUser, printInfo } = require('./messenger_mgr');
 const cookieParser = require('cookie-parser');
 const { checkForAllUsers } = require('./dashboard_handler');
+const { initializeMessagesUtil } = require('./messages_util');
 
 const express = require('express');
 const path = require('path');
@@ -20,6 +21,8 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.use(express.json());
 
 require('./routes')(app);
+
+initializeMessagesUtil(app);
 
 // Обработка всех остальных маршрутов, которые не относятся к API
 app.get('*', (req, res) => {
