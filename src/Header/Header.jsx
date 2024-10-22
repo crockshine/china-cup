@@ -10,7 +10,7 @@ export default function Header(){
     const doExit = (event) => {
         Cookies.remove("loginState");
         Cookies.remove("sessionID");
-        navigate('/');
+        navigate('/login');
     };
 
     return (
@@ -21,8 +21,8 @@ export default function Header(){
             </div>
             <div className="Info flex-1 flex  justify-end items-center gap-10 font-semibold text-xl text-slate-700">
 
-                <Link to={'/home/about'}><span>About Us</span></Link>
-                <Link  to={'/home/policy'}><span>User Policy</span></Link>
+                <Link to={'/about'}><span>About Us</span></Link>
+                <Link  to={'/policy'}><span>User Policy</span></Link>
 
                 <button className="" onClick={ doExit }>Exit</button>
             </div>

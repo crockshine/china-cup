@@ -6,20 +6,25 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
 import ModalWindowWrapper from "./ModalWindows/ModalWindowWrapper";
 import ModalWindow from './Stores/ModalWindow'
+import ModalWindowLoaderWrapper from "./ModalWindows/ModalWindowLoaderWrapper";
+import ModalWindowLoader from "./Stores/ModalWindowLoader"
+
 
 const  App = observer(() =>{
     return (
-        <div className="Window bg-slate-100 flex flex-col overflow-hidden"
+
+        <div className={`Window   bg-slate-100 flex flex-col overflow-hidden `}
              >
             <BrowserRouter>
-                <ModalWindowWrapper isOpen={ModalWindow.isOpen} closeWindow={ModalWindow.closeWindow}/>
+                <ModalWindowLoaderWrapper isOpen={ModalWindowLoader.isOpen} />
 
+                <ModalWindowWrapper isOpen={ModalWindow.isOpen} closeWindow={ModalWindow.closeWindow}/>
                 <Routes>
 
 
-                    <Route path='/' element={<Login/>}/>
+                    <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
-                    <Route path='/home/*' element={<SuccessAuth/>}/>
+                    <Route path='/*' element={<SuccessAuth/>}/>
                     <Route path="*" element={
                         <div
                             className="w-full h-full flex flex-col items-center justify-center font-bold text-slate-600 text-2xl">
@@ -30,6 +35,7 @@ const  App = observer(() =>{
 
                         </div>}/>
                 </Routes>
+
             </BrowserRouter>
 
         </div>

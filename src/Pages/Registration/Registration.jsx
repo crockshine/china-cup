@@ -72,7 +72,7 @@ export default function Registration() {
   };
 
   const handleGotoLogin = (event) => {
-    navigate('/');
+    navigate('/login');
   };
 
   return(

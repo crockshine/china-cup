@@ -10,9 +10,9 @@ const SecondModalWindowWrapper = observer(({ isOpenSecond}) => {
     }
     return (
         <div className={`${isOpenSecond ? "block" : "hidden"} z-10 rounded-b-2xl bg-slate-50 absolute flex flex-col shadow-xl mt-3 p-6`}>
-            <Link onClick={handlerClose} to={'/home/about'}><span>About Us</span></Link>
+            <Link onClick={handlerClose} to={'/about'}><span>About Us</span></Link>
             <div className="w-full bg-slate-300 h-0.5 my-2 "></div>
-            <Link onClick={handlerClose} to={'/home/policy'}><span>User Policy</span></Link>
+            <Link onClick={handlerClose} to={'/policy'}><span>User Policy</span></Link>
         </div>
     )
         ;

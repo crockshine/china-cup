@@ -1,0 +1,42 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Integrate third-party services",
+    "time": "06:03"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Conduct user testing and feedback sessions",
+    "time": "09:06"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Develop a mobile application",
+    "time": "09:26"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "18:32"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "08:10"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Integrate third-party services",
+    "time": "08:55"
+  },
+  "7": {
+    "event": "Solved the task",
+    "name": "Document code and create user manuals",
+    "time": "13:32"
+  },
+  "8": {
+    "event": "Solved the task",
+    "name": "Implement state management",
+    "time": "05:02"
+  }
+}
