@@ -4,23 +4,119 @@
     1,
     2
   ],
-  "current_message": 4,
   "messages": {
     "1": {
       "textInOneMsg": "здравствуйте, видеокарта в наличии?",
       "bySend": 1
     },
     "2": {
-      "textInOneMsg": "Да. Когда готовы приехать посмотреть?",
-      "bySend": 2
+      "textInOneMsg": "privet",
+      "bySend": 1
     },
     "3": {
-      "textInOneMsg": "мб сегодня завтра",
+      "textInOneMsg": "eto vzlom jopy",
       "bySend": 1
     },
     "4": {
-      "textInOneMsg": "что там вообще по сотоянию товара???",
+      "textInOneMsg": "dffgbggbfg",
+      "bySend": 1
+    },
+    "5": {
+      "textInOneMsg": "mihail, tut pidets kakoyto",
+      "bySend": 2
+    },
+    "6": {
+      "textInOneMsg": "ya u nego macbuc spizdil i begu",
+      "bySend": 2
+    },
+    "7": {
+      "textInOneMsg": "аиоаыиоллоаиуы",
+      "bySend": 1
+    },
+    "8": {
+      "textInOneMsg": "123",
+      "bySend": 1
+    },
+    "9": {
+      "textInOneMsg": "12314",
+      "bySend": 1
+    },
+    "10": {
+      "textInOneMsg": "1243124",
+      "bySend": 1
+    },
+    "11": {
+      "textInOneMsg": "rkuhg",
+      "bySend": 1
+    },
+    "12": {
+      "textInOneMsg": "1234",
+      "bySend": 1
+    },
+    "13": {
+      "textInOneMsg": "\n2452",
+      "bySend": 1
+    },
+    "14": {
+      "textInOneMsg": "235",
+      "bySend": 1
+    },
+    "15": {
+      "textInOneMsg": "131",
+      "bySend": 1
+    },
+    "16": {
+      "textInOneMsg": "123123",
+      "bySend": 1
+    },
+    "17": {
+      "textInOneMsg": "1234567865",
+      "bySend": 1
+    },
+    "18": {
+      "textInOneMsg": "124123",
+      "bySend": 1
+    },
+    "19": {
+      "textInOneMsg": "1241",
+      "bySend": 1
+    },
+    "20": {
+      "textInOneMsg": "11",
+      "bySend": 1
+    },
+    "21": {
+      "textInOneMsg": "2423",
+      "bySend": 1
+    },
+    "22": {
+      "textInOneMsg": "2424",
+      "bySend": 1
+    },
+    "23": {
+      "textInOneMsg": "rihguehg",
+      "bySend": 1
+    },
+    "24": {
+      "textInOneMsg": "123456",
+      "bySend": 1
+    },
+    "25": {
+      "textInOneMsg": "\ngrgdr",
+      "bySend": 1
+    },
+    "26": {
+      "textInOneMsg": "fse",
+      "bySend": 1
+    },
+    "27": {
+      "textInOneMsg": "\n12345678900dfgrgrdgrgrdgrd\niukiuki",
+      "bySend": 1
+    },
+    "28": {
+      "textInOneMsg": "\n1234567899\nfregregrgregr\n64564",
       "bySend": 1
     }
-  }
+  },
+  "current_message": 28
 }

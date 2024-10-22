@@ -3,6 +3,7 @@ import "./UserProfile.css";
 import Event from "../Dashboard/Event";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import ModalWindowLoader from "../../Stores/ModalWindowLoader";
 
 function getToken() {
   return Cookies.get('token');
@@ -266,6 +267,8 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+      ModalWindowLoader.openWindow()
+
     async function invoke() {
       const userID = await loadUserID();
       const _dashboardContent = await listUserDashboard(userID);
@@ -282,7 +285,10 @@ export default function UserProfile() {
       };
       setUserData(_userData);
 
+      ModalWindowLoader.closeWindow()
+
       setDashboardContent(_dashboardContent);
+
     }
     invoke();
   }, [navigate]);
