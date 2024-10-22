@@ -2,7 +2,7 @@
 import ShortMsg from "./ShortMsg.tsx";
 import Cookies from 'js-cookie';
 import "./Messenger.css"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import FoundUserCard from "./FoundUserCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import MessageList from "./MessageList";
@@ -10,6 +10,7 @@ import MessageList from "./MessageList";
 export default function Messenger() {
     const [value, setValue] = useState('');
     const [currentUserID, setCurrentUserID] = useState(-1);
+    const messagesEndRef = useRef<null | HTMLDivElement>(null);
     const [messagesData, setMessagesData] = useState([
         {
             id: 0,
@@ -23,67 +24,87 @@ export default function Messenger() {
     ]);
     const location = useLocation();
 
-    const navigate = useNavigate(); // Хук для навигации
-    useEffect(() => {
-        function getFromUserID(thisUserID, users) {
-            if (users[0] == thisUserID) return users[1];
-            else return users[0];
+    const sendData = () => {
+        if (value) {
+            const currentSelectChatID = Number(location.pathname.split('/')[3]);
+            //alert(currentSelectChatID);
+            sendMessage(currentSelectChatID, currentUserID, value);
+            setValue('');
+            setMessagesData([]);
+            fetchData();
         }
+    }    
 
-        async function fetchData() {
-            const userChats = await listUserChats();
-            const _currentUserID = await loadCUserID();
-            //console.log('userChats=', userChats, 'currentUserID=', currentUserID);
-            
-            let _messagesData: DataMsg[] = [];
-            userChats.forEach(chatID => {
-                async function invoke() {
-                    const _messages = await loadChatMessages(chatID);
-                    const users = await loadChatsUsers(chatID);
-                    const fromUserID = getFromUserID(_currentUserID, users);
-                    const fromUserName = await loadUserNameByID(fromUserID);
+    const scrollToBottom = () => {
+        if(messagesEndRef.current){
+            messagesEndRef.current.scrollTo(0, messagesEndRef.current.scrollHeight);
+        }
+    }
 
-                    // парсим сообщения
-                    let result_messages: Messages[] = [];
-                    if (_messages != undefined && _messages != null) {
-                        const keys = Object.keys(_messages);
+    async function fetchData() {
+        const userChats = await listUserChats();
+        const _currentUserID = await loadCUserID();
+        //console.log('userChats=', userChats, 'currentUserID=', currentUserID);
+        
+        let _messagesData: DataMsg[] = [];
+        userChats.forEach(chatID => {
+            async function invoke() {
+                const _messages = await loadChatMessages(chatID);
+                const users = await loadChatsUsers(chatID);
+                const fromUserID = getFromUserID(_currentUserID, users);
+                const fromUserName = await loadUserNameByID(fromUserID);
 
-                        for (let i = 0; i < keys.length; i++) {
-                            const key = keys[i];
-                            const text = _messages[key]['textInOneMsg'];
-                            const _bySend = _messages[key]['bySend'];
+                // парсим сообщения
+                let result_messages: Messages[] = [];
+                if (_messages != undefined && _messages != null) {
+                    const keys = Object.keys(_messages);
 
-                            const _message: Messages = { textInOneMsg: text, bySend: _bySend };
-                            //console.log('message', _message);
-                            result_messages.push(_message);
-                        }
+                    for (let i = 0; i < keys.length; i++) {
+                        const key = keys[i];
+                        const text = _messages[key]['textInOneMsg'];
+                        const _bySend = _messages[key]['bySend'];
+
+                        const _message: Messages = { textInOneMsg: text, bySend: _bySend };
+                        //console.log('message', _message);
+                        result_messages.push(_message);
                     }
-
-                    // Новый элемент массива
-                    const newElement = {
-                        id: chatID,
-                        userName: fromUserName,
-                        /*messages: [
-                            { textInOneMsg: 'Привет!', bySend: -1 },
-                        ],*/
-                        messages: result_messages
-                    };
-                    _messagesData.push(newElement);
-                    
-                    //console.log('chat=', chatID, ', users=', users ,', from=', fromUserName);
                 }
-                async function myFunction() {
-                    invoke();
-                    setMessagesData(_messagesData);
-                    setCurrentUserID(_currentUserID);
-                }
-                myFunction();
 
-                //await new Promise(resolve => setTimeout(resolve, 2000));
+                // Новый элемент массива
+                const newElement = {
+                    id: chatID,
+                    userName: fromUserName,
+                    /*messages: [
+                        { textInOneMsg: 'Привет!', bySend: -1 },
+                    ],*/
+                    messages: result_messages
+                };
+                _messagesData.push(newElement);
+                
+                //console.log('chat=', chatID, ', users=', users ,', from=', fromUserName);
+            }
+            async function myFunction() {
+                invoke();
+                await new Promise(resolve => setTimeout(resolve, 150));
 
-            });
-        }
-              
+                setMessagesData(_messagesData);
+                setCurrentUserID(_currentUserID);
+                setTimeout(scrollToBottom, 200);
+            }
+            myFunction();
+
+            //await new Promise(resolve => setTimeout(resolve, 2000));
+
+        });
+    }
+
+    function getFromUserID(thisUserID, users) {
+        if (users[0] == thisUserID) return users[1];
+        else return users[0];
+    }
+
+    const navigate = useNavigate(); // Хук для навигации
+    useEffect(() => {      
         fetchData();
     }, [navigate]);
 
@@ -274,16 +295,7 @@ export default function Messenger() {
             }
         }
     }
-    const sendData = () => {
-        if (value) {
-            const currentSelectChatID = Number(location.pathname.split('/')[3]);
-            //alert(currentSelectChatID);
-            sendMessage(currentSelectChatID, currentUserID, value);
-            setValue('');
-            navigate(0); // Перезагружает текущую страницу
-        }
-    }
-
+    
     const dataFoundPeople = [
         // {userName:'Чувак 1', imageUrl:'/icons/defaultProfile.png'},
         // {userName:'Чувак 2', imageUrl:'/icons/defaultProfile.png'},
@@ -357,7 +369,7 @@ export default function Messenger() {
 
                 </div>
 
-                    <div className="h-full  flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 ">
+                    <div className="h-full  flex flex-col overflow-scroll overflow-x-hidden h-full grid-cols-1 " ref={messagesEndRef}>
                         {messagesData.filter(item => item.id === parseInt(location.pathname[location.pathname.length - 1]))
                             .map(item => <MessageList key={item.id} text={item.messages} currentUserID={currentUserID}/>)}
                     </div>
