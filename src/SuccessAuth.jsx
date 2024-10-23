@@ -15,7 +15,9 @@ import AdminPanel from "./Pages/Admin/AdminPanel";
 import ModalWindowLoaderWrapper from "./ModalWindows/ModalWindowLoaderWrapper";
 import ModalWindowLoader from "./Stores/ModalWindowLoader";
 import {observer} from "mobx-react-lite";
-import UserList from "./Pages/Admin/UserList";
+import UserList from "./Pages/Admin/People/UserList";
+import Incoming from "./Pages/Admin/Incoming tasks/Incoming";
+import Sent from "./Pages/Admin/Sent/Sent";
 
 const  SuccessAuth = observer(()=> {
     const navigate = useNavigate();
@@ -55,7 +57,10 @@ const  SuccessAuth = observer(()=> {
                         <Route path='/profile' element={<UserProfile/>}></Route>
                         <Route path='/admin' element={<AdminPanel/>}>
                             <Route path={'/admin/people'} element={<UserList/>}></Route>
-                            <Route path={'/admin/incoming'}> </Route>
+                            <Route path={'/admin/incoming'} element={<Incoming/>}></Route>
+                            <Route path={'/admin/sent'} element={<Sent/>}></Route>
+
+
                         </Route>
 
                         <Route path='/' element={<UserProfile/>}></Route>

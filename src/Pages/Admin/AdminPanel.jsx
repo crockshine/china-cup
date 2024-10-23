@@ -13,12 +13,16 @@ export default function AdminPanel(){
         <>
             <div className="sticky w-full h-14 shadow-lg flex items-center justify-center">
                 <Link to={'/admin/people'}
-                      className={` flex items-center justify-center font-bold text-base text-slate-500 border-r-4 h-full transition 
-                      ${location.pathname.includes('admin/people') ? "bg-slate-50 w-2/3 ":"bg-slate-200 w-1/3 "}`}>People</Link>
+                      className={` flex flex-1 items-center justify-center font-bold text-base text-slate-500 border-r-4 h-full transition 
+                      ${location.pathname.includes('admin/people') ? "bg-slate-50  ":"bg-slate-200 "}`}>People</Link>
 
                 <Link to={'/admin/incoming'}
-                      className={` flex items-center justify-center font-bold text-base text-slate-500 border-r-4 h-full transition
-                      ${location.pathname.includes('admin/incoming') ? "bg-slate-50 w-2/3":"bg-slate-200 w-1/3 "}`}>Incoming tasks</Link>
+                      className={` flex flex-1 items-center justify-center font-bold text-base text-slate-500 border-r-4 h-full transition
+                      ${location.pathname.includes('admin/incoming') ? "bg-slate-50 ":"bg-slate-200 "}`}>Incoming tasks</Link>
+
+                <Link to={'/admin/sent'}
+                      className={` flex flex-1 items-center justify-center font-bold text-base text-slate-500 border-r-4 h-full transition
+                      ${location.pathname.includes('admin/sent') ? "bg-slate-50 ":"bg-slate-200  "}`}>Sent tasks</Link>
 
             </div>
             <Outlet />
