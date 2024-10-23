@@ -4,7 +4,7 @@ export default function CardInProfile({count, text, color}){
     return (
         <div className="left_blocks relative overflow-hidden">
             <div
-                className={`w-full h-full flex flex-col items-center justify-center ${color} rounded-2xl`}>
+                className={`w-full h-full flex   flex-col items-center justify-center ${color} rounded-2xl`}>
                 <h2 className={`absolute   font-bold text-slate-50 opacity-30
                 ${count >= 100 ? "text-6xl" : "text-9xl"}`}>{count}</h2>
 

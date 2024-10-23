@@ -28,7 +28,7 @@ const LeftBar = observer(()=>{
     const [x, setX] = useState()
     const [y, setY] = useState()
     const [progress, setProgress] = useState(1)//это не трогать
-    const [progressBar, setProgressBar] = useState(410) //сздесь полная стата, тоесть 452 или 1233
+    const [progressBar, setProgressBar] = useState(60) //сздесь полная стата, тоесть 452 или 1233
 
     useEffect(()=>{
         //сброс бара и инкремент прогресса
@@ -118,16 +118,15 @@ const LeftBar = observer(()=>{
                         <img src="/image/defaultProfile.png" alt="" className=" "/>
                     </div>
 
-                    <div className="progress absolute  rounded-full" style={{
+                    <div className="progress absolute transition  rounded-full" style={{
                         width: '130px', height: '130px',
                         background: `conic-gradient(#cdd1d9 ${100 - progressBar}%, #3361ff ${100 -progressBar}% 100%)`
                     }}></div>
 
-                    <div className="absolute z-30  w-fit h-fit rounded-full font-bold text-xl text-slate-50"
+                    <div className="absolute z-20 transition bg-blue-500  w-fit h-fit rounded-full font-bold text-xl text-slate-50"
                          style={{
                              paddingLeft: `20px`, paddingRight: '20px',
                              paddingTop: '5px', paddingBottom: '5px',
-                             backgroundColor:'red',
                              transform: `translateX(${x}px) translateY(${y}px)` ,
                             }}>{progress}</div>
 
