@@ -11,6 +11,7 @@ import Cookies from 'js-cookie';
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import About from "./Header/InfoFields/About";
 import Policy from "./Header/InfoFields/Policy";
+import AdminPanel from "./Pages/Admin/AdminPanel";
 
 export default function SuccessAuth() {
     const navigate = useNavigate();
@@ -46,7 +47,10 @@ export default function SuccessAuth() {
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Schedule/>}></Route>
                         <Route path='/profile' element={<UserProfile/>}></Route>
+                        <Route path='/admin' element={<AdminPanel/>}></Route>
+
                         <Route path='/' element={<UserProfile/>}></Route>
+                        {/*убрать этот маршрут*/}
 
                         <Route path={'/about'} element={<About/>}></Route>
                         <Route path={'/policy'} element={<Policy/>}></Route>
