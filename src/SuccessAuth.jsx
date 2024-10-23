@@ -12,8 +12,12 @@ import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import About from "./Header/InfoFields/About";
 import Policy from "./Header/InfoFields/Policy";
 import AdminPanel from "./Pages/Admin/AdminPanel";
+import ModalWindowLoaderWrapper from "./ModalWindows/ModalWindowLoaderWrapper";
+import ModalWindowLoader from "./Stores/ModalWindowLoader";
+import {observer} from "mobx-react-lite";
+import UserList from "./Pages/Admin/UserList";
 
-export default function SuccessAuth() {
+const  SuccessAuth = observer(()=> {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,14 +27,14 @@ export default function SuccessAuth() {
 
         //console.log("Kek: ", loginState, sessionID);
 
-         if (loginState != "true") {
-             navigate('/');
-         }
+        if (loginState != "true") {
+            navigate('/');
+        }
 
     }, [navigate]);
 
     return(
-<>
+        <>
             <Header />
 
             <div className="MainContent py-10 px-4 sm:px-8 md:px-16 flex flex-grow gap-4 sm:gap-8 md:gap-16 w-full h-full overflow-hidden">
@@ -40,6 +44,8 @@ export default function SuccessAuth() {
                 </div>
 
                 <div className="RightBar flex-grow shadow-2xl relative rounded-2xl bg-slate-50  border h-full overflow-y-hidden">
+                    <ModalWindowLoaderWrapper isOpen={ModalWindowLoader.isOpen} />
+
                     <Routes>
                         <Route path='/graduates' element={<Profile/>}></Route>
                         <Route path='/messenger/*' element={<Messenger/>}></Route>
@@ -47,13 +53,18 @@ export default function SuccessAuth() {
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Schedule/>}></Route>
                         <Route path='/profile' element={<UserProfile/>}></Route>
-                        <Route path='/admin' element={<AdminPanel/>}></Route>
+                        <Route path='/admin' element={<AdminPanel/>}>
+                            <Route path={'/admin/people'} element={<UserList/>}></Route>
+                            <Route path={'/admin/incoming'}> </Route>
+                        </Route>
 
                         <Route path='/' element={<UserProfile/>}></Route>
                         {/*убрать этот маршрут*/}
 
                         <Route path={'/about'} element={<About/>}></Route>
                         <Route path={'/policy'} element={<Policy/>}></Route>
+
+
 
                         <Route path='/*' element={
                             <div
@@ -69,6 +80,7 @@ export default function SuccessAuth() {
                 </div>
 
             </div>
-</>
+        </>
     )
-}
+})
+export default SuccessAuth

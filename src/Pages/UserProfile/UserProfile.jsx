@@ -268,9 +268,10 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      ModalWindowLoader.openWindow()
 
     async function invoke() {
+        ModalWindowLoader.openWindow()
+
       const userID = await loadUserID();
       const _dashboardContent = await listUserDashboard(userID);
 
@@ -286,11 +287,12 @@ export default function UserProfile() {
       };
       setUserData(_userData);
 
-      ModalWindowLoader.closeWindow()
 
       setDashboardContent(_dashboardContent);
+        ModalWindowLoader.closeWindow()
 
     }
+
     invoke();
   }, [navigate]);
 
