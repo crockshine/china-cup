@@ -124,7 +124,15 @@
     "30": {
       "textInOneMsg": "12344576576",
       "bySend": 1
+    },
+    "31": {
+      "textInOneMsg": "ау",
+      "bySend": 1
+    },
+    "32": {
+      "textInOneMsg": "пвкпкв",
+      "bySend": 1
     }
   },
-  "current_message": 30
+  "current_message": 32
 }
