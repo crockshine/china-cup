@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole } = require('./../auth')
+const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole,verifyConfirmationCode } = require('./../auth')
 const { checkForAllUsers } = require('./../dashboard_handler');
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js
@@ -46,6 +46,24 @@ module.exports = function (app) {
             res.json({ loginState: 'true', token });
         } else {
             res.json({ loginState: 'false' });
+        }
+    });
+
+    app.post('/api/verify-confirmation-code', async (req, res) => {
+        const { confirmationCode } = req.body;
+    
+        console.log("Получен код для проверки:", confirmationCode);
+    
+        try {
+            const isValid = await verifyConfirmationCode(confirmationCode);
+            if (isValid) {
+                res.json({ message: "Код подтверждения верный" });
+            } else {
+                res.status(400).json({ error: "Неверный код подтверждения" });
+            }
+        } catch (err) {
+            console.error("Ошибка при валидации:", err);
+            res.status(500).json({ error: "Ошибка при валидации кода подтверждения" });
         }
     });
 

@@ -1,0 +1,27 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.2",
+    "time": "12:56"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Create data visualizations",
+    "time": "22:06"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.2",
+    "time": "14:20"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "23:36"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Integrate third-party services",
+    "time": "12:23"
+  }
+}
