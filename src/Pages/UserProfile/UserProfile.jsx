@@ -268,9 +268,10 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      ModalWindowLoader.openWindow()
 
     async function invoke() {
+        ModalWindowLoader.openWindow()
+
       const userID = await loadUserID();
       const _dashboardContent = await listUserDashboard(userID);
 
@@ -286,11 +287,12 @@ export default function UserProfile() {
       };
       setUserData(_userData);
 
-      ModalWindowLoader.closeWindow()
 
       setDashboardContent(_dashboardContent);
+        ModalWindowLoader.closeWindow()
 
     }
+
     invoke();
   }, [navigate]);
 
@@ -328,8 +330,9 @@ export default function UserProfile() {
                       </div>
                       {/*<button className="edit_button">Edit</button>*/}
                   </div>
-                    <div className='w-full border'></div>
                   <div className="profile_settings h-1/2 p-4 flex flex-col gap-2">
+                      <div className='w-full border'></div>
+
                       <div className="user_info flex gap-2 text-start">
                           <img src="/image/files.png" alt=""/>
                           <p>{userData.email}</p>
@@ -346,7 +349,7 @@ export default function UserProfile() {
               </div>
 
               <div className="block-list w-full h-full flex items-center justify-center">
-                  <div className="blocks flex flex-wrap gap-8 flex-row items-center justify-center">
+                  <div className="Blocks   flex flex-wrap gap-4  flex-row items-center justify-center">
 
 
                       <CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>

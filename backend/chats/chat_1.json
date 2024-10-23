@@ -20,7 +20,15 @@
     "4": {
       "textInOneMsg": "Согласна, может встретимся?",
       "bySend": 5
+    },
+    "5": {
+      "textInOneMsg": "adsdaaaaasadsadsad",
+      "bySend": 1
+    },
+    "6": {
+      "textInOneMsg": "ll",
+      "bySend": 1
     }
   },
-  "current_message": 4
+  "current_message": 6
 }

@@ -7,8 +7,9 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
 import ModalWindowWrapper from "./ModalWindows/ModalWindowWrapper";
 import ModalWindow from './Stores/ModalWindow'
-import ModalWindowLoaderWrapper from "./ModalWindows/ModalWindowLoaderWrapper";
-import ModalWindowLoader from "./Stores/ModalWindowLoader"
+import ModalWindowReject from "./ModalWindows/ModalWindowReject";
+import ModalReject from "./Stores/ModalReject";
+
 
 
 const  App = observer(() =>{
@@ -17,9 +18,9 @@ const  App = observer(() =>{
         <div className={`Window   bg-slate-100 flex flex-col overflow-hidden `}
              >
             <BrowserRouter>
-                <ModalWindowLoaderWrapper isOpen={ModalWindowLoader.isOpen} />
 
                 <ModalWindowWrapper isOpen={ModalWindow.isOpen} closeWindow={ModalWindow.closeWindow}/>
+                <ModalWindowReject isOpen={ModalReject.isOpen} closeWindow={ModalReject.closeWindow} id={ModalReject.id}/>
                 <Routes>
 
 

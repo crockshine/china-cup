@@ -8,7 +8,11 @@
     "1": {
       "textInOneMsg": "hello =)",
       "bySend": 1
+    },
+    "2": {
+      "textInOneMsg": "fsehygjygjygjgy",
+      "bySend": 1
     }
   },
-  "current_message": 1
+  "current_message": 2
 }
