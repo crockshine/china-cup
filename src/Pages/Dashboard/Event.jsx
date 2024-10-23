@@ -5,9 +5,9 @@ export default function Event({
   time
 }){
   return(
-    <div className="event">
+    <div className="event ">
           <img className="image_event"src={image} alt="" />
-          <div className="title">
+          <div className="title w-full">
             <p className="event_title">{event_title}</p>
             <p className="what_todo">{what_todo}</p>
           </div>
