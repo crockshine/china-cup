@@ -1,4 +1,4 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole } = require('./../auth')
+const { tryToLogin, makeSession, deleteSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole } = require('./../auth')
 const { checkForAllUsers } = require('./../dashboard_handler');
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js
@@ -48,6 +48,18 @@ module.exports = function (app) {
             res.json({ loginState: 'false' });
         }
     });
+
+    app.post('/api/delete_session', async (req, res) => {
+        const { token } = req.body;
+
+        try {
+            const result = await deleteSession(token);
+            res.status(200).json({ message: 'user_data: delete session: Сессия успешно удалена' });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    });
+    
 
     app.post('/api/get_user_name', async (req, res) => { 
         const { token } = req.body;
