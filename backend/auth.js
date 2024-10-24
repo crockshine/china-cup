@@ -1,8 +1,3 @@
-const { loadCurrentTaskID, listAllTasksInFolder } = require('./tasks_handler');
-
-let currentTaskID = loadCurrentTaskID();
-const allTasksList = listAllTasksInFolder();
-
 const path = require('path');
 const fs = require('fs');
 const db = require('./db');
@@ -103,18 +98,18 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
         if(userRole === null || userRole === '' || userRole === ' ') {  
             userRole = 'Administration';
         }
-        console.log(userRole);
+        
         // Получаем ID роли
-        const userRoleID = await getRoleID(userRole);
+        const userRoleID = getRoleID(userRole);
         
         // Хэшируем пароль перед сохранением
         const hashedPassword = await bcrypt.hash(userPassword, 10);
 
         // Выполняем SQL запрос для добавления пользователя
         const result = await db.query(
-            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at)
-             VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
-            [userMail, hashedPassword, userRoleID, userNickname, userName]
+            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at, techstack, progress_value)
+             VALUES ($1, $2, $3, $4, $5, NOW(), $6, $7) RETURNING *`,
+            [userMail, hashedPassword, userRoleID, userNickname, userName, '', 0]
         );
 
         return 'ok'
@@ -140,6 +135,32 @@ async function makeSession(userMail) {
     );
 
     return token;
+}
+
+async function getUserProgressValue(token) {
+    if (!token) {
+        console.log('Токен не предоставлен');
+        return null; // Или выбросьте ошибку, если необходимо
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.userId;
+
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userId]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.progress_value; // Предполагается, что в таблице есть поле 'progress_value'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserProgressValue:', err);
+        return null; // Обрабатывайте ошибки по необходимости
+    }
 }
 
 // Получение имени пользователя по токену
@@ -217,7 +238,7 @@ async function getUserTechStack(token) {
         return user.techstack; // Предполагается, что в таблице есть поле 'techstack'
     }
     catch (err) {
-        console.log('Ошибка в getUserNickName:', err);
+        console.log('Ошибка в getUserTechStack:', err);
         return null;
     }
 }
@@ -240,10 +261,10 @@ async function getUserMail(token) {
             return null;
         }
 
-        return user.email; // Предполагается, что в таблице есть поле 'techstack'
+        return user.email; // Предполагается, что в таблице есть поле 'email'
     }
     catch (err) {
-        console.log('Ошибка в getUserNickName:', err);
+        console.log('Ошибка в getUserMail:', err);
         return null;
     }
 }
@@ -312,18 +333,12 @@ async function getUserRole(token) {
             return null;
         }
 
-        return user.role_id; // Предполагается, что в таблице есть поле 'nickname'
+        return user.role_id; // Предполагается, что в таблице есть поле 'role_id'
     }
     catch (err) {
         console.log('Ошибка в getUserRole:', err);
         return null;
     }
-}
-
-const tasks_folder = "./tasks"
-// вспомогательная функция, просто возвращает путь к файлу задания исходя из ID этой задачи
-function getTaskFilePath(taskID) {
-    return path.join(tasks_folder, `task_${taskID}.json`);
 }
 
 // Функция для получения всех user_id из базы данных
@@ -337,22 +352,6 @@ async function listAllUsers() {
     }
 }
 
-function loadTaskJSON(taskID) {
-    const _path = getTaskFilePath(taskID);
-    if (!fs.existsSync(_path)) return null;
-
-    const fileContent = fs.readFileSync(_path, 'utf8');
-    const task_jsonData = JSON.parse(fileContent);
-
-    return task_jsonData;
-}
-
-function listAllTasks() {
-    return allTasksList;
-}
-
-function getTaskData(taskID) {
-    return loadTaskJSON(taskID);
-}
-
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole };
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, 
+                   registerAccount, listAllUsers, getUserTechStack, getUserMail, 
+                   setUserData, addNewTask, getUserRole, getUserProgressValue };

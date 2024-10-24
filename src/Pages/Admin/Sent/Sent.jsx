@@ -1,5 +1,5 @@
 import {useAutoAnimate} from "@formkit/auto-animate/react";
-import TaskCard from "../Incoming tasks/TaskCard";
+import IncomingTaskCard from "../Incoming tasks/IncomingTaskCard";
 import {useEffect, useState} from "react";
 import SentTaskCard from "./SentTaskCard";
 import AdminTask from "../../../Stores/AdminTask";

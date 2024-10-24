@@ -1,4 +1,5 @@
-const { listAllChatsForUser, getChatUsers, getUserNameByID, getUserID, getChatMessages, sendChatMessage, getCurrentMessageIndex, printInfo } = require('./../messenger_mgr');
+const { listAllChatsForUser, getChatUsers, getUserNameByID, getUserID, getChatMessages, 
+    sendChatMessage, getCurrentMessageIndex, getUserNickNameByID, printInfo } = require('./../messenger_mgr');
 const { loadDashboardJSON } = require('./../dashboard_handler');
 
 module.exports = function (app) {
@@ -30,6 +31,17 @@ module.exports = function (app) {
         try {
             const _userName = await getUserNameByID(userID);
             res.json( { userName: _userName });
+        } catch (err) {
+            res.status(401).json({ error: String(err) });
+        }
+    });
+
+    app.post('/messenger_api/get_user_nickname_by_id', async (req, res) => {
+        const { userID } = req.body;
+
+        try {
+            const _userNickName = await getUserNickNameByID(userID);
+            res.json( { userNickName: _userNickName });
         } catch (err) {
             res.status(401).json({ error: String(err) });
         }
