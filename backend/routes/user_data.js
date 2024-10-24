@@ -84,6 +84,7 @@ module.exports = function (app) {
     
         try {
             const isValid = await verifyConfirmationCode(confirmationCode);
+            console.log(isValid)
             if (isValid) {
                 res.json({ message: "Код подтверждения верный" });
             } else {
@@ -220,12 +221,28 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/api/get_task_price', async (req, res) => {
+        const { taskID } = req.body;
+      
+        try {
+            const result = await db.query(
+                `SELECT * FROM "task" WHERE id = $1`,
+                [taskID]
+            );
+          const _taskPrice = result.rows[0].task_price;
+          res.json({ taskPrice: _taskPrice });
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to fetch task price data' });
+        }
+    });
+
     app.post('/api/add_new_task', async (req, res) => {
-        const { token, title, deadLine, subTasksCount } = req.body;
+        const { token, title, deadLine, subTasksCount, taskPrice } = req.body;
       
         try {
             console.log('kek:', title);
-            const _result = await addNewTask(token, title, deadLine, subTasksCount);
+            const _result = await addNewTask(token, title, deadLine, subTasksCount, taskPrice);
             res.json({ result: _result });
         } catch (err) {
             console.error(err);

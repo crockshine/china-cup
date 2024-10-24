@@ -49,7 +49,7 @@ async function uploadAllTasksList() {
   }
 }
 
-async function addNewTask(_title, _deadLine, _subTasksCount) {
+async function addNewTask(_title, _deadLine, _subTasksCount, _taskPrice) {
   try {
     const _token = getToken();
     const response = await fetch('/api/add_new_task', {
@@ -61,7 +61,8 @@ async function addNewTask(_title, _deadLine, _subTasksCount) {
         token: _token,
         title: _title,
         deadLine: _deadLine,
-        subTasksCount: _subTasksCount
+        subTasksCount: _subTasksCount,
+        taskPrice: _taskPrice
       }),
     });
 
@@ -102,7 +103,7 @@ export default function Tasks() {
   const [deadline, setDeadline] = useState('');
   const [files, setFiles] = useState([]);
   const [numTasks, setNumTasks] = useState(1);
-  const [numParticipants, setNumParticipants] = useState(1);
+  const [taskPrice, setTaskPrice] = useState(25);
   const [userRole, setUserRole] = useState(-1);
   
   const navigate = useNavigate();
@@ -128,9 +129,9 @@ export default function Tasks() {
 
   const handleModalSubmit = (event) => {
     event.preventDefault();
-    const taskData = { title, deadline, files, numTasks, numParticipants };
-    console.log('New Task Data:', taskData);
-    addNewTask(title, deadline, numTasks);
+    const taskData = { title, deadline, files, numTasks, taskPrice };
+    //console.log('New Task Data:', taskData);
+    addNewTask(title, deadline, numTasks, taskPrice);
     setModalOpen(false); 
     navigate(0); // Перезагружает текущую страницу
   };
@@ -184,8 +185,8 @@ export default function Tasks() {
                 <input type="number" value={numTasks} onChange={(e) => setNumTasks(e.target.value)} min="1" required />
               </label>
               <label>
-                Number of Participants:
-                <input type="number" value={numParticipants} onChange={(e) => setNumParticipants(e.target.value)} min="1" required />
+                Price of the task:
+                <input type="number" value={taskPrice} onChange={(e) => setTaskPrice(e.target.value)} min="5" max="200" required />
               </label>
               <div className="button_tasks">
               <button className="submit_task__button" type="submit">Create Task</button>

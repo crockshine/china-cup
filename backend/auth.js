@@ -37,7 +37,7 @@ function generateConfirmationCode() {
     return Math.floor(100000 + Math.random() * 900000).toString(); // Генерация 6-значного кода
 }
 
-async function addNewTask(token, title, deadLine, subTasksCount) {
+async function addNewTask(token, title, deadLine, subTasksCount, taskPrice) {
     const userRole = await getUserRole(token);
 
     // p.s. 5 - id роли администратора
@@ -57,10 +57,10 @@ async function addNewTask(token, title, deadLine, subTasksCount) {
 
         // Вставляем новую задачу в базу данных
         const result = await db.query(
-            `INSERT INTO task (task_name, dead_line, sub_tasks_count) 
-             VALUES ($1, $2, $3) 
+            `INSERT INTO task (task_name, dead_line, sub_tasks_count, task_price) 
+             VALUES ($1, $2, $3, $4) 
              RETURNING *`,
-            [title, deadlineDate, subTasksCount]
+            [title, deadlineDate, subTasksCount, taskPrice]
         );
 
         // const newTask = result.rows[0];
@@ -87,6 +87,7 @@ const verifyConfirmationCode = async (confirmationCode) => {
         const rightCodeResult = await db.query('SELECT confirmation_code FROM "user" ORDER BY created_at DESC LIMIT 1');
         const rightCode = rightCodeResult.rows[0]?.confirmation_code; // Получаем confirmation_code из первой строки
         console.log(rightCode);
+        console.log(confirmationCode)
         if (rightCode === confirmationCode) {
             return true // Код подтверждения верый
         } else {
@@ -151,6 +152,8 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
         
         // Получаем ID роли
         const userRoleID = await getRoleID(userRole);
+
+        console.log(userRoleID);
         
         // Хэшируем пароль перед сохранением
         const hashedPassword = await bcrypt.hash(userPassword, 10);
@@ -160,9 +163,9 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
 
         // Выполняем SQL запрос для добавления пользователя
         const result = await db.query(
-            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at, techstack, progress_value, confirmation_code)
-             VALUES ($1, $2, $3, $4, $5, NOW(), $6, $7, $8) RETURNING *`,
-            [userMail, hashedPassword, userRoleID, userNickname, userName, '', 0, confirmationCode]
+            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at, progress_value, confirmation_code)
+             VALUES ($1, $2, $3, $4, $5, NOW(), $6, $7) RETURNING *`,
+            [userMail, hashedPassword, userRoleID, userNickname, userName, 0, confirmationCode]
         );
         
         // Отправка кода подтверждения на почту

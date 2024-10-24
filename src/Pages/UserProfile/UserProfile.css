@@ -99,6 +99,20 @@
   justify-content: space-around;
 }
 
+.profile_user{
+  max-height: 300px;
+}
+
+@media (height < 900px) {
+  .block-list{
+    display: none;
+
+  }
+  .profile_user{
+    max-height: none;
+  }
+}
+
 @media (width <= 1448px) {
   .main_profile{
     display: flex;
@@ -106,10 +120,7 @@
     flex-direction: column;
 
   }
-  .block-list{
-    display: none;
 
-  }
   .Blocks{
     display: none;
   }
@@ -134,11 +145,31 @@
     height: 100%;
   }
 }
-@media(height <=860px ){
+@media(height <=860px )and(width <=1448px ){
   .profile_settings{
     display: none;
   }
   .profile_data{
     height: 100%;
   }
+}
+
+@media (height <=1080px) and (width <= 1537px) {
+  .Blocks{
+    display: none;
+  }
+.Slaider{
+  display: flex;
+}
+
+}
+
+@media (height >=1080px) and (width >= 1537px) {
+  .Blocks{
+    display: flex;
+  }
+  .Slaider{
+    display: none;
+  }
+
 }

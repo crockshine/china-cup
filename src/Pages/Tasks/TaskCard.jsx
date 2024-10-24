@@ -18,6 +18,21 @@ async function uploadTaskData(_taskID) {
   return data.taskData;
 }
 
+async function uploadTaskPrice(_taskID) {
+  const response = await fetch('/api/get_task_price', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      taskID: _taskID,
+    }),
+  });
+
+  const data = await response.json();
+  return data.taskPrice;
+}
+
 function getToken() {
   return Cookies.get('token');
 }
@@ -188,6 +203,7 @@ export default function TaskCard({ taskID, pickedTasksList }) {
   const [taskName, setTaskName] = React.useState('');
   const [taskDeadLine, setTaskDeadLine] = React.useState('');
   const [taskSubTasksCount, setTaskSubTasksCount] = React.useState(0);
+  const [taskPrice, setTaskPrice] = React.useState(25);
   const [taskMembers, setTaskMembers] = React.useState([]);
   const [taskPickState, setTaskPickState] = React.useState(false);
   const [taskStageState, setTaskStageState] = React.useState(0);
@@ -208,6 +224,7 @@ export default function TaskCard({ taskID, pickedTasksList }) {
     setTaskDeadLine(taskData.dead_line);
     setTaskSubTasksCount(taskData.sub_tasks_count);
     setTaskMembers(taskData.members);
+    setTaskPrice(await uploadTaskPrice(taskID));
 
     const _taskPickState = pickedTasksList && pickedTasksList.includes(taskID);
     setTaskPickState(_taskPickState);
@@ -344,19 +361,23 @@ export default function TaskCard({ taskID, pickedTasksList }) {
       </div>
       <div className="card__description">
         <div className="deadline">
-          <img className="image_Card" src="../icons/time.jpg" alt="" />
+          <img className="image_Card" src="../image/time.jpg" alt="" />
           <h1 className="card__label">Deadline: {new Date(taskDeadLine).toLocaleDateString()}</h1>
         </div>
         <div className="files__count">
-          <img className="image_Card" src="../icons/download.jpg" alt="" />
+          <img className="image_Card" src="../image/download.jpg" alt="" />
           <h1 className="card__label">{1} File</h1>
         </div>
         <div className="tasks__count">
-          <img className="image_Card" src="../icons/count.jpg" alt="" />
+          <img className="image_Card" src="../image/count.jpg" alt="" />
           <h1 className="card__label">Sub Tasks {taskSubTasksCount}</h1>
         </div>
+        <div className="tasks__count">
+          <img className="image_Card" src="../image/icon222.png" alt="" />
+          <h1 className="card__label">Task Price {taskPrice}</h1>
+        </div>
         <div className="members__count">
-          <img className="image_Card" src="../icons/members.jpg" alt="" />
+          <img className="image_Card" src="../image/members.jpg" alt="" />
           <h1 className="card__label">Members {taskMembers.length}</h1>
         </div>
       </div>

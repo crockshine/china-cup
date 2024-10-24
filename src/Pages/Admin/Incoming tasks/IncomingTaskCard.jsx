@@ -58,6 +58,22 @@ async function approveTaskSolution(_taskID, _userID) {
     return data;
 }
 
+async function incrementUserProgress(_taskID, _userID) {
+    const response = await fetch('/tasks_api/increment_user_progress', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            taskID: _taskID,
+            userID: _userID,
+        }),
+    });
+
+    const data = await response.json();
+    return data;
+}
+
 async function rejectTaskSolution(_taskID, _userID, _comment) {
     const response = await fetch('/tasks_api/reject_task_solution', {
         method: 'POST',
@@ -171,6 +187,7 @@ export default function IncomingTaskCard({ taskID, userID, time, setIncoming, us
         //setIncoming([...AdminTask.incomingTasks]);
         async function send() {
             approveTaskSolution(taskID, userID);
+            incrementUserProgress(taskID, userID);
         }
 
         send();
