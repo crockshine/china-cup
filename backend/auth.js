@@ -114,7 +114,7 @@ async function tryToLogin(userMail, userPassword) {
         // Возвращаем true, если пароли совпадают, иначе false
         return passwordMatch;
     } catch (err) {
-        console.error('Ошибка при попытке входа:', err.message);
+        console.error('tryToLogin: Ошибка при попытке входа:', err.message);
         throw new Error('Login failed');
     }
 }
@@ -174,7 +174,7 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
 
         return 'ok'
     } catch (err) {
-        console.error('Ошибка при регистрации:', err.message);
+        console.error('registerAccount: Ошибка при регистрации:', err.message);
         return 'ne ok'
     }
 }
@@ -186,7 +186,7 @@ async function makeSession(userMail) {
     const user = result.rows[0];
 
     // Генерируем JWT токен
-    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '99999m' });
+    const token = jwt.sign({ userId: user.user_id }, JWT_SECRET, { expiresIn: '1d' });
 
     // Сохраняем сессию в БД
     await db.query(
@@ -196,6 +196,26 @@ async function makeSession(userMail) {
 
     return token;
 }
+
+// Удаляет сессию по токену
+async function deleteSession(token) {
+    try {
+        console.log(token);
+        // Удаляем сессию из БД по токену
+        const result = await db.query('DELETE FROM session WHERE token = $1', [token]);
+        console.log(result);
+        // Проверяем, была ли сессия удалена
+        if (result.rowCount === 0) {
+            throw new Error('deleteSession: Сессия не найдена или уже удалена');
+        }
+
+        return { message: 'deleteSession: Сессия успешно удалена' };
+    } catch (error) {
+        console.error('deleteSession: Ошибка при удалении сессии:', error.message);
+        throw error;
+    }
+}
+
 
 async function getUserProgressValue(token) {
     if (!token) {
@@ -226,7 +246,7 @@ async function getUserProgressValue(token) {
 // Получение имени пользователя по токену
 async function getUserName(token) {
     if (!token) {
-        console.log('Токен не предоставлен');
+        console.log('getUserName: Токен не предоставлен');
         return null; // Или выбросьте ошибку, если необходимо
     }
 
@@ -238,7 +258,7 @@ async function getUserName(token) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('getUserName: Пользователь не найден');
             return null;
         }
 
@@ -253,7 +273,7 @@ async function getUserName(token) {
 // Аналогично для getUserNickName
 async function getUserNickName(token) {
     if (!token) {
-        console.log('Токен не предоставлен');
+        console.log('getUserNickName: Токен не предоставлен');
         return null;
     }
 
@@ -265,7 +285,7 @@ async function getUserNickName(token) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('getUserNickName: Пользователь не найден');
             return null;
         }
 
@@ -279,7 +299,7 @@ async function getUserNickName(token) {
 
 async function getUserTechStack(token) {
     if (!token) {
-        console.log('Токен не предоставлен');
+        console.log('getUserTechStack: Токен не предоставлен');
         return null;
     }
 
@@ -291,7 +311,7 @@ async function getUserTechStack(token) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('getUserTechStack: Пользователь не найден');
             return null;
         }
 
@@ -305,7 +325,7 @@ async function getUserTechStack(token) {
 
 async function getUserMail(token) {
     if (!token) {
-        console.log('Токен не предоставлен');
+        console.log('getUserMail: Токен не предоставлен');
         return null;
     }
 
@@ -317,7 +337,7 @@ async function getUserMail(token) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('getUserMail: Пользователь не найден');
             return null;
         }
 
@@ -331,7 +351,7 @@ async function getUserMail(token) {
 
 async function setUserData(token, nickname, email, techStack) {
     if (!token) {
-        console.log('Токен не предоставлен');
+        console.log('setUserData: Токен не предоставлен');
         return null;
     }
 
@@ -345,7 +365,7 @@ async function setUserData(token, nickname, email, techStack) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('setUserData: Пользователь не найден');
             return null;
         }
 
@@ -362,10 +382,10 @@ async function setUserData(token, nickname, email, techStack) {
         const updatedUser = updateResult.rows[0];
 
         if (updatedUser) {
-            console.log('Данные пользователя успешно обновлены:', updatedUser);
+            console.log('setUserData: Данные пользователя успешно обновлены:', updatedUser);
             return updatedUser;
         } else {
-            console.log('Не удалось обновить данные пользователя');
+            console.log('setUserData: Не удалось обновить данные пользователя');
             return null;
         }
 
@@ -389,7 +409,7 @@ async function getUserRole(token) {
         const user = result.rows[0];
 
         if (!user) {
-            console.log('Пользователь не найден');
+            console.log('getUserRole: Пользователь не найден');
             return null;
         }
 
@@ -408,7 +428,7 @@ async function listAllUsers() {
         // Вернем массив всех user_id
         return result.rows.map(row => row.user_id);
     } catch (err) {
-        console.error('Ошибка при получении user_id:', err.message);
+        console.error('listAllUsers: Ошибка при получении user_id:', err.message);
     }
 }
 
@@ -430,4 +450,4 @@ function getTaskData(taskID) {
     return loadTaskJSON(taskID);
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole,verifyConfirmationCode,getUserProgressValue };
+module.exports = { tryToLogin, makeSession, deleteSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole,verifyConfirmationCode,getUserProgressValue };
