@@ -266,6 +266,7 @@ export default function UserProfile() {
   });
   const [userRoleName, setUserRoleName] = useState("");
   const navigate = useNavigate();
+  const [visibleSlaid, setVisibleSlaid] = useState(1)
 
   useEffect(() => {
 
@@ -308,6 +309,17 @@ export default function UserProfile() {
     }));
   };
 
+  const prev = () =>{
+      if(visibleSlaid === 1)setVisibleSlaid(6)
+      else setVisibleSlaid(visibleSlaid-1)
+
+  }
+  const next = () => {
+      if(visibleSlaid === 6)setVisibleSlaid(1)
+      else setVisibleSlaid(visibleSlaid+1)
+
+  }
+
   return (
       <main className="main_profile w-full  flex h-full overflow-hidden p-5 gap-5">
 
@@ -315,7 +327,7 @@ export default function UserProfile() {
 
               <span className="mb-4 font-bold text-2xl sticky">Information</span>
 
-              <div  onClick={handleEditClick} className="profile_user w-full shadow-xl transition rounded-2xl bg-slate-50
+              <div  onClick={handleEditClick} className="profile_user w-full h-full shadow-xl transition rounded-2xl bg-slate-50
                                 hover:shadow-2xl hover:-translate-y-1.5 p-4 hover:cursor-pointer ">
 
                   <div className="profile_data flex flex-row items-center h-1/2 justify-around">
@@ -348,8 +360,8 @@ export default function UserProfile() {
                   </div>
               </div>
 
-              <div className="block-list w-full h-full flex items-center justify-center">
-                  <div className="Blocks   flex flex-wrap gap-4  flex-row items-center justify-center">
+              <div className="block-list relative overflow-hidden w-full h-full flex items-center justify-center">
+                  <div className="Blocks  flex flex-wrap gap-4  flex-row items-center justify-center">
 
 
                       <CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
@@ -361,12 +373,36 @@ export default function UserProfile() {
 
 
                   </div>
+
+                  <div
+                      className="Slaider absolute flex flex-col transition flex-nowrap gap-4  items-center justify-center overflow-hidden">
+                      <div className={"slaiders"}>
+                          <div className={`${visibleSlaid === 1 ?  "block" : "hidden"}`}><CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
+                          </div>
+                          <div className={`${visibleSlaid === 2 ?  "block" : "hidden"}`}><CardInProfile text={'Members'} count={38} color={'bg-pink-400'}/>
+                          </div>
+                          <div className={`${visibleSlaid === 3 ?  "block" : "hidden"}`}><CardInProfile text={'Course'} count={3} color={'bg-green-400'}/>
+                          </div>
+                          <div className={`${visibleSlaid === 4 ?  "block" : "hidden"}`}><CardInProfile text={'Repositories'} count={12}
+                                                                   color={'bg-blue-500'}/></div>
+                          <div className={`${visibleSlaid === 5 ?  "block" : "hidden"}`}><CardInProfile text={'Chats'} count={4} color={'bg-yellow-400'}/>
+                          </div>
+                          <div className={`${visibleSlaid === 6 ?  "block" : "hidden"}`}><CardInProfile text={'Messages'} count={47}
+                                                                   color={'bg-orange-500'}/></div>
+                      </div>
+                      <div className={"btns flex w-full h-20 gap-2"}>
+                          <button className={"w-full h-full border rounded-l-2xl"} onClick={prev}>Prev</button>
+                          <button className={"w-full h-full border rounded-r-2xl"} onClick={next}>Next</button>
+                      </div>
+
+
+                  </div>
               </div>
 
 
           </div>
 
-          <div className="right_bar w-full flex flex-col items-center">
+          <div className="right_bar  w-full flex flex-col items-center">
               <span className="mb-4 font-bold text-2xl sticky">History</span>
               <div
                   className="profile_events  overflow-y-scroll h-full w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
