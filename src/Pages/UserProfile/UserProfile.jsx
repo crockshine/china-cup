@@ -182,255 +182,208 @@ const rolesMap = new Map([
   [2, "Graduate"]
 ]);
 
-function Modal({ isOpen, onClose, onSubmit }) {
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState(null);
-  const [techStack, setTechStack] = useState("");
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    async function invoke() {
-      setNickname(await getUserNickName());
-      setEmail(await getUserMail());
-      setTechStack(await getUserTechStack());
-    }
-    invoke();
-  }, [navigate]);
-  if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ nickname, email, avatar, techStack });
-    setUserData(nickname, email, techStack);
-    onClose();
-    navigate(0); // Перезагружает текущую страницу
 
-  };
-
-  return (
-    <div className="modal">
-      <form onSubmit={handleSubmit}>
-        <h2 className="modal_label">Edit Profile</h2>
-        <input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <div className="file-upload">
-          <div className="upload_title">
-            <p className="image_upload__title">Upload image</p>
-        <label htmlFor="file-input" className="custom-file-upload">
-          Choose File
-        </label>
-        </div>
-        <input
-          id="file-input"
-          className="input_image"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
-        />
-      </div>
-        <input
-          type="text"
-          placeholder="Tech Stack"
-          value={techStack}
-          onChange={(e) => setTechStack(e.target.value)}
-        />
-        <div className="modal_buttons">
-        <button className="modal_button1" type="submit">Save</button>
-        <button className="modal_button2" type="button" onClick={onClose}>Cancel</button>
-        </div>
-      </form>
-    </div>
-  );
-}
 
 // ============================================
 export default function UserProfile() {
-  const [dashboardContent, setDashboardContent] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "Aleksandr",
-    nickname: "v0unt",
-    email: "example@mail.com",
-    techStack: "Full-Stack",
-  });
-  const [userRoleName, setUserRoleName] = useState("");
-  const navigate = useNavigate();
-  const [visibleSlaid, setVisibleSlaid] = useState(1)
+    const [dashboardContent, setDashboardContent] = useState([]);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [userData, setUserData] = useState({
+        name: "Aleksandr",
+        nickname: "v0unt",
+        email: "example@mail.com",
+        techStack: "Full-Stack",
+    });
+    const [disabled, setDisabled] = useState(true)
 
-  useEffect(() => {
-
-    async function invoke() {
-        ModalWindowLoader.openWindow()
-
-      const userID = await loadUserID();
-      const _dashboardContent = await listUserDashboard(userID);
-
-      setUserRoleName(rolesMap.get(await getUserRole()));
+    console.log(userData);
 
 
-      // загружаем инфу о пользователе:
-      const _userData = {
-        name: await getUserName(),
-        nickname: await getUserNickName(),
-        email: await getUserMail(),
-        techStack: await getUserTechStack()
-      };
-      setUserData(_userData);
+
+    const [userRoleName, setUserRoleName] = useState("");
+    const navigate = useNavigate();
+    const [visibleSlaid, setVisibleSlaid] = useState(1)
+
+    useEffect(() => {
+
+        async function invoke() {
+            ModalWindowLoader.openWindow()
+
+            const userID = await loadUserID();
+            const _dashboardContent = await listUserDashboard(userID);
+
+            setUserRoleName(rolesMap.get(await getUserRole()));
 
 
-      setDashboardContent(_dashboardContent);
-        ModalWindowLoader.closeWindow()
+            // загружаем инфу о пользователе:
+            const _userData = {
+                name: await getUserName(),
+                nickname: await getUserNickName(),
+                email: await getUserMail(),
+                techStack: await getUserTechStack()
+            };
+            setUserData(_userData);
+
+
+            setDashboardContent(_dashboardContent);
+            ModalWindowLoader.closeWindow()
+
+        }
+
+        invoke();
+    }, [navigate]);
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        console.log(userData);
+
+        navigate(0); // Перезагружает текущую страницу
+
+    };
+
+    // <input
+    //     id="file-input"
+    //     className="input_image"
+    //     type="file"
+    //     accept="image/*"
+    //     onChange={(e) => setAvatar(e.target.files[0])}
+    // />
+
+
+    const prev = () => {
+        if (visibleSlaid === 1) setVisibleSlaid(6)
+        else setVisibleSlaid(visibleSlaid - 1)
+
+    }
+    const next = () => {
+        if (visibleSlaid === 6) setVisibleSlaid(1)
+        else setVisibleSlaid(visibleSlaid + 1)
 
     }
 
-    invoke();
-  }, [navigate]);
+    return (
+        <main className=" w-full  flex flex-col h-full overflow-x-hidden overflow-y-scroll p-5 gap-5">
 
-  const handleEditClick = () => {
-    setModalOpen(true);
-  };
+            <div
+                className="ProfileInfo  w-full flex flex-col gap-4  p-5 items-center text-center shadow-xl transition rounded-2xl bg-slate-50">
 
-  const handleModalSubmit = (updatedData) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      nickname: updatedData.nickname || prevData.nickname,
-      email: updatedData.email || prevData.email,
-    }));
-  };
+                <span className="font-bold text-2xl flex items-center justify-center">Information</span>
 
-  const prev = () =>{
-      if(visibleSlaid === 1)setVisibleSlaid(6)
-      else setVisibleSlaid(visibleSlaid-1)
-
-  }
-  const next = () => {
-      if(visibleSlaid === 6)setVisibleSlaid(1)
-      else setVisibleSlaid(visibleSlaid+1)
-
-  }
-
-  return (
-      <main className="main_profile w-full  flex h-full overflow-hidden p-5 gap-5">
-
-          <div className="left_bar  achivments_person w-full flex flex-col  items-center text-center">
-
-              <span className="mb-4 font-bold text-2xl sticky">Information</span>
-
-              <div  onClick={handleEditClick} className="profile_user w-full h-full shadow-xl transition rounded-2xl bg-slate-50
-                                hover:shadow-2xl hover:-translate-y-1.5 p-4 hover:cursor-pointer ">
-
-                  <div className="profile_data flex flex-row items-center h-1/2 justify-around">
-                      <div className="profile_photo w-28 h-28">
-                          <img src="/image/defaultProfile.png" alt=""/>
-                      </div>
-
-                      <div className="profile_nickname p-5 flex flex-col gap-2 text-start">
-                          <p className="user_name text-xl">Name: <span className="font-bold ">{userData.name}</span></p>
-                          <p className="user_nickname text-xl">Nickname:<span className="font-bold"> {userData.nickname}</span>                          </p>
-                          <p className="user_role text-xl">Stack:<span className="font-bold"> {userData.techStack !== 'null' ? userData.techStack : 'specify'}</span></p>
-                      </div>
-                      {/*<button className="edit_button">Edit</button>*/}
-                  </div>
-                  <div className="profile_settings h-1/2 p-4 flex flex-col gap-2">
-                      <div className='w-full border'></div>
-
-                      <div className="user_info flex gap-2 text-start">
-                          <img src="/image/files.png" alt=""/>
-                          <p>{userData.email}</p>
-                      </div>
-                      <div className="user_info flex gap-2 text-start">
-                          <img src="/image/members.jpg" alt=""/>
-                          <p>24 Friends</p>
-                      </div>
-                      <div className="user_info flex gap-2 text-start">
-                          <img src="/image/settings.png" alt=""/>
-                          <p>Status: {userRoleName}</p>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="block-list relative overflow-hidden w-full h-full flex items-center justify-center">
-                  <div className="Blocks  flex flex-wrap gap-4  flex-row items-center justify-center">
+                <div className="Profile w-full h-full flex items-center">
+                    <img src="/image/defaultProfile.png" alt="" className="w-32 h-32"/>
+                    <div className="Inputs flex flex-col gap-4 w-full">
 
 
-                      <CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
-                      <CardInProfile text={'Members'} count={38} color={'bg-pink-400'}/>
-                      <CardInProfile text={'Course'} count={3} color={'bg-green-400'}/>
-                      <CardInProfile text={'Repositories'} count={12} color={'bg-blue-500'}/>
-                      <CardInProfile text={'Chats'} count={4} color={'bg-yellow-400'}/>
-                      <CardInProfile text={'Messages'} count={47} color={'bg-orange-500'}/>
+                        <div className={"w-full text-end"}>
+                            <span className={"font-bold"}>Name</span>
+                            <input type="text"
+                                   className="w-full h-14 border rounded-2xl p-3 font-bold text-xl text-slate-700 outline-blue-600"
+                                   value={userData.name}
+                                   onChange={(e)=>
+                                   {
+                                       setDisabled(false)
+                                       setUserData({...userData, name: e.target.value})}
+                                   }    />
+                        </div>
+
+                        <div className={"w-full text-end"}>
+                            <span className={"font-bold"}>Nickname</span>
+                            <input type="text"
+                                   className="w-full h-14 border rounded-2xl p-3 font-bold text-xl text-slate-700 outline-blue-600"
+                                   value={userData.nickname}
+                                   onChange={(e)=>
+                                   {
+                                       setDisabled(false)
+                                       setUserData({...userData, nickname: e.target.value})}
+                                   }    />
+
+                        </div>
+
+                        <div className={"w-full text-end"}>
+                            <span className={"font-bold"}>Email</span>
+                            <input type="text"
+                                   className="w-full h-14 border rounded-2xl p-3 font-bold text-xl text-slate-700 outline-blue-600"
+                                   value={userData.email}
+                                   onChange={(e)=>
+                                   {
+                                       setDisabled(false)
+                                       setUserData({...userData, email: e.target.value})}
+                                   }/>
+
+                        </div>
+
+                        <div className={"w-full text-end"}>
+                            <span className={"font-bold"}>Stack</span>
+                            <input type="text"
+                                   className="w-full h-14 border rounded-2xl p-3 font-bold text-xl text-slate-700 outline-blue-600"
+                                   value={userData.techStack}
+                                   onChange={(e)=>
+                                   {
+                                       setDisabled(false)
+                                       setUserData({...userData, techStack: e.target.value})}
+                                   }/>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className={"w-full h-20"}>
+                    <button
+                        onClick={handleUpdate}
+                        disabled={disabled}
+                        className={`w-1/3 h-full  rounded-2xl font-bold text-xl text-slate-50 
+                        ${disabled ? "disabled bg-sky-200 cursor-auto": "bg-sky-400"}`}>Save change
+
+                    </button>
+
+                </div>
 
 
-                  </div>
+            </div>
 
-                  <div
-                      className="Slaider absolute flex flex-col transition flex-nowrap gap-4  items-center justify-center overflow-hidden">
-                      <div className={"slaiders"}>
-                          <div className={`${visibleSlaid === 1 ?  "block" : "hidden"}`}><CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
-                          </div>
-                          <div className={`${visibleSlaid === 2 ?  "block" : "hidden"}`}><CardInProfile text={'Members'} count={38} color={'bg-pink-400'}/>
-                          </div>
-                          <div className={`${visibleSlaid === 3 ?  "block" : "hidden"}`}><CardInProfile text={'Course'} count={3} color={'bg-green-400'}/>
-                          </div>
-                          <div className={`${visibleSlaid === 4 ?  "block" : "hidden"}`}><CardInProfile text={'Repositories'} count={12}
-                                                                   color={'bg-blue-500'}/></div>
-                          <div className={`${visibleSlaid === 5 ?  "block" : "hidden"}`}><CardInProfile text={'Chats'} count={4} color={'bg-yellow-400'}/>
-                          </div>
-                          <div className={`${visibleSlaid === 6 ?  "block" : "hidden"}`}><CardInProfile text={'Messages'} count={47}
-                                                                   color={'bg-orange-500'}/></div>
-                      </div>
-                      <div className={"btns flex w-full h-20 gap-2"}>
-                          <button className={"w-full h-full border rounded-l-2xl"} onClick={prev}>Prev</button>
-                          <button className={"w-full h-full border rounded-r-2xl"} onClick={next}>Next</button>
-                      </div>
+            <div className="Blocks  flex flex-wrap gap-4  flex-row items-center justify-center">
 
 
-                  </div>
-              </div>
+                <CardInProfile text={'Project'} count={21} color={'bg-red-500'}/>
+                <CardInProfile text={'Members'} count={38} color={'bg-pink-400'}/>
+                <CardInProfile text={'Course'} count={3} color={'bg-green-400'}/>
+                <CardInProfile text={'Repositories'} count={12} color={'bg-blue-500'}/>
+                <CardInProfile text={'Chats'} count={4} color={'bg-yellow-400'}/>
+                <CardInProfile text={'Messages'} count={47} color={'bg-orange-500'}/>
 
 
-          </div>
-
-          <div className="right_bar  w-full flex flex-col items-center">
-              <span className="mb-4 font-bold text-2xl sticky">History</span>
-              <div
-                  className="profile_events  overflow-y-scroll h-full w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
-
-                  <div className="events__profile h-96 w-full bg-slate-50">
-                      {Object.keys(dashboardContent).map((key) => {
-                          const item = dashboardContent[key];
-                          return (
-                              <Event
-                                  key={key}
-                                  image={"/image/defaultProfile.png"}
-                                  event_title={item.event}
-                                  what_todo={item.name}
-                                  time={item.time}
-                              />
-                          );
-                      })}
-                  </div>
-              </div>
+            </div>
 
 
-          </div>
+            <div className="History w-full flex flex-col items-center">
 
-          <Modal
-              isOpen={isModalOpen}
-              onClose={() => setModalOpen(false)}
-              onSubmit={handleModalSubmit}
-          />
-      </main>
-  );
+                <span className="mb-4 font-bold text-2xl sticky">History</span>
+                <div
+                    className="profile_events   w-full rounded-2xl shadow-xl bg-slate-50 flex flex-col">
+
+                    <div className="events__profile rounded-2xl w-full bg-slate-50">
+                        {Object.keys(dashboardContent).map((key) => {
+                            const item = dashboardContent[key];
+                            return (
+                                <Event
+                                    key={key}
+                                    image={"/image/defaultProfile.png"}
+                                    event_title={item.event}
+                                    what_todo={item.name}
+                                    time={item.time}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </main>
+    );
 }
