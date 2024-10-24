@@ -1,5 +1,5 @@
 const { listAllPickedtasks, removePickedTask, getPickedTaskStage, setPickedTaskStage, setPickedTaskSolution, 
-    getUncheckedTasksData, approveTaskSolution, rejectTaskSolution, tryTaskAgain, getAdminComment } = require('./../tasks_mgr');
+    getUncheckedTasksData, approveTaskSolution, rejectTaskSolution, tryTaskAgain, getAdminComment, incrementUserProgress } = require('./../tasks_mgr');
 
 module.exports = function (app) {
     app.post('/tasks_api/list_all_picked_tasks', async (req, res) => {
@@ -74,6 +74,18 @@ module.exports = function (app) {
 
         try {
             const _data = await approveTaskSolution(taskID, userID);
+            res.json( { data: _data });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+
+    app.post('/tasks_api/increment_user_progress', async (req, res) => {
+        const { taskID, userID } = req.body;
+
+        try {
+            //console.log('taskID: ', taskID,', userID:', userID);
+            const _data = await incrementUserProgress(taskID, userID);
             res.json( { data: _data });
         } catch (err) {
             res.status(401).json({ error: 'Invalid token' });

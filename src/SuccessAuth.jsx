@@ -30,7 +30,7 @@ const  SuccessAuth = observer(()=> {
         //console.log("Kek: ", loginState, sessionID);
 
         if (loginState != "true") {
-            navigate('/');
+            navigate('/authentication');
         }
 
     }, [navigate]);

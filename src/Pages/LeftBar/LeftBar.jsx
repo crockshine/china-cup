@@ -121,21 +121,16 @@ const LeftBar = observer(()=>{
     const [x, setX] = useState()
     const [y, setY] = useState()
     const [progress, setProgress] = useState(0)//это не трогать
-    const [progressBar, setProgressBar] = useState(549) //сздесь полная стата, тоесть 452 или 1233
+    const [progressBar, setProgressBar] = useState(49) //сздесь полная стата, тоесть 452 или 1233
 
     useEffect(()=>{
-        //сброс бара и инкремент прогресса
-        // ПИЗДЕЕЦ МИША, пиши лучше фронт)) у тебя бек - это пиздец
         if (progressBar >= 100) {
-            // это пиздец полный
-            // блять мишань, через toString это делать пздц, такая себе идея блять
             setProgressBar(progressBar -  parseInt(progressBar.toString()[0])*100);
             setProgress(parseInt(progressBar.toString()[0]));
-        } else {
-            // тут похуй, это я дописал
-            setProgressBar(progressBar);
-            setProgress(0);
-        }
+        } //else {
+        //     setProgressBar(progressBar);
+        //     setProgress(0);
+        // }
 
         setX(75 * Math.cos((((progressBar*360/100)+90) * Math.PI) / 180));
         setY(-75 * Math.sin((((progressBar*360/100)+90) * Math.PI) / 180));
