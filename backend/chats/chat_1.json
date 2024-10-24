@@ -28,7 +28,19 @@
     "6": {
       "textInOneMsg": "ll",
       "bySend": 1
+    },
+    "7": {
+      "textInOneMsg": "sfffesef",
+      "bySend": 4
+    },
+    "8": {
+      "textInOneMsg": "\nfesfesf",
+      "bySend": 4
+    },
+    "9": {
+      "textInOneMsg": "\nfesfesf",
+      "bySend": 4
     }
   },
-  "current_message": 6
+  "current_message": 9
 }

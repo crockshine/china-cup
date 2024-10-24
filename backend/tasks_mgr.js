@@ -164,6 +164,44 @@ async function getTasksDataByStage(taskStage) {
     }
 }
 
+async function incrementUserProgress(taskID, userID) {
+    try {
+        const result = await db.query(
+            `SELECT * FROM "task" WHERE id = $1`,
+            [taskID]
+        );
+        const taskPriceValue = result.rows[0].task_price;
+
+        const result_user = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userID]);
+        const user = result_user.rows[0];
+
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        const currentUserProgressValue = user.progress_value;
+        const newUserProgressValue = currentUserProgressValue + taskPriceValue;
+        //console.log('currentUserProgressValue=', currentUserProgressValue, ', taskPriceValue=', taskPriceValue, ', newUserProgressValue=', newUserProgressValue);
+
+        
+        const setUserProgressValueResult = await db.query(
+            `UPDATE "user" 
+             SET progress_value = $2
+             WHERE user_id = $1
+             RETURNING *`,
+            [userID, newUserProgressValue]
+        );
+
+        return 'ok';
+    }
+    catch (err) {
+        console.log('Ошибка в incrementUserProgress:', err);
+        return null; // Обрабатывайте ошибки по необходимости
+    }
+}
+
 async function approveTaskSolution(taskID, userID) {
     try {
         const setSulutionResult = await db.query(
@@ -271,4 +309,4 @@ async function getUncheckedTasksData() {
 
 module.exports = { listAllPickedtasks, removePickedTask, getPickedTaskStage, setPickedTaskStage, 
     setPickedTaskSolution, getTasksDataByStage, getUncheckedTasksData, approveTaskSolution, 
-    rejectTaskSolution, tryTaskAgain, getAdminComment };
+    rejectTaskSolution, tryTaskAgain, getAdminComment, incrementUserProgress };
