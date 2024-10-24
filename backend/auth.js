@@ -150,7 +150,7 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
         }
         
         // Получаем ID роли
-        const userRoleID = getRoleID(userRole);
+        const userRoleID = await getRoleID(userRole);
         
         // Хэшируем пароль перед сохранением
         const hashedPassword = await bcrypt.hash(userPassword, 10);
