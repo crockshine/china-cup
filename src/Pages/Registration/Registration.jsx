@@ -54,7 +54,7 @@ export default function Registration() {
         }
 
         if (data.loginState === "true") {
-            navigate('/home'); // Переход на страницу '/home' после успешной регистрации
+            navigate('/authentication'); // Переход на страницу '/home' после успешной регистрации
             // Здесь вы можете добавить логику для обработки успешного входа
         } else {
             // Остаемся на регистрации

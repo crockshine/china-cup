@@ -124,7 +124,31 @@
     "30": {
       "textInOneMsg": "12344576576",
       "bySend": 1
+    },
+    "31": {
+      "textInOneMsg": "ау",
+      "bySend": 1
+    },
+    "32": {
+      "textInOneMsg": "пвкпкв",
+      "bySend": 1
+    },
+    "33": {
+      "textInOneMsg": "fsee",
+      "bySend": 1
+    },
+    "34": {
+      "textInOneMsg": "nbbn\n",
+      "bySend": 1
+    },
+    "35": {
+      "textInOneMsg": "\n132",
+      "bySend": 1
+    },
+    "36": {
+      "textInOneMsg": "\nte4e",
+      "bySend": 1
     }
   },
-  "current_message": 30
+  "current_message": 36
 }

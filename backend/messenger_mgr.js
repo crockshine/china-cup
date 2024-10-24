@@ -70,6 +70,24 @@ async function getUserNameByID(userID) {
     }
 }
 
+async function getUserNickNameByID(userID) {
+    try {
+        const result = await db.query('SELECT * FROM "user" WHERE user_id = $1', [userID]);
+        const user = result.rows[0];
+
+        if (!user) {
+            console.log('Пользователь не найден');
+            return null;
+        }
+
+        return user.nickname; // Предполагается, что в таблице есть поле 'nickname'
+    }
+    catch (err) {
+        console.log('Ошибка в getUserNickNameByID:', err);
+        return null; // Обрабатывайте ошибки по необходимости
+    }
+}
+
 // возвращает id пользователя исходя из его токена
 async function getUserID(token) {
     if (!token) {
@@ -143,4 +161,5 @@ function printInfo() {
     console.log('allChatsIndexing=', allChatsIndexing);
 }
 
-module.exports = { listAllChatsForUser, getChatUsers, getUserNameByID, getUserID, getChatMessages, sendChatMessage, getCurrentMessageIndex, printInfo };
+module.exports = { listAllChatsForUser, getChatUsers, getUserNameByID, getUserID, getChatMessages, 
+    sendChatMessage, getCurrentMessageIndex, printInfo, getUserNickNameByID };

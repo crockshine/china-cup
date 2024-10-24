@@ -4,6 +4,8 @@ import Event from "./Event"
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import {useAutoAnimate} from "@formkit/auto-animate/react";
+import ModalWindowLoader from "../../Stores/ModalWindowLoader";
 
 export default function Dashboard() {
   const [dashboardContent, setDashboardContent] = useState([]);
@@ -11,14 +13,17 @@ export default function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate(); // Хук для навигации
   useEffect(() => {
-    async function invoke() {
-      const userID = await loadUserID();
-      const _dashboardContent = await listUserDashboard(userID);
+      ModalWindowLoader.openWindow()
 
-      setDashboardContent(_dashboardContent);
-      console.log("_dashboardContent=", _dashboardContent[1]);
-      
-    }
+      async function invoke() {
+          const userID = await loadUserID();
+          const _dashboardContent = await listUserDashboard(userID);
+
+          setDashboardContent(_dashboardContent);
+          console.log("_dashboardContent=", _dashboardContent[1]);
+
+          ModalWindowLoader.closeWindow()
+      }
     invoke();
 
   }, [navigate]);
@@ -66,6 +71,7 @@ async function loadUserID() {
   }
 };
 
+const [parent] = useAutoAnimate()
   return(
     <main className="main_content__dashboard">
       <div className="all_dashboard">
@@ -87,7 +93,7 @@ async function loadUserID() {
         <h2>Stages</h2></div>
       </div>
 
-      <div className="events">
+      <div className="events" ref={parent}>
       {Object.keys(dashboardContent).map((key) => {
               const item = dashboardContent[key];
               return (

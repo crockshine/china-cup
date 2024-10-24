@@ -1,0 +1,47 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept",
+    "time": "09:09"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.2",
+    "time": "14:19"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept",
+    "time": "03:58"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Develop a mobile application",
+    "time": "14:12"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "00:11"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Implement error handling and logging",
+    "time": "20:32"
+  },
+  "7": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept",
+    "time": "20:59"
+  },
+  "8": {
+    "event": "Solved the task",
+    "name": "Create data visualizations",
+    "time": "13:59"
+  },
+  "9": {
+    "event": "Solved the task",
+    "name": "Implement error handling and logging",
+    "time": "23:01"
+  }
+}

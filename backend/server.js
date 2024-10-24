@@ -6,9 +6,9 @@ const { initializeMessagesUtil } = require('./messages_util');
 
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
-app.use(cookieParser()); // Подключаем middleware для работы с куками
 const PORT = 3000;
 
 checkForAllUsers();
@@ -18,6 +18,8 @@ printInfo();
 app.use(express.static(path.join(__dirname, '../build')));
 
 // Middleware для парсинга JSON
+app.use(cookieParser()); // Подключаем middleware для работы с куками
+app.use(cors()); // включаем cors
 app.use(express.json());
 
 require('./routes')(app);

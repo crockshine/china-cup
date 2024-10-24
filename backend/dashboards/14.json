@@ -1,0 +1,32 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Create data visualizations",
+    "time": "03:54"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "09:54"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Develop a mobile application",
+    "time": "12:22"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "22:23"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Implement user authentication",
+    "time": "01:46"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Implement error handling and logging",
+    "time": "06:17"
+  }
+}

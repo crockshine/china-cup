@@ -2,12 +2,20 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 
+const userSockets = {};
 function initializeMessagesUtil(app) {
     // Создаем HTTP сервер
     const server = http.createServer(app);
 
     // Создаем экземпляр Socket.IO
-    const io = socketIo(server);
+    const io = socketIo(server, {
+        cors: {
+            origin: "http://localhost:3001", // Укажите ваш клиентский адрес
+            methods: ["GET", "POST"],
+            allowedHeaders: ["Content-Type"],
+            credentials: true
+        }
+    });
 
     // Обработка подключений Socket.IO
     io.on('connection', (socket) => {
@@ -24,12 +32,12 @@ function initializeMessagesUtil(app) {
         socket.on('msgcenter_message', (data) => {
             console.log('Message received: ', data);
         
-            const { recipientId, message } = data;
+            const { token, chatID } = data;
             
             // Отправка сообщения конкретному пользователю
             const recipientSocketId = userSockets[recipientId];
             if (recipientSocketId) {
-                io.to(recipientSocketId).emit('msgcenter_update_messages', { message, from: data.from });
+                io.to(recipientSocketId).emit('msgcenter_update_messages', { from: fromUserID });
             }
         });
 

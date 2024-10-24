@@ -11,6 +11,7 @@ import { io } from 'socket.io-client';
 export default function Messenger() {
     const [value, setValue] = useState('');
     const [currentUserID, setCurrentUserID] = useState(-1);
+    const [currentSelectChatID, setCurrentSelectChatID] = useState(-1);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
     const [messagesData, setMessagesData] = useState([
         {
@@ -25,13 +26,19 @@ export default function Messenger() {
     ]);
     const location = useLocation();
 
+    function sendToUpdateSecondUser(token, chatID) {
+        //socket.emit('msgcenter_message', { token, chatID });
+    }
+
     const sendData = () => {
         if (value) {
             const currentSelectChatID = Number(location.pathname.split('/')[2]);
-            //alert(currentSelectChatID);
+            const token = getToken();
+
             sendMessage(currentSelectChatID, currentUserID, value);
             setValue('');
             setMessagesData([]);
+            sendToUpdateSecondUser(token, currentSelectChatID);
             fetchData();
         }
     }    
@@ -66,7 +73,7 @@ export default function Messenger() {
                         const _bySend = _messages[key]['bySend'];
 
                         const _message: Messages = { textInOneMsg: text, bySend: _bySend };
-                        //console.log('message', _message);
+                        console.log('message', _message);
                         result_messages.push(_message);
                     }
                 }
@@ -90,7 +97,7 @@ export default function Messenger() {
 
                 setMessagesData(_messagesData);
                 setCurrentUserID(_currentUserID);
-                setTimeout(scrollToBottom, 200);
+                setTimeout(scrollToBottom, 50);
             }
             myFunction();
 
@@ -109,11 +116,11 @@ export default function Messenger() {
         fetchData(); // это не то, что дальше
 
         const socket = io('http://localhost:3000');
-        console.log(socket);
+        console.log('socket=', socket);
         socket.emit('msgcenter_register', currentUserID);
 
         // Обработка входящих сообщений
-        socket.on('message', (data) => {
+        socket.on('msgcenter_update_messages', (data) => {
             fetchData(); // вы не понимаете, это другое
         });
 
@@ -122,38 +129,10 @@ export default function Messenger() {
             socket.off('message');
         };
 
-    }, [navigate]);
+    }, [navigate, currentUserID]);
 
-    const [isTimerActive, setIsTimerActive] = useState(true);
-
-    let currentMessageIndex = -1;
-    let currentSelectChatID = -771;
-    /*useEffect(() => {
-        if (!isTimerActive) return; // Если таймер не активен, ничего не делаем
-
-        const intervalId = setInterval(() => {
-            async function invoke() {
-                const _currentMessageIndex = await loadCurrentMessageIndex(currentSelectChatID);
-
-                if (currentMessageIndex === -1) {
-                    currentMessageIndex = _currentMessageIndex;
-                } else if (currentMessageIndex !== _currentMessageIndex) {
-                    navigate(0); // Перезагружает текущую страницу
-                }
-            }
-            invoke();
-        }, 500); // 500 миллисекунд
-
-        // Очистка интервала при размонтировании компонента или изменении состояния
-        return () => clearInterval(intervalId);
-    }, [isTimerActive]); // Добавляем состояние в зависимости
-
-    const stopTimer = () => {
-        setIsTimerActive(false); // Останавливаем таймер
-    };*/
-    
     function onChangeSelectChat() {
-        currentSelectChatID = (Number(location.pathname.split('/')[3]));
+        setCurrentSelectChatID((Number(location.pathname.split('/')[2])));
     }
 
     function getToken() {
