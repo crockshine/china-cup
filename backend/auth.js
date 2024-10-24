@@ -87,6 +87,7 @@ const verifyConfirmationCode = async (confirmationCode) => {
         const rightCodeResult = await db.query('SELECT confirmation_code FROM "user" ORDER BY created_at DESC LIMIT 1');
         const rightCode = rightCodeResult.rows[0]?.confirmation_code; // Получаем confirmation_code из первой строки
         console.log(rightCode);
+        console.log(confirmationCode)
         if (rightCode === confirmationCode) {
             return true // Код подтверждения верый
         } else {
@@ -150,7 +151,7 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
         }
         
         // Получаем ID роли
-        const userRoleID = getRoleID(userRole);
+        const userRoleID = await getRoleID(userRole);
         
         // Хэшируем пароль перед сохранением
         const hashedPassword = await bcrypt.hash(userPassword, 10);

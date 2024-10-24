@@ -84,6 +84,7 @@ module.exports = function (app) {
     
         try {
             const isValid = await verifyConfirmationCode(confirmationCode);
+            console.log(isValid)
             if (isValid) {
                 res.json({ message: "Код подтверждения верный" });
             } else {
