@@ -1,0 +1,12 @@
+.Card{
+    width: 150px;
+}
+
+
+
+@media (height >= 1200px) {
+
+    .Card{
+        width: 200px;
+    }
+}
