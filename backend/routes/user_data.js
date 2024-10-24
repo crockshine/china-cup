@@ -5,6 +5,10 @@ const db = require('./../db');  // Замените на корректный п
 
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'goida'; // Используйте ваш секретный ключ для JWT
+const express = require('express');
+const QRCode = require('qrcode');
+const cors = require('cors');
+
 
 
 module.exports = function (app) {
@@ -66,6 +70,38 @@ module.exports = function (app) {
             res.status(500).json({ error: "Ошибка при валидации кода подтверждения" });
         }
     });
+
+    app.post('/api/scan', async (req, res) => {
+        const { code } = req.body;
+        try {
+            await db.query('UPDATE qr_codes SET scan_count = scan_count + 1 WHERE code = $1', [code]);
+        } 
+        catch (error) {
+            console.error('Ошибка при увеличении счетчика:', error);
+        }
+    });
+    
+
+    app.get('/api/generate', async (req, res) => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const code = Array.from({ length: 6 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+    
+        const options = {
+            errorCorrectionLevel: 'H', 
+            version: 8, 
+            margin: 3, 
+            width: 300 
+        };
+    
+        try {
+            const qrCodeUrl = await QRCode.toDataURL(code, options);
+            res.json({ code, qrCodeUrl });
+        } catch (error) {
+            console.error('Ошибка генерации QR-кода:', error);
+            res.status(500).send('Ошибка генерации QR-кода');
+        }
+    });
+    
 
     app.post('/api/get_user_name', async (req, res) => { 
         const { token } = req.body;

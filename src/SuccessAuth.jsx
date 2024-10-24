@@ -6,6 +6,7 @@ import Schedule from "./Pages/Schedule/Schedule.jsx"
 import UserProfile from "./Pages/UserProfile/UserProfile.jsx";
 import Tasks from "./Pages/Tasks/Tasks";
 import Messenger from "./Pages/Messenger/Messenger.tsx";
+import Attendance from "./CheckAttendance/Attendance.jsx";
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
@@ -55,6 +56,7 @@ const  SuccessAuth = observer(()=> {
                         <Route path='/tasks' element={<Tasks/>}></Route>
                         <Route path='/schedule' element={<Schedule/>}></Route>
                         <Route path='/profile' element={<UserProfile/>}></Route>
+                        <Route path='/attendance' element={<Attendance/>}></Route>
                         <Route path='/admin' element={<AdminPanel/>}>
                             <Route path={'/admin/people'} element={<UserList/>}></Route>
                             <Route path={'/admin/incoming'} element={<Incoming/>}></Route>

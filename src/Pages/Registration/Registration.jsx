@@ -50,7 +50,7 @@ export default function Registration() {
         // Проверяем наличие куки 'loggedIn'
         if (data.loginState === "true") {
           Cookies.set('loginState', data.loginState);
-          Cookies.set('token', data.token, { expires: 1 }); // Сохраняем токен в куки с сроком действия 1 день
+          Cookies.set('token', data.token, { expires: "1d" }); // Сохраняем токен в куки с сроком действия 1 день
         }
 
         if (data.loginState === "true") {
