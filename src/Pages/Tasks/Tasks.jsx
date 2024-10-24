@@ -8,6 +8,28 @@ function getToken() {
   return Cookies.get('token');
 }
 
+async function uploadPickedTasksList() {
+  try {
+    const _token = getToken();
+    const response = await fetch('/tasks_api/list_all_picked_tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: _token
+      }),
+    });
+
+    const data = await response.json();
+    return data.userPickedTasks;
+  } catch (error) {
+    console.log("Error in uploadAllTasksList:", error);
+    //setError(error);
+    return [];
+  }
+}
+
 async function uploadAllTasksList() {
   try {
     const response = await fetch('/api/list_all_tasks', {
@@ -73,6 +95,7 @@ async function getUserRole() {
 
 export default function Tasks() {
   const [tasksList, setTasksList] = useState([]);
+  const [pickedTasksList, setPickedTasksList] = useState([]);
   const [error, setError] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -89,13 +112,16 @@ export default function Tasks() {
       try {
         const _allTasksList = await uploadAllTasksList();
         setTasksList(_allTasksList);
+
+        const _userRole = await getUserRole();
+        setUserRole(_userRole);
+
+        const pickedTasksList = await uploadPickedTasksList();
+        setPickedTasksList(pickedTasksList);
       } catch (error) {
-        console.log(error);
+        console.log('Tasks.useEffect.fetchData:error=', error);
         setError(error);
       }
-
-      const _userRole = await getUserRole();
-      setUserRole(_userRole);
     }
     fetchData();
   }, [navigate]);
@@ -123,7 +149,7 @@ export default function Tasks() {
         </div>
         {Array.isArray(tasksList) && tasksList.length > 0 ? (
             tasksList.map((item) => (
-                <TaskCard key={item} taskID={item}/>
+                <TaskCard key={item} taskID={item} pickedTasksList={pickedTasksList}/>
             ))
         ) : (
             <div>No tasks available</div>

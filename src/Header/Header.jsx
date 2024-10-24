@@ -1,16 +1,40 @@
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from "react-router-dom";
 import ModalWindow from "../Stores/ModalWindow";
- import SecondModalWindowWrapper from "../ModalWindows/SecondModalWindowWrapper";
+import SecondModalWindowWrapper from "../ModalWindows/SecondModalWindowWrapper";
 import SecondModalWindow from "../Stores/SecondModalWindow";
 
 export default function Header(){
     const navigate = useNavigate(); // Хук для навигации
 
+    const deleteSessionRequest = async (token) => {
+        console.log("request: " + token);
+        try {
+            const response = await fetch('/api/delete_session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log('Сессия удалена:', data.message);
+            } else {
+                console.error('Ошибка удаления сессии:', data.error);
+            }
+        } catch (error) {
+            console.error('Ошибка при запросе на удаление сессии:', error);
+        }
+    };
+
     const doExit = (event) => {
+        deleteSessionRequest(Cookies.get("token"));
         Cookies.remove("loginState");
-        Cookies.remove("sessionID");
+        Cookies.remove("token");
         navigate('/login');
+
     };
 
     return (

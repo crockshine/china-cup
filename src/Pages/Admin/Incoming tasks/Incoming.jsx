@@ -1,25 +1,45 @@
 import {useAutoAnimate} from "@formkit/auto-animate/react";
-import TaskCard from "./TaskCard";
+import IncomingTaskCard from "./IncomingTaskCard";
 import {useEffect, useState} from "react";
 import AdminTask from "../../../Stores/AdminTask";
+import { useNavigate } from "react-router-dom";
+
+async function uploadUncheckedTasksData() {
+    const response = await fetch('/tasks_api/get_unchecked_tasks_data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ }),
+    });
+  
+    const data = await response.json();
+    return data.data;
+}
 
 export default function Incoming(){
-    const [parent] = useAutoAnimate()
+    const [parent] = useAutoAnimate();
+    const [data, setData] = useState([]);
 
-    //нам надо айди задачи , от кого и даты по желанию
-    const [incoming, setIncoming] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setIncoming(AdminTask.getIncomingTasks())
+        async function fetchData() {
+            setData(await uploadUncheckedTasksData());
+        };
 
-    }, [AdminTask.incomingTasks]);
+        fetchData();
+    }, [navigate]);
 
-
+    const setIncoming = () => {
+        
+    };
 
     return(
         <div className="TaskList w-full h-full flex flex-col p-2 gap-2 " ref={parent}>
 
-            {incoming.map(item =>  <TaskCard  key={item.id} id={item.id} from={item.from} time={item.time} setIncoming={setIncoming}/>)}
+            {data.map(item =>  <IncomingTaskCard  key={item.id} taskID={item.task_id} userID={item.user_id}
+                time={item.time} setIncoming={setIncoming} userComment={item.comment} code={item.code} />)}
 
         </div>
     )

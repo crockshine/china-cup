@@ -1,4 +1,6 @@
-const { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole,verifyConfirmationCode } = require('./../auth')
+const { tryToLogin, makeSession, deleteSession, getUserName, getUserNickName, registerAccount, 
+        getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole, verifyConfirmationCode,
+        getUserProgressValue } = require('./../auth')
 const { checkForAllUsers } = require('./../dashboard_handler');
 
 const db = require('./../db');  // Замените на корректный путь к файлу db.js
@@ -53,6 +55,28 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/api/delete_session', async (req, res) => {
+        const { token } = req.body;
+
+        try {
+            const result = await deleteSession(token);
+            res.status(200).json({ message: 'user_data: delete session: Сессия успешно удалена' });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    });
+    
+    app.post('/api/get_user_progress_value', async (req, res) => {
+        const { token } = req.body;
+
+        try {
+            const userProgressValue = await getUserProgressValue(token);
+            res.json({ userProgressValue });
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+            
     app.post('/api/verify-confirmation-code', async (req, res) => {
         const { confirmationCode } = req.body;
     
@@ -234,8 +258,8 @@ module.exports = function (app) {
         if (checkResult.rows.length === 0) {
           // Пользователь еще не в задаче, добавляем его
           await db.query(
-            'INSERT INTO task_members (task_id, user_id) VALUES ($1, $2)',
-            [taskID, userID]
+            'INSERT INTO task_members (task_id, user_id, task_stage) VALUES ($1, $2, $3)',
+            [taskID, userID, 0]
           );
           res.status(200).json({ message: 'Пользователь добавлен в задачу' });
         } else {
@@ -247,36 +271,4 @@ module.exports = function (app) {
         res.status(500).json({ error: 'Ошибка при добавлении пользователя в задачу' });
       }
     });
-
-    
-      
-      
-
-    app.post('/api/get_task_data_name', (req, res) => { 
-        const { taskID } = req.body;
-
-        const _taskData = getTaskData(taskID);
-        res.json( {taskData: _taskData.task_name });
-    });
-
-    app.post('/api/get_task_data_dead_line', (req, res) => { 
-        const { taskID } = req.body;
-
-        const _taskData = getTaskData(taskID);
-        res.json( {taskData: _taskData.dead_line });
-    });
-
-    app.post('/api/get_task_data_sub_tasks_count', (req, res) => { 
-        const { taskID } = req.body;
-
-        const _taskData = getTaskData(taskID);
-        res.json( {taskData: _taskData.sub_tasks_count });
-    });
-
-    app.post('/api/get_task_data_members', (req, res) => { 
-        const { taskID } = req.body;
-
-        const _taskData = getTaskData(taskID);
-        res.json( {taskData: _taskData.members });
-    });
-};
+    };

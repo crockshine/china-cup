@@ -8,11 +8,96 @@ import SecondModalWindow from "../../Stores/SecondModalWindow";
 import SecondModalWindowWrapper from "../../ModalWindows/SecondModalWindowWrapper";
 import {observer} from "mobx-react-lite";
 
+function getToken() {
+    return Cookies.get('token');
+}
+
+async function getUserProgressValue() {
+    try {
+        const token = getToken();
+        const response = await fetch('/api/get_user_progress_value', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: token
+            }),
+        });
+
+        const data = await response.json();
+        return data.userProgressValue;
+        
+    } catch (error) {
+        console.log('Ошибка при получении имени пользователя:', error);
+    }
+};
+
+async function getUserName() {
+    try {
+        const token = getToken();
+        const response = await fetch('/api/get_user_name', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: token
+            }),
+        });
+
+        const data = await response.json();
+        return String(data.userName);
+        
+    } catch (error) {
+        console.log('Ошибка при получении имени пользователя:', error);
+    }
+};
+
+async function getUserNickName() {
+    try {
+        const token = getToken();
+        const response = await fetch('/api/get_user_nickname', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: token
+            }),
+        });
+        
+        const data = await response.json();
+        return String(data.userNickName);
+    } catch (error) {
+        console.log('Ошибка при получении никнейма пользователя:', error);
+    }
+}
+
+async function getUserRole() {
+    try {
+        const token = getToken();
+        const response = await fetch('/api/get_user_role', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: token
+            }),
+        });
+        
+        const data = await response.json();
+        return data.userRole;
+    } catch (error) {
+        console.log('Ошибка при получении никнейма пользователя:', error);
+    }
+  };
 
 const LeftBar = observer(()=>{
-    const [currentToken, setToken] = React.useState('');
     const [userName, setUserName] = React.useState('');
     const [userNickName, setUserNickName] = React.useState('');
+    const [userRole, setUserRole] = useState(-1);
     const navigate = useNavigate(); // Хук для навигации
     const location = useLocation()
 
@@ -20,10 +105,15 @@ const LeftBar = observer(()=>{
         async function fetchData() {
             const name = await getUserName();
             setUserName(name || 'Unknown User');
+
             const nickName = await getUserNickName();
             setUserNickName(nickName || 'Unknown Nickname');
-            const token = getToken();
-            setToken(token);
+
+            const currentUserProgressValue = await getUserProgressValue();
+            setProgressBar(currentUserProgressValue);
+
+            const currentUserRole = await getUserRole();
+            setUserRole(currentUserRole);
         }
         fetchData();
     }, [navigate]);
@@ -34,18 +124,23 @@ const LeftBar = observer(()=>{
     const [progressBar, setProgressBar] = useState(549) //сздесь полная стата, тоесть 452 или 1233
 
     useEffect(()=>{
-        //тут надо делать setProgressBar
-
         //сброс бара и инкремент прогресса
-        if(progressBar >= 100) {
-            setProgressBar(progressBar -  parseInt(progressBar.toString()[0])*100)
-            setProgress(parseInt(progressBar.toString()[0]))
+        // ПИЗДЕЕЦ МИША, пиши лучше фронт)) у тебя бек - это пиздец
+        if (progressBar >= 100) {
+            // это пиздец полный
+            // блять мишань, через toString это делать пздц, такая себе идея блять
+            setProgressBar(progressBar -  parseInt(progressBar.toString()[0])*100);
+            setProgress(parseInt(progressBar.toString()[0]));
+        } else {
+            // тут похуй, это я дописал
+            setProgressBar(progressBar);
+            setProgress(0);
         }
 
         setX(75 * Math.cos((((progressBar*360/100)+90) * Math.PI) / 180));
         setY(-75 * Math.sin((((progressBar*360/100)+90) * Math.PI) / 180));
+    },[progressBar]);
 
-    },[])
     const InfoCardInLeftBar =[
         {id:0, text:'Dashboard', image:'dashboard.png', opacity:'1', router_link:'/dashboard'},
         {id:1, text:'Messenger', image:'messege.png', opacity:'1', router_link:'/messenger'},
@@ -54,52 +149,6 @@ const LeftBar = observer(()=>{
         {id:4, text:'Schedule', image:'schedules.png', opacity:'0.3', router_link:'/schedule'},
         {id:5, text:'Graduates', image:'graduation.png', opacity:'1', router_link:'/graduates'},
     ]
-
-    function getToken() {
-        return Cookies.get('token');
-    }
-
-    async function getUserName() {
-        try {
-            const token = getToken();
-            const response = await fetch('/api/get_user_name', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    token: token
-                }),
-            });
-
-            const data = await response.json();
-            return String(data.userName);
-            
-        } catch (error) {
-            console.log('Ошибка при получении имени пользователя:', error);
-        }
-    };
-
-    async function getUserNickName() {
-        try {
-            const token = getToken();
-            const response = await fetch('/api/get_user_nickname', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    token: token
-                }),
-            });
-            
-            const data = await response.json();
-            return String(data.userNickName);
-        } catch (error) {
-            console.log('Ошибка при получении никнейма пользователя:', error);
-        }
-    }
-
 
     return (
         <>
@@ -155,7 +204,7 @@ const LeftBar = observer(()=>{
 
                 <div className={`w-full h-full mt-3  border-2  rounded-2xl text-base font-bold text-slate-600 transition
                 ${location.pathname.includes('admin') ? 'bg-slate-50 -translate-y-1 shadow-2xl' : 'bg-gray-100'}
-                ${true ? "block" : "hidden"}`}>
+                ${(userRole == 5) ? "block" : "hidden"}`}>
                     <Link to={'/admin'} className={`w-full h-full flex flex-col items-center justify-center`}>
                         Admin panel
 

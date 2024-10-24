@@ -97,7 +97,7 @@ export default function Messenger() {
 
                 setMessagesData(_messagesData);
                 setCurrentUserID(_currentUserID);
-                setTimeout(scrollToBottom, 200);
+                setTimeout(scrollToBottom, 50);
             }
             myFunction();
 

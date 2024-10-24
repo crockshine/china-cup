@@ -1,0 +1,84 @@
+.card__title {
+    color: black; 
+    font-weight: normal;
+    margin-right: 20px;
+}
+  
+.card__title.picked0 {
+    color: #BBB81B;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.card__title.picked1 {
+    color: #1B42BB;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.card__title.picked2 {
+    color: #BB1B1D;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.card__title.picked3 {
+    color: #1EBB1B;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+  
+button[type="button"] {
+    padding: 3px 8px;
+    background-color: #007bff; 
+    color: white;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+.code-container {
+    display: flex;
+}
+
+.line-numbers {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-right: none; 
+    text-align: right;
+    user-select: none;
+}
+  
+.line-numbers span {
+    display: block;
+    color: #999;
+}
+
+.modal_codearea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    height: 400px;
+    width: 750px;
+    min-height: 200px;
+}

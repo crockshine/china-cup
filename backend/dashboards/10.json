@@ -1,37 +1,42 @@
 {
   "1": {
     "event": "Solved the task",
-    "name": "Document code and create user manuals",
-    "time": "09:37"
+    "name": "Conduct user testing and feedback sessions",
+    "time": "11:36"
   },
   "2": {
     "event": "Solved the task",
-    "name": "Implement state management",
-    "time": "03:45"
+    "name": "Develop a visual concept pt.3",
+    "time": "06:19"
   },
   "3": {
     "event": "Solved the task",
-    "name": "Implement error handling and logging",
-    "time": "01:05"
+    "name": "Implement state management",
+    "time": "17:57"
   },
   "4": {
     "event": "Solved the task",
-    "name": "Integrate third-party services",
-    "time": "22:46"
+    "name": "Implement state management",
+    "time": "00:51"
   },
   "5": {
     "event": "Solved the task",
-    "name": "Implement error handling and logging",
-    "time": "01:28"
+    "name": "Implement user authentication",
+    "time": "19:13"
   },
   "6": {
     "event": "Solved the task",
-    "name": "Implement state management",
-    "time": "07:32"
+    "name": "Optimize application performance",
+    "time": "18:50"
   },
   "7": {
     "event": "Solved the task",
-    "name": "Create data visualizations",
-    "time": "08:44"
+    "name": "Conduct user testing and feedback sessions",
+    "time": "18:35"
+  },
+  "8": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.2",
+    "time": "11:10"
   }
 }
