@@ -1,0 +1,32 @@
+{
+  "1": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept pt.3",
+    "time": "01:46"
+  },
+  "2": {
+    "event": "Solved the task",
+    "name": "Develop a mobile application",
+    "time": "02:20"
+  },
+  "3": {
+    "event": "Solved the task",
+    "name": "Implement user authentication",
+    "time": "01:32"
+  },
+  "4": {
+    "event": "Solved the task",
+    "name": "Develop a visual concept",
+    "time": "07:47"
+  },
+  "5": {
+    "event": "Solved the task",
+    "name": "Develop a mobile application",
+    "time": "22:07"
+  },
+  "6": {
+    "event": "Solved the task",
+    "name": "Optimize application performance",
+    "time": "06:43"
+  }
+}

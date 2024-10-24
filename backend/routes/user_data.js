@@ -1,5 +1,5 @@
 const { tryToLogin, makeSession, getUserName, getUserNickName, registerAccount, 
-        getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole, 
+        getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole, verifyConfirmationCode,
         getUserProgressValue } = require('./../auth')
 const { checkForAllUsers } = require('./../dashboard_handler');
 
@@ -59,6 +59,24 @@ module.exports = function (app) {
             res.json({ userProgressValue });
         } catch (err) {
             res.status(401).json({ error: 'Invalid token' });
+        }
+    });
+            
+    app.post('/api/verify-confirmation-code', async (req, res) => {
+        const { confirmationCode } = req.body;
+    
+        console.log("Получен код для проверки:", confirmationCode);
+    
+        try {
+            const isValid = await verifyConfirmationCode(confirmationCode);
+            if (isValid) {
+                res.json({ message: "Код подтверждения верный" });
+            } else {
+                res.status(400).json({ error: "Неверный код подтверждения" });
+            }
+        } catch (err) {
+            console.error("Ошибка при валидации:", err);
+            res.status(500).json({ error: "Ошибка при валидации кода подтверждения" });
         }
     });
 
@@ -206,4 +224,4 @@ module.exports = function (app) {
         res.status(500).json({ error: 'Ошибка при добавлении пользователя в задачу' });
       }
     });
-};
+    };

@@ -3,8 +3,39 @@ const fs = require('fs');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+
+const transport = nodemailer.createTransport({
+    host: 'smtp.mail.ru',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'aleksservera@mail.ru', // ваш email
+        pass: 'YB6haLwasNUi7PCGnW3y' // новый пароль приложения
+    }
+});
 
 const JWT_SECRET = 'goida';
+
+async function sendEmail(to, subject, text) {
+    const mailOptions = {
+        from: 'aleksservera@mail.ru',
+        to: to,
+        subject: subject,
+        text: text
+    };
+
+    try {
+        await transport.sendMail(mailOptions);
+        console.log(`Письмо отправлено на ${to}`);
+    } catch (error) {
+        console.error('Ошибка при отправке письма:', error.message);
+    }
+}
+
+function generateConfirmationCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString(); // Генерация 6-значного кода
+}
 
 async function addNewTask(token, title, deadLine, subTasksCount) {
     const userRole = await getUserRole(token);
@@ -44,6 +75,25 @@ async function addNewTask(token, title, deadLine, subTasksCount) {
     } catch (err) {
         console.error('Ошибка при попытке добавить новую задачу:', err.message);
         throw new Error('Add new failed');
+    }
+}
+
+const verifyConfirmationCode = async (confirmationCode) => {
+    try {
+        const userverifmailResult = await db.query('SELECT email FROM "user" ORDER BY created_at DESC LIMIT 1');
+        const userverifmail = userverifmailResult.rows[0].email; // Получаем первую строку результата
+        console.log(userverifmail);
+
+        const rightCodeResult = await db.query('SELECT confirmation_code FROM "user" ORDER BY created_at DESC LIMIT 1');
+        const rightCode = rightCodeResult.rows[0]?.confirmation_code; // Получаем confirmation_code из первой строки
+        console.log(rightCode);
+        if (rightCode === confirmationCode) {
+            return true // Код подтверждения верый
+        } else {
+            return false // Код подтверждения неверный
+        }
+    } catch (error) {
+        console.error('Ошибка при проверке кода подтверждения:', error);
     }
 }
 
@@ -105,12 +155,20 @@ async function registerAccount(userMail, userPassword, userRole, userNickname, u
         // Хэшируем пароль перед сохранением
         const hashedPassword = await bcrypt.hash(userPassword, 10);
 
+        // Генерируем код подтверждения
+        const confirmationCode = generateConfirmationCode();
+
         // Выполняем SQL запрос для добавления пользователя
         const result = await db.query(
-            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at, techstack, progress_value)
-             VALUES ($1, $2, $3, $4, $5, NOW(), $6, $7) RETURNING *`,
-            [userMail, hashedPassword, userRoleID, userNickname, userName, '', 0]
+            `INSERT INTO "user" (email, password_hash, role_id, nickname, name, created_at, techstack, progress_value, confirmation_code)
+             VALUES ($1, $2, $3, $4, $5, NOW(), $6, $7, $8) RETURNING *`,
+            [userMail, hashedPassword, userRoleID, userNickname, userName, '', 0, confirmationCode]
         );
+        
+        // Отправка кода подтверждения на почту
+        const subject = 'Код подтверждения регистрации';
+        const text = `Ваш код подтверждения: ${confirmationCode}`;
+        await sendEmail(userMail, subject, text);
 
         return 'ok'
     } catch (err) {
@@ -352,6 +410,22 @@ async function listAllUsers() {
     }
 }
 
-module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, 
-                   registerAccount, listAllUsers, getUserTechStack, getUserMail, 
-                   setUserData, addNewTask, getUserRole, getUserProgressValue };
+function loadTaskJSON(taskID) {
+    const _path = getTaskFilePath(taskID);
+    if (!fs.existsSync(_path)) return null;
+
+    const fileContent = fs.readFileSync(_path, 'utf8');
+    const task_jsonData = JSON.parse(fileContent);
+
+    return task_jsonData;
+}
+
+function listAllTasks() {
+    return allTasksList;
+}
+
+function getTaskData(taskID) {
+    return loadTaskJSON(taskID);
+}
+
+module.exports = { tryToLogin, makeSession, getUserName, getUserNickName, listAllTasks, getTaskData, registerAccount, listAllUsers, getUserTechStack, getUserMail, setUserData, addNewTask, getUserRole,verifyConfirmationCode,getUserProgressValue };

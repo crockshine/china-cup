@@ -1,6 +1,7 @@
 import Registration from "./Pages/Registration/Registration";
 import Login from "./Pages/Registration/Login"
 import SuccessAuth from "./SuccessAuth";
+import Authentication from "./Authentication/Authentication";
 import "./App.css"
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
@@ -25,6 +26,7 @@ const  App = observer(() =>{
 
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
+                    <Route path='/authentication' element={<Authentication/>}/>
                     <Route path='/*' element={<SuccessAuth/>}/>
                     <Route path="*" element={
                         <div
